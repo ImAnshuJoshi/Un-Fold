@@ -15,6 +15,205 @@ background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(2,2,79,1) 55%, rgba(7
 height:100%; */
 color:white;
 font-family: 'Jost', sans-serif;
+margin: 0;
+padding: 0;
+}
+#Landing{
+    margin: -8px;
+    overflow-x: hidden;
+    /* padding:0; */
+    background: #252525;
+    height:100vh;
+}
+
+/******* nav bar ******/
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #252525;
+}
+.nav-list{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+.nav-list>li{
+    margin:10px;
+    padding-right:30px;
+    margin-right: 40px;
+    font-size: 23px;
+
+}
+.nav-list>li>a{
+    text-decoration: none;
+    color:white;
+    font-family: 'Jost', sans-serif;
+
+    position:relative;
+    display: inline-block;
+}
+.nav-list>li>a::before,
+.nav-list>li>a::after{
+    content:'';
+    position:absolute;
+    left: 0;
+    width:100%;
+    height:2px;
+    background-color: #f8bf8c;
+    transform: scaleX(0);
+    transition: transform 0.25s ;
+}
+.nav-list>li>a::before{
+    top:-3px;
+    transform-origin: left;
+}
+.nav-list>li>a::after{
+    bottom:-3px;
+    transform-origin: right;
+}
+.nav-list>li>a:hover::before,
+.nav-list>li>a:hover::after{
+    transform:scaleX(1);
+}
+
+.name{
+    color:white;
+    font-family: 'Jost', sans-serif;
+    font-size: 48.7px;
+    margin-left: 20px;  
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+.name>span{
+    color:#f8bf8c;
+    font-family: 'Freehand', cursive;
+}
+.input{
+    background: none;
+    border:1px solid #f8bf8c;
+    margin-right: 20px;
+    border-radius: 30px;
+    padding:8.2px;
+    padding-left: 30px;
+}
+.fa-search{
+    position: relative;
+    left:24px;
+    z-index:999;
+    opacity:0.4
+}
+
+
+/***************profile-user-img************************/
+#profile-user{
+    background-color: #252525;
+    padding-bottom: 30px;
+}
+.profile-user-img>img{
+    height:12rem;
+    width:12rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 20px;
+    border:3px solid rgb(222, 222, 222);
+    
+}
+.profile-user-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+.profile-user-name>h1{
+    font-size: 3.5rem;
+    font-weight: 200;
+}
+.follow-btn{
+    background: none;
+    padding:10px 20px;
+    border:1px solid white;
+    /* border-radius: 10px; */
+    font-size: 20px;
+    margin:10px auto 20px auto;
+}
+.follow-btn:hover{
+    background-color: white;
+    color:#252525;
+    cursor: pointer;
+}
+.user-desc{
+    width:50vw;
+    text-align: center;
+    font-size: 1.7rem;
+}
+.user-followers{
+    display: flex;
+    flex-direction: row;;
+    align-items:center;
+    justify-content:center;
+}
+.user-followers>div{
+    margin:20px;
+    font-size: 20px;
+}
+.count{
+    border:1px solid #f8bf8c;
+    padding:2px 3px;
+    background: #f8bf8c;
+    color:black;
+    border-radius: 3px;  
+    margin-bottom: 5px;
+}
+.count:hover{
+    cursor:pointer;
+}
+.stats{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/******************* myblogs ****************/
+.blog-header{
+    color:black;
+    font-size: 30px;
+    margin:20px;
+}
+.blog-header>span{
+    color:#ff9d47;
+}   
+.latest-cards{
+    height:1000px;
+    color:black;
+}
+
+
+
+
+/*************************************************/
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Redacted+Script:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+
+@font-face {
+  font-family: 'WallSmith';
+  src: url(./assets/Wallsmith-Regular.ttf);
+  font-style: normal;
+}
+*{
+   
+/* background: rgb(0,0,0);
+background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(2,2,79,1) 55%, rgba(7,1,99,1) 100%);
+height:100%; */
+color:white;
+font-family: 'Jost', sans-serif;
 }
 #Landing{
     margin: -8px;
