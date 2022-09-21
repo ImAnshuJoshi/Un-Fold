@@ -16,13 +16,14 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/all/min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>Document</title>
   </head>
   <body>
-    <div>
-
-
+    <section id="Landing">
       <!-- creating the nav -->
       <nav>
         <div class="name">Un<span>Fold</span></div>
@@ -31,26 +32,264 @@
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
-            <i class="fas fa fa-search" style="color: white;"></i>
+            <i class="fas fa fa-search" style="color: white"></i>
             <input class="input" type="text" placeholder="Search.." />
           </ul>
         </div>
       </nav>
 
-
       <!-- creating upper-body-landing-page -->
 
-        <div class="upper-body">
-            <div class="upper-body-text">
-            <p>
-                Connecting People, <span>Ideas</span> and Products worldwide !
-            </p>
-            </div>
-            <button>
-                Explore Blogs
-            </button>
-        
+      <div class="upper-body">
+        <div class="upper-body-text">
+          <p>Connecting People, <span>Ideas</span> and Products worldwide !</p>
+        </div>
+        <button class="landing-btn">Explore Blogs</button>
+      </div>
+    </section>
+
+    <!-- creating latest blog read -->
+
+    <section id="latest-blog-section">
+      <div class="latest-blog-div"></div>
+      <div class="check-latest-blog">
+      Checkout the latest <b>Blogs</b> here....
     </div>
-   
+    <div class="cover">
+      <button class="left scroll-btn" onclick="leftScroll()"><</button>
+      <div class="scroll-images">
+        <div class="cover">
+          <div class="scroll-images">
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/women.jpg" alt="" />
+              </div>
+              <div class="tag-wrap">
+                <ul class="tags">
+                  <li>Design</li>
+                  <li>Coding</li>
+                  <li>Fun</li>
+                </ul>
+              </div>
+              <div class="desc">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="desc2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+            </div>
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/tower.jpg" alt="" />
+              </div>
+              <div class="tag-wrap">
+                <ul class="tags">
+                  <li>Design</li>
+                  <li>Coding</li>
+                  <li>Fun</li>
+                </ul>
+              </div>
+              <div class="desc">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="desc2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+            </div>
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/plane.jpg" alt="" />
+              </div>
+              <div class="tag-wrap">
+                <ul class="tags">
+                  <li>Design</li>
+                  <li>Coding</li>
+                  <li>Fun</li>
+                </ul>
+              </div>
+              <div class="desc">Lorem ipsum dolor sit amet consectetur.</div>
+              <div class="desc2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+            </div>
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/hike.jpg" alt="" />
+              </div>
+              <div class="desc">Lorem ipsum dolor sit amet.</div>
+              <div class="desc2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </div>
+            </div>
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/blogPic.jpg" alt="" />
+              </div>
+              <div class="desc">Lorem ipsum dolor sit amet.</div>
+              <div class="desc2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem
+                ipsum dolor sit amet consectetur, adipisicing elit. Alias, id!
+              </div>
+            </div>
+            <div class="blog-details">
+              <div class="child">
+                <img src="./assets/blogPic.jpg" alt="" />
+                <div class="desc">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                  autem libero aperiam, architecto ab quia pariatur incidunt
+                  odit itaque porro!
+                </div>
+              </div>
+            </div>
+            <div class="child">
+              <img src="./assets/blogPic.jpg" alt="" />
+            </div>
+            <div class="child">
+              <img src="./assets/blogPic.jpg" alt="" />
+            </div>
+            <div class="child">
+              <img src="./assets/blogPic.jpg" alt="" />
+            </div>
+            <div class="child">
+              <img src="./assets/blogPic.jpg" alt="" />
+            </div>
+            <div class="child">
+              <img src="./assets/blogPic.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="right scroll-btn" onclick="rightScroll()">></button>
+    </div>
+  </section>
+    
+    
+    
+    <!----------------------------------------- Recent Blogs----------------------------- -->
+    
+    <section id="recent">
+      <div class="recent-wrap">
+        <h2>
+          See latest <span>BLOGs</span> you follow!
+        </h2>
+      </div>
+      <div class="latest-cards row">
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/travel.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/horror.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/fit.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/dish1.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+     
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/dish2.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+      <div class="follow-cards column">
+        <div class="blog-details">
+          <div class="child child-white">
+            <img src="./assets/blogPic.jpg" alt="" />
+          </div>
+          <div class="tag-wrap">
+            <ul class="tags">
+              <li>Design</li>
+              <li>Coding</li>
+              <li>Fun</li>
+            </ul>
+          </div>
+          <div class="desc desc-white">Lorem ipsum dolor sit amet consectetur.</div>
+          <div class="desc2 desc2-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
   </body>
+  <script>
+    function leftScroll() {
+      const left = document.querySelector(".scroll-images");
+      left.scrollBy(-200, 0);
+    }
+    function rightScroll() {
+      const right = document.querySelector(".scroll-images");
+      right.scrollBy(200, 0);
+    }
+    </script>
 </html>
