@@ -26,3 +26,4 @@ Blog.sync({ force: false })
     console.log('yes Blog schema re-sync done!')
 })
 module.exports=Blog;
+//Deba is GO<MD
