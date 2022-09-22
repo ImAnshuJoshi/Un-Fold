@@ -1,11 +1,10 @@
-const express=require('express');
+const express = require("express");
 // const path=require('path')
-const usercontroller=require("../Controllers/user");
-const router= express.Router();
-const app=express();
-const User=require('../models/userModel');
-const Blog=require('../models/blogModel');
-
+const usercontroller = require("../Controllers/user");
+const router = express.Router();
+const app = express();
+const User = require("../models/userModel");
+const Blog = require("../models/blogModel");
 
 console.log("USER  ROUTES\n\n");
 // const auth=require('../Middleware/Auth');
@@ -15,7 +14,7 @@ console.log("USER  ROUTES\n\n");
 //     res.render('../views/secrets.ejs')
 // })
 
-router.get('/',usercontroller.test);
+router.get("/", usercontroller.test);
 // router.get('/register',(req,res)=>{
 //     res.render("../views/register.ejs");
 // }
@@ -28,7 +27,8 @@ router.get('/',usercontroller.test);
 //     res.redirect('/');
 // });
 
-module.exports=router;
+module.exports = router;
 
 //this is anshu comment
 
+//Bruh
