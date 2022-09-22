@@ -50,3 +50,4 @@ User.sync({ force: false })
     console.log('yes user re-sync done!\n\n')
 })
 module.exports=User;
+//Deba is GoD
