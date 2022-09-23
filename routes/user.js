@@ -31,10 +31,4 @@ module.exports = router;
 
 //this is anshu comment
 
-<<<<<<< HEAD
-//this is anshu comment
-
-//Fuck Anshuṁnbkjgyiu
-=======
 //Bruh
->>>>>>> e0a362214df1676e05a7b1c31badabdb07c746e7
