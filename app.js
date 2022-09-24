@@ -8,8 +8,6 @@ const userRoutes=require('./routes/user');
 dotenv.config();
 const app = express();
 
-
-console.log("APP.JS\n\n");
 // const User=require('./models/userModel');
 // (
 // User.create({

@@ -25,6 +25,3 @@ sequelize.authenticate()
 })
 
 module.exports=sequelize;
-
-
-//AAAA

@@ -7,6 +7,7 @@ const User = require("../models/userModel");
 const Blog = require("../models/blogModel");
 
 console.log("USER  ROUTES\n\n");
+
 // const auth=require('../Middleware/Auth');
 
 // router.get('/secrets',auth,(req,res)=>{
@@ -28,13 +29,3 @@ router.get("/", usercontroller.test);
 // });
 
 module.exports = router;
-
-//this is anshu comment
-
-<<<<<<< HEAD
-//this is anshu comment
-
-//Fuck Anshuṁnbkjgyiu
-=======
-//Bruh
->>>>>>> e0a362214df1676e05a7b1c31badabdb07c746e7

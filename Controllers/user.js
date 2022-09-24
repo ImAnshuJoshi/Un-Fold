@@ -1,45 +1,26 @@
-const express=require('express');
-const jwt=require('jsonwebtoken');
-const bcrypt=require('bcrypt');
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const db=require('../Config/config');
 
-const User=require('../models/userModel');
-const Blog=require('../models/blogModel');
-const Comment=require('../models/commentModel');
-const sequelize=require('../models/index');
-const { DataTypes } = require('sequelize');
-console.log("in CONTROLLERS\n\n\n\n")
+console.log("in CONTROLLERS\n\n\n\n");
 
-User.hasMany(Blog,{ foriegnKey:{
-  type:DataTypes.UUID,
-  name:'author',
-  allowNull:false
-}});
-
-Blog.belongsTo(User);
-  
-User.belongsToMany(User,{as:'User', foreignKey:'u1_id', through:"Follow"});
-User.belongsToMany(User,{as:'Followed',foreignKey:'u2_id',through:"follow"})
-
-sequelize.sync({alter: true}).then(()=>
-console.log('blog and user updated and resynced'));
- 
-exports.test=async (req,res,next)=>{
+exports.test = async (req, res, next) => {
   // await User.create({
   //   firstName: 'bc',
   //   lastName: 'dcc',
-  //   email:'a@1a.com',
+  //   email:'a@1a.com'
   //   password:'Bee@28292'
   // });
-  const user=await User.findOne({ where: {email: 'a@1a.com' } });
-  await Blog.create({content:'HEJDNFJKAFKASNKJFSAKJFJKSAJFKAS',userId:user.id})
-  await Blog.create({content:'dkfka sakafk gfde3  33 f df d ',userId:user.id})
-  // console.log(user);
-  Blog.findAll().then((data)=>  res.send(data));
+  // const user=await User.findOne({ where: {email: 'a@1a.com' } });
+  // await Blog.create({content:'HEJDNFJKAFKASNKJFSAKJFJKSAJFKAS',userId:user.id})
+  // await Blog.create({content:'dkfka sakafk gfde3  33 f df d ',userId:user.id})
+  // // console.log(user);
+  db.blog.findAll().then((data) => res.send(data));
   // // const blog= await Blog.create({})
   // console.log("hello"+users);
   // res.send(user.id);
-}
-
+};
 
 /* exports.signup=(req,res,next)=>{
     bcrypt.hash(req.body.password,10).then((hash)=>{
@@ -77,14 +58,14 @@ exports.login = (req, res, next) => {
                     }
                 );
                 res.cookie('token', token) 
-                 return res.redirect('/secrets');
+                 return res.redirect('/secrets')
                 })
                 .catch((error) => {
                   return res.redirect('/login');
                 });
             })
             .catch((error) => {
-              
+        
             });
         };
  */

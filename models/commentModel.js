@@ -1,7 +1,6 @@
 const sequelize = require("./index");
 const { DataTypes } = require("sequelize");
 
-module.exports = () => {
   const Comment = sequelize.define(
     "comments",
     {
@@ -13,15 +12,16 @@ module.exports = () => {
       content: {
         type: DataTypes.STRING,
       },
+      likes:{
+        type: DataTypes.INTEGER,
+        defaultValue:0
+      }
     },
     {
       freezeTableName: true,
     }
   );
-  Comment.sync({ force: false }).then(() => {
+  Comment.sync({ alter: true }).then(() => {
     console.log("yes re-sync done!");
   });
-  return Comment;
-};
-
-// Language: javascript
+  module.exports=Comment;

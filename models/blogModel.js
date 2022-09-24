@@ -8,6 +8,9 @@ const Blog = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    title:{
+      type: DataTypes.STRING,
+    },
     content: {
       type: DataTypes.STRING,
     },
@@ -15,17 +18,14 @@ const Blog = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    /* image:{
-        
-    } */
   },
   {
     freezeTableName: true,
   }
 );
-Blog.sync({ force: false }).then(() => {
+Blog.sync({ alter: true }).then(() => {
   console.log("yes Blog schema re-sync done!");
 });
+
+
 module.exports = Blog;
-//Deba is GO<MD
-//asndfoaisfaiasnfas
