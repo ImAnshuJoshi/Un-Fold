@@ -8,7 +8,7 @@ const Blog = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    title:{
+    title: {
       type: DataTypes.STRING,
     },
     content: {
@@ -26,6 +26,5 @@ const Blog = sequelize.define(
 Blog.sync({ alter: true }).then(() => {
   console.log("yes Blog schema re-sync done!");
 });
-
 
 module.exports = Blog;
