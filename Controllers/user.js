@@ -4,8 +4,16 @@ const bcrypt = require("bcrypt");
 const db=require('../Config/config');
 
 console.log("in CONTROLLERS\n\n\n\n");
-
 exports.test = async (req, res, next) => {
+  console.log(req.body);
+  const cat1=await db.cat.create({
+    Title:req.body.t,
+    Description:req.body.desc,
+    imageType: req.file.mimetype,
+    imageName: req.file.originalname,
+    ImageData: req.file.buffer
+  })
+  res.send(cat1);
   // await User.create({
   //   firstName: 'bc',
   //   lastName: 'dcc',
@@ -16,7 +24,7 @@ exports.test = async (req, res, next) => {
   // await Blog.create({content:'HEJDNFJKAFKASNKJFSAKJFJKSAJFKAS',userId:user.id})
   // await Blog.create({content:'dkfka sakafk gfde3  33 f df d ',userId:user.id})
   // // console.log(user);
-  db.blog.findAll().then((data) => res.send(data));
+  // db.blog.findAll().then((data) => res.send(data));
   // // const blog= await Blog.create({})
   // console.log("hello"+users);
   // res.send(user.id);

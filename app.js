@@ -65,6 +65,9 @@ app.use(
   })
 );
 
+
+app.use(express.json());
+
 // // app.use("/secrets", secreteRoute);
 app.use("/", userRoutes);
 // // app.use(SecretsRouter);
