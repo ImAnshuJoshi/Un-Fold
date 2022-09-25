@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const sequelize = require("./index");
 const { Sequelize, DataTypes } = require("sequelize");
 const User = sequelize.define(
@@ -40,6 +41,10 @@ const User = sequelize.define(
             );
           }
         },
+        async set(value) {
+         const pass= await bcrypt.hash(value,10);
+         this.setDataValue('password', pass);
+        }
       },
     },
     about: {
@@ -53,6 +58,6 @@ const User = sequelize.define(
   }
 );
 User.sync({ alter: true }).then(() => {
-  console.log("yes user re-sync done!\n\n");
+  console.log("yes user re-sync done!\n\n")
 });
 module.exports = User;

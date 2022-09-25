@@ -12,7 +12,7 @@ const upload=require('../Config/multerConfig');
 
 //     res.render('../views/secrets.ejs')
 // })
-
+router.post("/register", upload.single("item"),usercontroller.signup);
 router.post("/", upload.single("item"), usercontroller.test);
 // router.get('/register',(req,res)=>{
 //     res.render("../views/register.ejs");
