@@ -16,9 +16,9 @@ const Cat = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    imageType: DataTypes.STRING,
-    imageName: DataTypes.STRING,
-    imageData: DataTypes.BLOB("long"),
+    imageurl: DataTypes.STRING,
+    cloudid: DataTypes.STRING,
+    
   },
   {
     freezeTableName: true,

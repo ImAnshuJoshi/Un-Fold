@@ -1,34 +1,23 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const db=require('../Config/config');
-
+const db=require('../Config/dbconfig');
+const cloudinary =require( '../Config/cloudinaryConfig')
 console.log("in CONTROLLERS\n\n\n\n");
 exports.test = async (req, res, next) => {
   console.log(req.body);
-  const cat1=await db.cat.create({
+  const result=await cloudinary.uploader.upload(req.file.path);
+  res.send(result.secure_url);
+}
+  /*const cat1=await db.cat.create({
     Title:req.body.t,
     Description:req.body.desc,
     imageType: req.file.mimetype,
     imageName: req.file.originalname,
     ImageData: req.file.buffer
-  })
-  res.send(cat1);
-  // await User.create({
-  //   firstName: 'bc',
-  //   lastName: 'dcc',
-  //   email:'a@1a.com'
-  //   password:'Bee@28292'
-  // });
-  // const user=await User.findOne({ where: {email: 'a@1a.com' } });
-  // await Blog.create({content:'HEJDNFJKAFKASNKJFSAKJFJKSAJFKAS',userId:user.id})
-  // await Blog.create({content:'dkfka sakafk gfde3  33 f df d ',userId:user.id})
-  // // console.log(user);
-  // db.blog.findAll().then((data) => res.send(data));
-  // // const blog= await Blog.create({})
-  // console.log("hello"+users);
-  // res.send(user.id);
-};
+  }) */
+  // res.send(cat1);
+ 
 
 /* exports.signup=(req,res,next)=>{
     bcrypt.hash(req.body.password,10).then((hash)=>{

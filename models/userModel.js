@@ -45,9 +45,8 @@ const User = sequelize.define(
     about: {
       type: DataTypes.STRING,
     },
-    imageType: DataTypes.STRING,
-    imageName: DataTypes.STRING,
-    imageData: DataTypes.BLOB("long"),
+    imageurl: DataTypes.STRING,
+    cloudid: DataTypes.STRING,
   },
   {
     freezeTableName: true,

@@ -18,6 +18,8 @@ const Blog = sequelize.define(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    imageurl: DataTypes.STRING,
+    cloudid: DataTypes.STRING,
   },
   {
     freezeTableName: true,
