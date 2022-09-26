@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");const path = require("path");
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user");
+const { error } = require("./Middlewares/error");
 dotenv.config();
 const app = express();
 
@@ -52,16 +53,8 @@ if(verified)
 console.log(decoded);
  */
 
-app.use((err,req,res,next)=>{
-  const errorStatus = err.status||400;
-  const errorMessage = err.message||"Something went wrong";
-  return res.status(errorStatus).send({
-    success:false,
-    status:errorStatus,
-    message:errorMessage,
-    stack:err.stack
-  })
-})
+//Error Handling 
+app.use(error);
 
 
 app.use(express.static("public"));
