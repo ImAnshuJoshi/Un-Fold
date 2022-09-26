@@ -1,8 +1,7 @@
 //jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
-const dotenv = require("dotenv");
-const path = require("path");
+const dotenv = require("dotenv");const path = require("path");
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user");
 dotenv.config();
