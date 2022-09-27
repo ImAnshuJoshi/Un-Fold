@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const db = require("../Config/dbconfig");
 const cloudinary = require("../Config/cloudinaryConfig");
 const bcrypt = require("bcrypt");
+const error=require('../util/error');
 exports.test = async (req, res, next) => {
   console.log(req.body);
   res.send(result.secure_url);
@@ -76,5 +77,9 @@ exports.login = async (req, res, next) => {
     });
   }
 };
+
+exports.getFollowers=async(req,res,next)=>{
+
+}
 
 

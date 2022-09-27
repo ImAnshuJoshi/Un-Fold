@@ -5,6 +5,7 @@ const dotenv = require("dotenv");const path = require("path");
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user");
 const { error } = require("./Middlewares/error");
+const cors=require('cors');
 dotenv.config();
 const app = express();
 
@@ -56,6 +57,7 @@ console.log(decoded);
 //Error Handling 
 app.use(error);
 
+app.use(cors());
 
 app.use(express.static("public"));
 
