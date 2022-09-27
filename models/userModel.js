@@ -48,7 +48,7 @@ const User = sequelize.define(
       },
     },
     about: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     imageurl: DataTypes.STRING,
     cloudid: DataTypes.STRING,

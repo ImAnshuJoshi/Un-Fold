@@ -12,7 +12,7 @@ const Blog = sequelize.define(
       type: DataTypes.STRING,
     },
     content: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     likes: {
       type: DataTypes.INTEGER,

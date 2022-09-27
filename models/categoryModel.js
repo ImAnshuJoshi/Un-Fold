@@ -13,7 +13,7 @@ const Cat = sequelize.define(
       allowNull: false,
     },
     Description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     imageurl: DataTypes.STRING,

@@ -10,7 +10,7 @@ const { DataTypes } = require("sequelize");
         primaryKey: true,
       },
       content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       likes:{
         type: DataTypes.INTEGER,
