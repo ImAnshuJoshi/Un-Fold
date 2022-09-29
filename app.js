@@ -1,11 +1,13 @@
 //jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
-const dotenv = require("dotenv");const path = require("path");
+const dotenv = require("dotenv");
+const path = require("path");
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user");
+const blogRoutes = require("./routes/blog");
 const { error } = require("./Middlewares/error");
-const cors=require('cors');
+const cors = require("cors");
 dotenv.config();
 const app = express();
 
@@ -54,7 +56,7 @@ if(verified)
 console.log(decoded);
  */
 
-//Error Handling 
+//Error Handling
 app.use(error);
 
 app.use(cors());
@@ -69,11 +71,11 @@ app.use(
   })
 );
 
-
 app.use(express.json());
 
 // // app.use("/secrets", secreteRoute);
 app.use("/", userRoutes);
+app.use("/blog", blogRoutes);
 // // app.use(SecretsRouter);
 app.listen(3000, function () {
   console.log("Server is Running");

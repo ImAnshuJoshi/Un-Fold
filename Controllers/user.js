@@ -22,7 +22,9 @@ exports.signup = async (req, res, next) => {
       cloudid: result.public_id,
     });
   } catch (e) {
-    res.send(e);
+    res.status(500).json({
+      error: "Database error occurred while signing in!",
+    });
   }
   /* const u2=await db.user.create({
     firstName: 'AAAA',
@@ -42,6 +44,12 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    if(!email)
+    {
+      res.status(400).json({
+        error: "Email is empty",
+      });
+    }
     const currentuser = await db.user.findOne({ where: { email: email } });
     if (!currentuser) {
       res.status(400).json({
