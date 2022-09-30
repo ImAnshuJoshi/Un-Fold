@@ -35,9 +35,20 @@ Cat.belongsToMany(Blog, {
   through: "Tag",
 });
 
+User.belongsToMany(Blog, {
+  as: "user",
+  foreignKey: "user_id",
+  through: "bookmarks",
+});
+Blog.belongsToMany(User, {
+  as: "post",
+  foreignKey: "blog_id",
+  through: "bookmarks",
+});
+
 sequelize
   .sync({ alter: true })
-  .then(() => console.log("blog and user updated and resynced"));
+  .then(() => console.log("schemas updated and resynced"));
 
 
 const db={user:User,blog:Blog,comment:Comment,cat:Cat};
