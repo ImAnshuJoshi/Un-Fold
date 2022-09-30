@@ -57,7 +57,7 @@ const User = sequelize.define(
     freezeTableName: true,
   }
 );
-User.sync({ alter: true }).then(() => {
+User.sync({ alter: false }).then(() => {
   console.log("yes user re-sync done!\n\n")
 });
 module.exports = User;

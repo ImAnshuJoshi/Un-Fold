@@ -31,7 +31,7 @@ exports.addBlog = async (req, res, next) => {
       imageurl: result.secure_url,
       cloudid: result.public_id,
     });
-    user.addBlog(newb);
+    const addedblog=user.addBlogs(newb);
     res.status(200).json({ message: "Added Blog!" });
   } catch (e) {
     console.log(e);
@@ -40,3 +40,34 @@ exports.addBlog = async (req, res, next) => {
     });
   }
 };
+exports.getUserBlogs=async (req,res,next)=>{
+  const {id}=req.body;
+  try{
+    const user=await db.user.findOne({where:{id:id}});
+    console.log(user);
+    const alluserblogs= await user.getBlogs();
+    res.status(200).send(alluserblogs);
+    }
+    catch(e)
+    {
+      console.log(e);
+    res.status(500).json({
+      error: "Database error occurred!",
+    });
+    }
+}
+
+exports.editBlog= async(req,res,next)=>{
+  const {id}=req.body;
+  try{
+    const blog=await db.blog.findOne({where:{id:id}});
+    console.log(blog);
+    }
+    catch(e)
+    {
+      console.log(e);
+    res.status(500).json({
+      error: "Database error occurred!",
+    });
+    }
+}

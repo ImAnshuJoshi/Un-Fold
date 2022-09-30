@@ -76,6 +76,7 @@ app.use(express.json());
 // // app.use("/secrets", secreteRoute);
 app.use("/", userRoutes);
 app.use("/blog", blogRoutes);
+app.use("/user", userRoutes);
 // // app.use(SecretsRouter);
 app.listen(3000, function () {
   console.log("Server is Running");

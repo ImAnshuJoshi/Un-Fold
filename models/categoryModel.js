@@ -24,7 +24,7 @@ const Cat = sequelize.define(
     freezeTableName: true,
   }
 );
-Cat.sync({ alter: true }).then(() => {
+Cat.sync({ alter:false }).then(() => {
   console.log("yes user re-sync done!\n\n");
 });
 module.exports = Cat;

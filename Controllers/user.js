@@ -86,8 +86,49 @@ exports.login = async (req, res, next) => {
   }
 };
 
-exports.getFollowers=async(req,res,next)=>{
+exports.followUser= async(req,res,next)=>{
+  const {id1,id2}=req.body;
+  try{
+    const currentuser=await db.user.findOne({where:{id:id1}});
+    const usertofollow=await db.user.findOne({where:{id:id2}});
+    const newFollower=await currentuser.addUser(usertofollow);
+    res.status(200).send(newFollower);
+  }
+  catch(e){
+    res.status(500).json({
+      error: "Database error occurred while signing in!",
+    });
+  }
+}
 
+exports.unfollowUser= async(req,res,next)=>{
+  const {id1,id2}=req.body;
+  try{
+    const currentuser=await db.user.findOne({where:{id:id1}});
+    const usertounfollow=await db.user.findOne({where:{id:id2}});
+    const unfolloweduser=await currentuser.removeUser(usertounfollow);
+    res.status(200).send("Great Success!");
+  }
+  catch(e){
+    res.status(500).json({
+      error: "Database error occurred while signing in!",
+    });
+  }
+}
+
+exports.getFollowers=async(req,res,next)=>{
+  const {id}=req.body;
+  try{
+    const currentuser=await db.user.findOne({where:{id:id}});
+    const FollowerList=await currentuser.getUser();
+    res.status(200).send(FollowerList);
+  }
+  catch(e){
+    console.log(e);
+    res.status(500).json({
+      error: "Database error occurred while signing in!",
+    });
+  }
 }
 
 

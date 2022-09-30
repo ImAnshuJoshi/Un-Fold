@@ -25,7 +25,7 @@ const Blog = sequelize.define(
     freezeTableName: true,
   }
 );
-Blog.sync({ alter: true }).then(() => {
+Blog.sync({ alter: false }).then(() => {
   console.log("yes Blog schema re-sync done!");
 });
 

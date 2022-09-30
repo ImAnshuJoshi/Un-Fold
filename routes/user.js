@@ -21,6 +21,12 @@ router.post("/", upload.single("item"), async(req,res)=>{
     const ass=reguser.addBlog(blog1); */
 });
 router.post("/login",usercontroller.login);
+
+router.post("/followUser",usercontroller.followUser);
+
+router.post("/unfollowUser",usercontroller.unfollowUser);
+
+router.get("/getFollowers",usercontroller.getFollowers);
 // router.get('/register',(req,res)=>{
 //     res.render("../views/register.ejs");
 // }
