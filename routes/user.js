@@ -10,6 +10,8 @@ router.post('/register', upload.single('item'), usercontroller.signup)
 
 router.post('/login', usercontroller.login)
 
+router.get('/getuserinfo',usercontroller.getuserinfo);
+
 router.post('/followUser', require('../Middlewares/tokenauth'), usercontroller.followUser)
 
 router.post('/unfollowUser', usercontroller.unfollowUser)

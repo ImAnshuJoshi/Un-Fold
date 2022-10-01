@@ -23,6 +23,7 @@ exports.signup = async (req, res, next) => {
     })
     res.json(reguser)
   } catch (e) {
+    console.log(e);
     res.status(500).json({
       error: e.errors[0].message,
     })
@@ -111,7 +112,7 @@ exports.unfollowUser = async (req, res, next) => {
 }
 
 exports.getFollowers = async (req, res, next) => {
-  const { id } = req.body
+  const { id } = req.query
   try {
     const currentuser = await db.user.findOne({ where: { id: id } })
     const FollowerList = await currentuser.getUser()
@@ -136,5 +137,18 @@ exports.bookmarkblog = async (req, res) => {
     res.status(500).json({
       error: 'Database error occurred while signing in!',
     })
+  }
+}
+
+exports.getuserinfo=async(req,res,next)=>{
+  try{
+    const user=await db.user.findOne({where:{id:req.query.id}});
+    if(!user)
+    res.status(400).json({error:"User not Found!!"});
+    res.json({user:user});
+  }
+  catch(e)
+  {
+    next(e);
   }
 }

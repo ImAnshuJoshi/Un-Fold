@@ -1,15 +1,15 @@
 const cloudinary = require("../Config/cloudinaryConfig");
 const db = require("../Config/dbconfig");
-exports.getAllBlogs = async (req, res, next) => {
+exports. getAllBlogs = async (req, res, next) => {
   try {
     const Allblogs = await db.blog.findAll({ where: {} });
-    if (!user) {
+    if (!Allblogs) {
       res.status(400).json({
         error: "No blogs Found",
       });
     }
     res.send(Allblogs);
-  } catch (e) {
+  } catch (e) { console.log(e)
     res.status(500).json({
       error: "Database error occurred!",
     });
@@ -18,7 +18,7 @@ exports.getAllBlogs = async (req, res, next) => {
 exports.addBlog = async (req, res, next) => {
   const result = await cloudinary.uploader.upload(req.file.path);
   try {
-    const user = await db.user.findOne({ where: { id: req.body.id } });
+    const user = await db.user.findOne({ where: { id: req.params.id } });
     if (!user) {
       res.status(400).json({
         error: "No blogs Found!",
@@ -42,7 +42,7 @@ exports.addBlog = async (req, res, next) => {
 };
 
 exports.getUserBlogs=async (req,res,next)=>{
-  const {id}=req.body;
+  const {id}=req.query;
   try{
     const user=await db.user.findOne({where:{id:id}});
     console.log(user);
