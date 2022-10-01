@@ -8,7 +8,7 @@ function rightScroll() {
 }
 
 
-const blogz = (img,title,content)=>`<div class="blog-details">
+const blogz = (img,title,content,user)=>`<a href='../User/index.html' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
@@ -23,7 +23,8 @@ const blogz = (img,title,content)=>`<div class="blog-details">
             <div class="desc2">
             ${content}
             </div>
-            </div>`
+            <a>${user.fname} ${user.lname}</a>
+            </div></a>`
 let blogsj;            
 window.onload=
     async() => {
