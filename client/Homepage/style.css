@@ -251,7 +251,14 @@ button:hover{
     margin:-8px;
     margin-bottom: 20px;
 }
-
+.author{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 12px;
+    transform: translate(7px,-125px);
+    background-size: cover;
+}
 
 /******************* Recent-Blogs**************** */
 
