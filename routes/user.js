@@ -1,9 +1,7 @@
 const express = require('express')
 const usercontroller = require('../Controllers/user')
 const router = express.Router()
-const app = express()
 const upload = require('../Config/multerConfig')
-const db = require('../Config/dbconfig')
 // const{ uploader, cloudinaryConfig } =require( './Config/cloudinaryConfig')
 
 router.post('/register', upload.single('item'), usercontroller.signup)
@@ -12,13 +10,17 @@ router.post('/login', usercontroller.login)
 
 router.get('/getuserinfo',usercontroller.getuserinfo);
 
-router.post('/followUser', require('../Middlewares/tokenauth'), usercontroller.followUser)
+router.post('/followUser', /* require('../Middlewares/tokenauth'), */ usercontroller.followUser)
 
 router.post('/unfollowUser', usercontroller.unfollowUser)
 
 router.post('/bookmarkblog', usercontroller.bookmarkblog)
 
+router.post('/unbookmarkblog', usercontroller.unbookmarkblog)
+
 router.get('/getFollowers', usercontroller.getFollowers)
+
+router.get('/getFollowing', usercontroller.getFollowing)
 // router.get('/register',(req,res)=>{
 //     res.render("../views/register.ejs");
 // }

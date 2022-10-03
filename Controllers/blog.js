@@ -8,7 +8,7 @@ exports. getAllBlogs = async (req, res, next) => {
         error: "No blogs Found",
       });
     }
-    res.send(Allblogs);
+    res.send(Allblogs.sort((a,b)=>b.updatedAt-a.updatedAt));
   } catch (e) { console.log(e)
     res.status(500).json({
       error: "Database error occurred!",
@@ -18,7 +18,7 @@ exports. getAllBlogs = async (req, res, next) => {
 exports.addBlog = async (req, res, next) => {
   const result = await cloudinary.uploader.upload(req.file.path);
   try {
-    const user = await db.user.findOne({ where: { id: req.params.id } });
+    const user = await db.user.findOne({ where: { id: req.query.id } });
     if (!user) {
       res.status(400).json({
         error: "No blogs Found!",
@@ -31,7 +31,8 @@ exports.addBlog = async (req, res, next) => {
       imageurl: result.secure_url,
       cloudid: result.public_id,
     });
-    const addedblog=user.addBlogs(newb);
+    const addedblog=await user.addPost(newb);
+    await user.addBlog(newb);
     res.status(200).json({ message: "Added Blog!" });
   } catch (e) {
     console.log(e);
@@ -47,7 +48,7 @@ exports.getUserBlogs=async (req,res,next)=>{
     const user=await db.user.findOne({where:{id:id}});
     console.log(user);
     const alluserblogs= await user.getBlogs();
-    res.status(200).send(alluserblogs);
+    res.status(200).send(alluserblogs.sort((a,b)=>a.updatedAt-b.updatedAt));
     }
     catch(e)
     {
