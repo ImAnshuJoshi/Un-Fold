@@ -21,6 +21,8 @@ router.post('/unbookmarkblog', usercontroller.unbookmarkblog)
 router.get('/getFollowers', usercontroller.getFollowers)
 
 router.get('/getFollowing', usercontroller.getFollowing)
+
+router.get('/getallusers',usercontroller.getallusers)
 // router.get('/register',(req,res)=>{
 //     res.render("../views/register.ejs");
 // }

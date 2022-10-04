@@ -182,3 +182,14 @@ exports.getuserinfo=async(req,res,next)=>{
     next(e);
   }
 }
+
+exports.getallusers=async(req,res,next)=>{
+  try{
+    const users=await db.user.findAll({});
+    res.status(200).json({user:users});
+  }
+  catch(e)
+  {
+    next(e);
+  }
+}
