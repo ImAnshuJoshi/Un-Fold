@@ -171,6 +171,7 @@ exports.unbookmarkblog = async (req, res) => {
 
 exports.getuserinfo=async(req,res,next)=>{
   try{
+    console.log(req.query);
     const user=await db.user.findOne({where:{id:req.query.id}});
     if(!user)
     res.status(400).json({error:"User not Found!!"});

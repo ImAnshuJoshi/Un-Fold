@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const userRoutes = require('./routes/user')
 const blogRoutes = require('./routes/blog')
 const profileRoutes=require('./routes/profile');
+const categoryRoutes=require('./routes/category');
 const { error } = require('./Middlewares/error')
 const cors = require('cors')
 dotenv.config()
@@ -32,6 +33,7 @@ app.use('/api', userRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/profile', profileRoutes)
+app.use('/api/category', categoryRoutes)
 app.use(require('./Middlewares/error'))
 app.listen(3000, function () {
   console.log('Server is Running')

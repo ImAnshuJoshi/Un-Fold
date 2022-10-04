@@ -24,8 +24,26 @@ const Cat = sequelize.define(
     freezeTableName: true,
   }
 );
+const Tag = sequelize.define(
+  "Tag",
+  {
+    b_id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    },
+    c_id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+    }    
+  },
+  {
+    freezeTableName: true,
+  }
+);
+Tag.sync({ alter:true }).then(() => {
+  console.log("yes re-sync done!\n\n");
+});
 Cat.sync({ alter:false }).then(() => {
   console.log("yes user re-sync done!\n\n");
 });
-module.exports = Cat;
-//Deba is GoD
+module.exports = {Cat:Cat,Tag:Tag};

@@ -1,7 +1,7 @@
 const User = require('../models/userModel')
 const Blog = require('../models/blogModel')
 const Comment = require('../models/commentModel')
-const Cat = require('../models/categoryModel')
+const {Cat,Tag} = require('../models/categoryModel')
 const sequelize = require('../models/index')
 
 User.hasMany(Blog, { as: 'Post' })
@@ -24,17 +24,6 @@ Comment.belongsTo(Blog,{as:'Log'});
 User.hasMany(Comment,{as:'discussion'})
 Comment.belongsTo(User,{as:'Commenter'})
 
-Blog.belongsToMany(Cat, {
-  as: 'Cat',
-  foreignKey: 'blog_id',
-  through: 'Tag',
-})
-Cat.belongsToMany(Blog, {
-  as: 'Blog',
-  foreignKey: 'cat_id',
-  through: 'Tag',
-})
-
 User.belongsToMany(Blog, {
   as: 'bookmarkedblog',
   foreignKey: 'user_id',
@@ -48,5 +37,5 @@ Blog.belongsToMany(User, {
 
 sequelize.sync({ alter: true }).then(() => console.log('schemas updated and resynced'))
 
-const db = { user: User, blog: Blog, comment: Comment, cat: Cat }
+const db = { user: User, blog: Blog, comment: Comment, cat: Cat, tag:Tag }
 module.exports = db

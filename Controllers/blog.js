@@ -47,7 +47,7 @@ exports.getUserBlogs=async (req,res,next)=>{
   try{
     const user=await db.user.findOne({where:{id:id}});
     console.log(user);
-    const alluserblogs= await user.getBlogs();
+    const alluserblogs= await user.getPost();
     res.status(200).send(alluserblogs.sort((a,b)=>a.updatedAt-b.updatedAt));
     }
     catch(e)
@@ -59,7 +59,7 @@ exports.getUserBlogs=async (req,res,next)=>{
     }
 }
 
-exports.addblogcategory=async(req,res)=>{
+exports.addblogcat=async(req,res)=>{
   const{bid,cid}=req.body;
   try{
     const blog=db.blog.findOne({where:{id:bid}});
@@ -106,3 +106,75 @@ exports.editBlog= async(req,res,next)=>{
     });
     }
 }
+
+exports.likeBlog= async(req,res,next)=>{
+  const {id}=req.body;
+  console.log(req.body);
+  try{
+    const blog=await db.blog.findOne({where:{id:id}});
+    const upblog=await db.blog.update({
+      likes:blog.likes+1,
+    },{
+      where: {
+        id: id
+      }
+    })
+    console.log(blog);
+    res.status(200).send(upblog);  
+  }
+    catch(e)
+    {
+      console.log(e);
+    res.status(500).json({
+      error: "Database error occurred!",
+    });
+    }
+}
+
+exports.removelikeBlog= async(req,res,next)=>{
+  const {id}=req.body;
+  console.log(req.body);
+  try{
+    const blog=await db.blog.findOne({where:{id:id}});
+    if(!blog.likes)
+    res.status(400).json({error:"Cannot remove like for a post with 0 likes!"});
+    const upblog=await db.blog.update({
+      likes:blog.likes-1,
+    },{
+      where: {
+        id: id
+      }
+    })
+    console.log(blog);
+    res.status(200).send(upblog);  
+  }
+    catch(e)
+    {
+      console.log(e);
+    res.status(500).json({
+      error: "Database error occurred!",
+    });
+    }
+}
+
+
+
+/* exports.addcat=async (req,res)=>{
+  try{
+     const result = await cloudinary.uploader.upload(req.file.path);
+      const {title,desc}=req.body;
+      const newCat= await db.cat.create({
+        Title:title,
+        Description:desc,
+        imageurl: result.secure_url,
+        cloudid: result.public_id,
+      })
+      res.send(newCat);
+      }
+  catch(e){
+    console.log(e);
+    res.status(500).json({
+      error: "Database error occurred!",
+    });
+  }
+} */
