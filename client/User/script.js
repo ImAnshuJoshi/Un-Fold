@@ -37,7 +37,7 @@ const userprofile =(u) =>
                     img,
                     title,
                     content
-                  ) => `<a href='../User/index.html' style="text-decoration:none;"><div class="follow-cards column">
+                  ) => `<a href='../User/index.html' style="text-decoration:none;">
                   <div class="blog-details">
                               <div class="child">
                               <img src = ${img} alt="" />
@@ -56,13 +56,13 @@ const userprofile =(u) =>
                               <div class="desc2">
                               ${content}
                               </div>
-                              </div></div></a>`;
+                              </div></a>`;
                   let blogsj;
 window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1);
   const id = queryParamsString?.substring(3);
   const userj = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -75,7 +75,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://192.168.137.103:3000/api/blog/getAllBlogs",
+    "http://localhost:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {

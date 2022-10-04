@@ -192,6 +192,15 @@ nav{
     height:1000px;
     color:black;
 }
+.author{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 12px;
+    transform: translate(7px,-100px);
+    background-size: cover;
+}
+
 
 
 
@@ -421,14 +430,18 @@ button:hover{
     flex-direction: column;
     word-wrap:wrap;
     width:370px;
+    margin:50px;
+    border: #252525 1px solid;
 }
 .desc{
     padding-left: 20px;
     font-size: 30px;
+    color: #252525;
 }
 .desc2{
     padding-left: 20px;
     font-size: 15px;
+    color: #252525;
 }
 .tags{
     display: flex;

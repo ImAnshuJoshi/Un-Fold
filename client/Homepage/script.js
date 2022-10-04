@@ -34,7 +34,7 @@ const blogz = (
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -51,7 +51,7 @@ const finduser = async (id) => {
 };
 window.onload = async () => {
   const blogs = await fetch(
-    "http://192.168.137.103:3000/api/blog/getAllBlogs",
+    "http://localhost:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {
