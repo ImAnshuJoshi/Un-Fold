@@ -146,11 +146,13 @@ button:hover{
   .scroll-images::-webkit-scrollbar-thumb {
     background-color: black;
   }
-  
+  .latest-cards{
+    margin-left: 30px;
+  }
   .child {
-    width: 350px;
-    height: 300px;
-    margin: 1px 10px;
+    width:400px;
+    height:350px;
+    margin: 1px 0px;
     overflow: hidden;
     border-radius: 20px;
   }
@@ -177,7 +179,7 @@ button:hover{
     border:none;
   }
   .child>img{
-    width: 100%;
+    width: 400px;
     height: 100%;
     object-fit: cover;
     transition:transform .75s;
@@ -207,7 +209,7 @@ button:hover{
     display: flex;
     flex-direction: column;
     word-wrap:wrap;
-    width:370px;
+    width:450px;
 }
 .desc{
     padding-left: 20px;
@@ -255,7 +257,7 @@ button:hover{
 .recent-wrap>h2{
     color:black;
     font-weight: 400;
-    margin:10px 70px;
+    margin:10px 50px;
     font-size: 2rem;
 }
 .recent-wrap>h2>span{
@@ -268,15 +270,10 @@ button:hover{
 .desc2-white{
     color:black;
 }
-.child-white{
-    width:450px;
-    height:350px;
-    /* transform: translateX(-3vw); */
-}   
 .follow-cards{
     display: flex;
     flex-direction: row;
-    
+    margin:20px;
 }
 .row{
     display: flex;
@@ -285,11 +282,6 @@ button:hover{
     /* justify-content: center; */
     flex-wrap: wrap;
     transform: translateX(-3vw);
-}
-.column{
-    margin:20px;
-    padding:30px;
-    /* transform: translateX(-3vw); */
 }
 
 /******************STYLING HORIZONTAL SCROLL BAR*****************/

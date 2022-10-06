@@ -12,7 +12,7 @@
 }
 
 /*****************************************CATEGORY TOP DES****************************************/
-.img-category{
+#img-category{
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -22,6 +22,8 @@
     margin-top: 2%;
 }
 .img-category>img{
+    display: block;
+    margin: 0 auto;
     height:200px;
     width:200px;
     border-radius: 50%;
@@ -29,7 +31,9 @@
     border:2px solid grey
 }
 .category-name{
-    font-size: 26px;
+    font-size: 2.5rem;
+    font-family: 'Jost', sans-serif;
+    text-align: center;
 }
 .category-desc{
     width:50vw;
@@ -147,11 +151,11 @@ nav{
 .row{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
+    justify-content: space-around;
     transform: translateX(-3vw);
     width:100vw;
+    /* margin-left: 50px; */
 }
 .column{
     margin:20px;
@@ -162,7 +166,7 @@ nav{
     display: flex;
     flex-direction: column;
     word-wrap:wrap;
-    width:300px;
+    width:400px;
 }
 .child {
     width: 350px;
@@ -172,7 +176,7 @@ nav{
     border-radius: 20px;
 }
 .child>img{
-    width: 100%;
+    width: 350px;
     height: 100%;
     object-fit: cover;
     transition:transform .75s;
@@ -196,7 +200,16 @@ nav{
 
 }
 
-
+.author{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 12px;
+    position: relative;
+    bottom: 125px;
+    left: 5px;
+    background-size: cover;
+}
 
 
 
