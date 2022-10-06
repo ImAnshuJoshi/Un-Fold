@@ -370,8 +370,8 @@ button:hover{
   }
   
   .child {
-    width: 350px;
-    height: 300px;
+    width:400px;
+    height: 350px;
     margin: 1px 10px;
     overflow: hidden;
     border-radius: 20px;
@@ -429,9 +429,9 @@ button:hover{
     display: flex;
     flex-direction: column;
     word-wrap:wrap;
-    width:370px;
-    margin:50px;
-    border: #252525 1px solid;
+    width:400px;
+    margin:25px;
+    /* border: #252525 1px solid; */
 }
 .desc{
     padding-left: 20px;
@@ -458,6 +458,21 @@ button:hover{
     border-radius: 5.2px;
 
 }
+.fa-regular{
+    color: #252525;
+    margin-left: 177px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-solid{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-regular:hover, .fa-solid:hover {
+    color: #f8bf8c;
+}
+
 #latest-blog-section{
     background-color: #252525;
     margin:-8px;
@@ -488,26 +503,26 @@ button:hover{
     color:black;
 }
 .child-white{
-    width:450px;
+    width:400px;
     height:350px;
     /* transform: translateX(-3vw); */
 }   
 .follow-cards{
     display: flex;
     flex-direction: row;
-    
 }
 .row{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
     flex-wrap: wrap;
     transform: translateX(-3vw);
 }
 .column{
     margin:20px;
-    padding:30px;
+    padding-left: 20px;
+    /* padding:30px; */
     /* transform: translateX(-3vw); */
 }
 
