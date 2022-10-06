@@ -16,8 +16,12 @@ exports. getAllBlogs = async (req, res, next) => {
   }
 };
 exports.addBlog = async (req, res, next) => {
-  const result = await cloudinary.uploader.upload(req.file.path);
   try {
+    const r=req.body;
+    if(!req.file||!r.title||!r.content)
+    throw new Error("Please fill all entries!!");
+    const result = await cloudinary.uploader.upload(req.file.path);
+    console.log('id is ',req.query.id);
     const user = await db.user.findOne({ where: { id: req.query.id } });
     if (!user) {
       res.status(400).json({
@@ -31,16 +35,12 @@ exports.addBlog = async (req, res, next) => {
       imageurl: result.secure_url,
       cloudid: result.public_id,
     });
-    const addedblog=await user.addPost(newb);
-    await user.addBlog(newb);
+     await user.addPost(newb);
     res.status(200).json({ message: "Added Blog!" });
   } catch (e) {
     console.log(e);
-    res.status(500).json({
-      error: "Database error occurred!",
-    });
-  }
-};
+    next(e,res);
+  }}
 
 exports.getUserBlogs=async (req,res,next)=>{
   const {id}=req.query;
@@ -154,8 +154,7 @@ exports.removelikeBlog= async(req,res,next)=>{
     res.status(500).json({
       error: "Database error occurred!",
     });
-    }
-}
+  }}
 
 
 
