@@ -427,7 +427,6 @@ footer{
         transition: 0.3s;
         box-shadow:
             0 10px 27px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
     }
 
     .nav-list.active {
@@ -455,6 +454,11 @@ footer{
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+    .fa-search{
+        position: relative;
+        margin-right: 200px;
+        top: 26px;
     }
 
 
