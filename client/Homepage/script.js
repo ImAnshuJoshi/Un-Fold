@@ -34,7 +34,7 @@ const blogz = (
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.137.103:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
