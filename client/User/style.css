@@ -383,7 +383,7 @@ button:hover{
     padding-bottom: 50px;
   }
   .left {
-    position: absolute;
+    /* position: absolute; */
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -556,84 +556,3 @@ button:hover{
 
 /****************footer**************/
 
-footer{
-    background-color: #252525;
-    margin: -8px;
-}
-.subscribe{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 30px;
-}
-.subscribe>div{
-    font-size: 3rem;
-    padding-left: 0;
-    
-}
-.subscribe-input-btn{
-    display: flex;
-}
-.subscribe-input{
-    border-radius: 20px;
-    font-size: 20px;
-    padding:10px
-}
-.footer-btn{
-    font-size: 1.3rem;
-    background: none;
-    border:1px solid #f8bf8c;
-    padding:10px;
-    border-radius: 20px;;
-    color:white;
-}
-.footer-btn:hover{
-    color:black;
-    cursor: pointer;
-}
-.main-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding-top: 30px;
-}
-.footer-name{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-.company-name{
-    font-size: 4.5rem;
-    transform: translateX(-1.4rem);
-}
-.footer-desc{
-    font-size: 1.4rem;
-}
-.footer-column{
-    display: flex;
-    flex-direction: column;
-    /* align-items: flex-start; */
-    /* justify-content: flex-start; */
-    
-    font-size: 1rem;
-}
-.footer-links>ul{
-    list-style: none; 
-    line-height: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-left: 0;
-}
-.footer-links>ul>li>a{
-    text-decoration: none;
-}
-.rights{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 30px;
-}
