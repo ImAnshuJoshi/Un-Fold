@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ 
+  
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,8 +20,7 @@
 </head>
 
 <body>
-  <!-- <progress value="0.12234353" max="1"></progress> -->
-    <!-- creating the nav -->
+  
     <nav>
       <div class="name">Un<span>Fold</span></div>
       <div>
@@ -34,9 +35,9 @@
       </div>
     </nav>
 
-    <div class="heading">
+  
         <h1 class="compose-blog"><span>Compose </span> Blog</h1>
-    </div>
+  
 
     <!----------------------- Text editor ------------------------->
     <div class="container">
@@ -109,43 +110,45 @@
             <option value="H5">H5</option>
             <option value="H6">H6</option>
           </select>
-          <!-- Font -->
-          <select id="fontName" class="adv-option-button"></select>
+          <!-- Font Size -->
           <select id="fontSize" class="adv-option-button"></select>
           <!-- Color -->
-          <div class="input-wrapper">
+          <!-- <div class="input-wrapper">
             <input type="color" id="foreColor" class="adv-option-button" />
             <label for="foreColor">Font Color</label>
           </div>
           <div class="input-wrapper">
             <input type="color" id="backColor" class="adv-option-button" />
             <label for="backColor">Highlight Color</label>
-          </div>
+          </div> -->
         </div>
+        <h2>Title</h2>
+        <div id="title-input" contenteditable="true"></div>
+        <h3>Content</h3>
         <div id="text-input" contenteditable="true"></div>
         <div class="lower-container">
           <div class="related-tags">
             <!-- <p>Select related tags: </p> -->
-            <label for="myfile" style="color: black;">Select related tags: </label>
-            <form action="" class="choose-tags">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+            <label  style="color: black;">Select related tags: </label>
+            <form action="" name="tags" class="choose-tags">
+            <input type="checkbox" id="vehicle1" name="vehicle[]" value="Bike">
             <label for="design"></label>Design<br>
-            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+            <input type="checkbox" id="vehicle2" name="vehicle[]" value="Car">
             <label for="technology">Tehnology</label><br>
-            <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+            <input type="checkbox" id="vehicle3" name="vehicle[]" value="Boat">
             <label for="code">Code</label><br><br>
             </form>
           </div>
           <div class="choose-files">
             <form action="" class="choose-image">
-            <label for="myfile" style="color: black;">Choose cover for your blog:</label>
+            <label style="color: black;">Choose cover for your blog:</label>
             <input type="file" id="myfile" name="myfile" style="color:black"><br><br>
           </div>
         </div>
-        <div class="button-container">
-          <button type="submit" class="submit-btn">Compose</button>
-        </div>
         </form>
+        <div class="button-container">
+          <button class="submit-btn" >Compose</button>
+        </div>
 
       </div>
       
@@ -227,5 +230,5 @@
       <!-- script file included -->
 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-</body>
+    <script src="script.js">checkBoxLimit()</script>
+   </body>

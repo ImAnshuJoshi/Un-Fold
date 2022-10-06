@@ -87,7 +87,7 @@ body{
         opacity:0.4
     }
 
-
+    /************************ heading  ********************/
 
     .compose-blog{
         text-align: center;
@@ -104,7 +104,7 @@ body{
     /********************* text editor  *********************/
     .container {
     background-color: #f5f5f5;
-    width: 1000px;
+    width: 80vw;
     padding: 50px 30px;
     /* position: absolute; */
     /* transform: translate(-50%, -50%); */
@@ -172,24 +172,37 @@ body{
     border-radius: 15px;
     box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
     }
+    #title-input{
+        margin-top: 10px;
+        border: 1px solid #dddddd;
+        padding: 20px;
+        height: 2vh;
+        color: #252525;
+        overflow-y: hidden;
+    }
     #text-input {
     margin-top: 10px;
     border: 1px solid #dddddd;
     padding: 20px;
     height: 50vh;
     color: #252525;
-    overflow:scroll; 
+    overflow-y:auto; 
     }
     .active {
     background-color: #e0e9ff;
     }
     .choose-files{
         /* margin: 2% 75%; */
-        margin-left: 42%;
-        margin-top: 2%;
+        /* margin-left: 53%;
+        margin-top: 2%; */
+        position: relative;
+        left: 53%;
+        right: 10%;
+        top: 2vh;
     }
     .related-tags{
-        margin-top: 2%;
+        position: relative;
+        top: 2vh;
     }
     .button-container{
         position: relative;
@@ -204,7 +217,7 @@ body{
         border-radius: 10px;;
         color: black;
         position: absolute;
-        left: 45%;
+        left: 47%;
     }
     .submit-btn:hover{
         color:black;
@@ -304,3 +317,10 @@ body{
         justify-content: center;
         padding-top: 30px;
     }
+
+
+@media only screen and (max-width : 768px){
+    .container{
+        width: 80vw;
+    }
+}

@@ -1,6 +1,6 @@
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");
-let fontName = document.getElementById("fontName");
+// let fontName = document.getElementById("fontName");
 let fontSizeRef = document.getElementById("fontSize");
 let writingArea = document.getElementById("text-input");
 let linkButton = document.getElementById("createLink");
@@ -26,13 +26,7 @@ const initializer = () => {
   highlighter(spacingButtons, true);
   highlighter(formatButtons, false);
   highlighter(scriptButtons, true);
-  //create options for font names
-  fontList.map((value) => {
-    let option = document.createElement("option");
-    option.value = value;
-    option.innerHTML = value;
-    fontName.appendChild(option);
-  });
+
   //fontSize allows only till 7
   for (let i = 1; i <= 7; i++) {
     let option = document.createElement("option");
@@ -100,10 +94,53 @@ const highlighterRemover = (className) => {
     button.classList.remove("active");
   });
 };
-const b=document.querySelector('.footer-btn');
-b.addEventListener('click',()=>{
-  var content = $(writingArea).html();
-  console.log(content);
-  
-})
-window.onload = initializer();
+
+
+
+
+
+const button = document.querySelector(".submit-btn");
+
+function checkBoxLimit() {
+	var checkBoxGroup = document.forms['tags']['vehicle[]'];			
+	var limit = 2;
+	for (var i = 0; i < checkBoxGroup.length; i++) {
+		checkBoxGroup[i].onclick = function() {
+			var checkedcount = 0;
+			for (var i = 0; i < checkBoxGroup.length; i++) {
+				checkedcount += (checkBoxGroup[i].checked) ? 1 : 0;
+			}
+			if (checkedcount > limit) {
+				console.log("You can select maximum of " + limit + " checkboxes.");
+				alert("You can select maximum of " + limit + " checkboxes.");						
+				this.checked = false;
+			}
+		}
+	}}
+
+let id;
+window.onload=()=>{
+  const queryParamsString = window.location.search?.substring(1);
+  id = queryParamsString?.substring(3);
+}
+button.addEventListener("click", async () => {
+  checkBoxLimit()
+  const title = document.getElementById("title-input").innerText;
+  const content = document.getElementById("text-input").innerHTML;
+  const item = document.getElementById("myfile").files[0];
+  const formdata = new FormData();
+  formdata.append("title", title);
+  formdata.append("content", content);
+  formdata.append("item", item);
+  const addblog = await fetch("http://localhost:3000/api/blog/addBlog?"+new URLSearchParams({ id: id }), {
+    method: "POST",
+    body: formdata,
+    headers: {
+    },
+    mode: "cors",
+    credentials: "same-origin",
+  });
+  addblogj=await addblog.json();
+  if(addblogj.status!==200)
+  console.log(addblogj.message);
+});
