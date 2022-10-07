@@ -1,11 +1,21 @@
-function leftScroll() {
-  const left = document.querySelector(".scroll-images");
-  left.scrollBy(-200, 0);
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
 }
-function rightScroll() {
-  const right = document.querySelector(".scroll-images");
-  right.scrollBy(200, 0);
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach(n => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
 }
+
 
 const blogz = (
   img,
