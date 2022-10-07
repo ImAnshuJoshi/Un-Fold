@@ -11,8 +11,9 @@ const blogz = (
   img,
   title,
   content,
-  user
-) => `<a href='index.html' style="text-decoration:none;"><div class="blog-details">
+  user,
+  id
+) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
@@ -28,7 +29,7 @@ const blogz = (
             </a>
             <div class="desc">${title}</div>
             <div class="desc2">
-            ${content}
+            ${content.substring(0,100)}....
             </div>
             </div></a>`;
 let blogsj;
@@ -41,7 +42,7 @@ const finduser = async (id) => {
       headers: {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      },  
       mode: "cors",
       credentials: "same-origin",
     }
@@ -51,7 +52,7 @@ const finduser = async (id) => {
 };
 window.onload = async () => {
   const blogs = await fetch(
-    "http://localhost:3000/api/blog/getAllBlogs",
+    "http://192.168.137.103:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {
@@ -69,7 +70,7 @@ window.onload = async () => {
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(b.imageurl, b.title, b.content, user)
+        blogz(b.imageurl, b.title, b.content, user,b.id)
       );
   });
 };
