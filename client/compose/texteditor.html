@@ -103,12 +103,12 @@
           </button>
           <!-- Headings -->
           <select id="formatBlock" class="adv-option-button">
-            <option value="H1">H1</option>
-            <option value="H2">H2</option>
-            <option value="H3">H3</option>
-            <option value="H4">H4</option>
-            <option value="H5">H5</option>
-            <option value="H6">H6</option>
+            <optionH1">H1</option>
+            <optionH2">H2</optionH1>
+            <optionH3">H3</optionH2>
+            <optionH4">H4</optionH3>
+            <optionH5">H5</optionH4>
+            <optionH6">H6</optionH5>
           </select>
           <!-- Font Size -->
           <select id="fontSize" class="adv-option-button"></select>
@@ -131,12 +131,24 @@
             <!-- <p>Select related tags: </p> -->
             <label  style="color: black;">Select related tags: </label>
             <form action="" name="tags" class="choose-tags">
-            <input type="checkbox" id="vehicle1" name="vehicle[]" value="Bike">
-            <label for="design"></label>Design<br>
-            <input type="checkbox" id="vehicle2" name="vehicle[]" value="Car">
-            <label for="technology">Tehnology</label><br>
-            <input type="checkbox" id="vehicle3" name="vehicle[]" value="Boat">
-            <label for="code">Code</label><br><br>
+            <div class="cat-names">
+              <div class="cat-list">
+                <input type="checkbox" id="cat1" name="cat" value="Idea">
+                <label></label>Idea<br>
+                <input type="checkbox" id="cat2" name="cat" value="Technology">
+                <label>Technology</label><br>
+                <input type="checkbox" id="cat3" name="cat"value="Nature">
+                <label>Nature</label><br><br>
+              </div>
+              <div class="cat-list">
+                <input type="checkbox" id="cat4" name="cat" value="Design">
+                <label>Design</label><br>
+                <input type="checkbox" id="cat5" name="cat" value="Lifestyle">
+                <label>Lifestyle</label><br>
+                <input type="checkbox" id="cat6" name="cat" value="Review">
+                <label>Review</label><br>
+              </div>
+            </div>
             </form>
           </div>
           <div class="choose-files">
