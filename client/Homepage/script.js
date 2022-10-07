@@ -28,13 +28,13 @@ const blogz = (
             </a>
             <div class="desc">${title}</div>
             <div class="desc2">
-            ${content}
+            ${content.substring(0,30)}
             </div>
             </div></a>`;
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
