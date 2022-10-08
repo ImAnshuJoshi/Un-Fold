@@ -160,7 +160,8 @@ button:hover{
     background-color: black;
   }
   .latest-cards{
-    margin-left: 30px;
+    margin-left: 150px;
+    /* width:100%; */
   }
   .child {
     width:400px;

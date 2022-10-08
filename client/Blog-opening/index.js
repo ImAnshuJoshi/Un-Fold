@@ -50,7 +50,7 @@ window.onload=()=>{
 var userId;
 const findblog = async (id) => {
       const blog = await fetch(
-        "http://192.168.137.103:3000/api/blog/getblogbyid?id=" +
+        "http://localhost:3000/api/blog/getblogbyid?id=" +
       //     new URLSearchParams({ id: id }),
       id,
         {
@@ -78,3 +78,5 @@ const findblog = async (id) => {
       )
 };
 
+
+// console.log('userId' :  )

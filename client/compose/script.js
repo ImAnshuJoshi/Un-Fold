@@ -95,36 +95,65 @@ const highlighterRemover = (className) => {
   });
 };
 
-
-
-
-
 const button = document.querySelector(".submit-btn");
+checkboxes = document.getElementsByName("cat");
 
 function checkBoxLimit() {
-	var checkBoxGroup = document.forms['tags']['vehicle[]'];			
-	var limit = 2;
-	for (var i = 0; i < checkBoxGroup.length; i++) {
-		checkBoxGroup[i].onclick = function() {
-			var checkedcount = 0;
-			for (var i = 0; i < checkBoxGroup.length; i++) {
-				checkedcount += (checkBoxGroup[i].checked) ? 1 : 0;
-			}
-			if (checkedcount > limit) {
-				console.log("You can select maximum of " + limit + " checkboxes.");
-				alert("You can select maximum of " + limit + " checkboxes.");						
-				this.checked = false;
-			}
-		}
-	}}
+  var checkBoxGroup = document.forms["tags"]["vehicle[]"];
+  var limit = 2;
+  for (var i = 0; i < checkBoxGroup.length; i++) {
+    checkBoxGroup[i].onclick = function () {
+      var checkedcount = 0;
+      for (var i = 0; i < checkBoxGroup.length; i++) {
+        checkedcount += checkBoxGroup[i].checked ? 1 : 0;
+      }
+      if (checkedcount > limit) {
+        console.log("You can select maximum of " + limit + " checkboxes.");
+        alert("You can select maximum of " + limit + " checkboxes.");
+        this.checked = false;
+      }
+    };
+  }
+}
 
-let id;
-window.onload=()=>{
+async function handleCats(selectedCboxes,blogid) {
+  let cname = [];
+  selectedCboxes.forEach(async (selectedCbox) => {
+    cname.push(selectedCbox.value);
+  });
+  const body = { bid: blogid, cname: cname };
+  const res = await fetch(
+    "http://localhost:3000/api/category/addcategorytoblog",
+    {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {},
+      mode: "cors",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const resj = await res.json();
+  console.log(resj);
+}
+let id
+window.onload = () => {
   const queryParamsString = window.location.search?.substring(1);
   id = queryParamsString?.substring(3);
-}
+};
 button.addEventListener("click", async () => {
-  checkBoxLimit()
+  selectedCboxes = Array.prototype.slice
+    .call(checkboxes)
+    .filter((ch) => ch.checked == true);
+  if (!selectedCboxes.length) {
+    alert("Select atleast 1 category!");
+    return;
+  } else if (selectedCboxes.length > 3) {
+    alert("Select atmost 3 categories!");
+    return;
+  }
   const title = document.getElementById("title-input").innerText;
   const content = document.getElementById("text-input").innerHTML;
   const item = document.getElementById("myfile").files[0];
@@ -132,15 +161,22 @@ button.addEventListener("click", async () => {
   formdata.append("title", title);
   formdata.append("content", content);
   formdata.append("item", item);
-  const addblog = await fetch("http://localhost:3000/api/blog/addBlog?"+new URLSearchParams({ id: id }), {
-    method: "POST",
-    body: formdata,
-    headers: {
-    },
-    mode: "cors",
-    credentials: "same-origin",
-  });
-  addblogj=await addblog.json();
-  if(addblogj.status!==200)
-  console.log(addblogj.message);
+  const addblog = await fetch(
+    "http://localhost:3000/api/blog/addBlog?" + new URLSearchParams({ id: id }),
+    {
+      method: "POST",
+      body: formdata,
+      headers: {},
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const addedblog = await addblog.json();
+  if (addblog.status !== 200) console.log(addedblog.message);
+  else {
+    const addedblogid = addedblog.blogid;
+    console.log(addedblogid);
+    await handleCats(selectedCboxes,addedblogid);
+    alert('Done')
+  }
 });

@@ -191,6 +191,14 @@ body{
     .active {
     background-color: #e0e9ff;
     }
+    .cat-names{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .cat-list{
+        justify-content: space-between;
+    }
     .choose-files{
         /* margin: 2% 75%; */
         /* margin-left: 53%;

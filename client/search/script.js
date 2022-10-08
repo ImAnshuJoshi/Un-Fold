@@ -16,6 +16,7 @@ const blogz = (
                 <li>Design</li>
                 <li>Coding</li>
                 <li>Fun</li>
+                <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
             </ul>
             </div>
             <div class="desc blog-title" style="color:white">${title}</div>
@@ -65,6 +66,7 @@ const searchtheword=()=>{
   searchUsers();
 }
 const searchBlogs= async ()=>{
+  document.getElementById("search").innerHTML="";
   const res=await fetch(`http://192.168.137.103:3000/api/blog/getAllBlogs`,  {
     method: "GET",
     mode: "cors",
