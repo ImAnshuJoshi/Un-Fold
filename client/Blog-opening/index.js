@@ -66,6 +66,7 @@ const findblog = async (id) => {
       const blogbody = await blog.json();
       console.log('hi this is the blog:'+JSON.stringify(blogbody));
       userId=blogbody.blog.userId
+      console.log('userId:',userId );
       console.log(blogbody.blog.imageurl, blogbody.blog.title, blogbody.blog.content);
       document
       .getElementById("heading_of_blog")
@@ -77,5 +78,3 @@ const findblog = async (id) => {
       )
 };
 
-
-// console.log('userId' :  )
