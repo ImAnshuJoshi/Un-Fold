@@ -16,6 +16,7 @@ const blogz = (
                 <li>Design</li>
                 <li>Coding</li>
                 <li>Fun</li>
+                <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
             </ul>
             </div>
             <div class="desc blog-title" style="color:white">${title}</div>
@@ -38,7 +39,7 @@ const userz = (img,fname,lname)=>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -65,7 +66,8 @@ const searchtheword=()=>{
   searchUsers();
 }
 const searchBlogs= async ()=>{
-  const res=await fetch(`http://192.168.137.103:3000/api/blog/getAllBlogs`,  {
+  document.getElementById("search").innerHTML="";
+  const res=await fetch(`http://localhost:3000/api/blog/getAllBlogs`,  {
     method: "GET",
     mode: "cors",
     credentials: "same-origin",
@@ -90,7 +92,7 @@ const blogs = await res.json();
 }
 
 const searchUsers= async ()=>{
-  const res=await fetch(`http://192.168.137.103:3000/api/user/getallusers`,  {
+  const res=await fetch(`http://localhost:3000/api/user/getallusers`,  {
     method: "GET",
     mode: "cors",
     credentials: "same-origin",
