@@ -1,18 +1,29 @@
-function leftScroll() {
-  const left = document.querySelector(".scroll-images");
-  left.scrollBy(-200, 0);
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
 }
-function rightScroll() {
-  const right = document.querySelector(".scroll-images");
-  right.scrollBy(200, 0);
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach(n => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
 }
+
 
 const blogz = (
   img,
   title,
   content,
-  user
-) => `<a href='index.html' style="text-decoration:none;"><div class="blog-details">
+  user,
+  id
+) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
@@ -28,7 +39,7 @@ const blogz = (
             </a>
             <div class="desc">${title}</div>
             <div class="desc2">
-            ${content.substring(0,30)}
+            ${content.substring(0,100)}....
             </div>
             </div></a>`;
 let blogsj;
@@ -41,7 +52,7 @@ const finduser = async (id) => {
       headers: {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      },  
       mode: "cors",
       credentials: "same-origin",
     }
@@ -69,7 +80,7 @@ window.onload = async () => {
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(b.imageurl, b.title, b.content, user)
+        blogz(b.imageurl, b.title, b.content, user,b.id)
       );
   });
 };
