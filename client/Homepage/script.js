@@ -16,6 +16,22 @@ function closeMenu() {
     navMenu.classList.remove("active");
 }
 
+async function getblogtags(bid)
+{
+    const tags= await fetch(
+      `http://localhost:3000/api/category/getblogcategories?`+new URLSearchParams({id:bid}),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "same-origin",
+      }
+    ); 
+    const blogtags= await tags.json();
+    return blogtags;
+}
 
 const blogz = (
   img,
@@ -76,6 +92,8 @@ window.onload = async () => {
   blogsj = await blogs.json();
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
+    // const tagss=await getblogtags(b.id);
+    // console.log(tagss);
     document
       .getElementById("i1")
       .insertAdjacentHTML(
