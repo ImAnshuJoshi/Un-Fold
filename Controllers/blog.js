@@ -8,7 +8,7 @@ exports. getAllBlogs = async (req, res, next) => {
         error: "No blogs Found",
       });
     }
-    res.send(Allblogs.sort((a,b)=>b.updatedAt-a.updatedAt));
+    res.send(Allblogs.sort((a,b)=>a.updatedAt-b.updatedAt));
   } catch (e) { console.log(e)
     res.status(500).json({
       error: "Database error occurred!",
@@ -28,15 +28,14 @@ exports.addBlog = async (req, res, next) => {
         error: "No blogs Found!",
       });
     }
-    console.log(req.body, result);
-    const newb = await db.blog.create({
+    const newblog = (await db.blog.create({
       title: req.body.title,
       content: req.body.content,
       imageurl: result.secure_url,
       cloudid: result.public_id,
-    });
-     await user.addPost(newb);
-    res.status(200).json({ message: "Added Blog!" });
+    })).dataValues;
+     await user.addPost(newblog);
+     res.status(200).json({ blogid: newblog.id });
   } catch (e) {
     console.log(e);
     next(e,res);
@@ -59,6 +58,19 @@ exports.getUserBlogs=async (req,res,next)=>{
     }
 }
 
+exports.getblogbyid=async (req,res,next)=>{
+  const {id}=req.query;
+  try{
+    const blog=await db.blog.findOne({where:{id:id}});
+    res.status(200).json({blog});
+    }
+    catch(e)
+    {
+      console.log(e);
+      next(e);
+    }
+    }
+
 exports.addblogcat=async(req,res)=>{
   const{bid,cid}=req.body;
   try{
@@ -76,10 +88,12 @@ exports.addblogcat=async(req,res)=>{
     }
 }
 exports.editBlog= async(req,res,next)=>{
-  const {id,newcontent}=req.body;
+  const {newtitle,newcontent}=req.body;
+  const {id}=req.query;
   const result = (req.file)?await cloudinary.uploader.upload(req.file.path):null; 
   try{
     const upblog=(result)?await db.blog.update({
+      title:newtitle,
       content:newcontent,
       imageurl:result.secure_url,
       cloudid:result.public_id
@@ -89,6 +103,7 @@ exports.editBlog= async(req,res,next)=>{
       }
     }):
     await db.blog.update({
+      title:newtitle,
       content:newcontent,
     },{
       where: {
@@ -96,7 +111,7 @@ exports.editBlog= async(req,res,next)=>{
       }
     })
     console.log(upblog);
-    res.status(200).send(upblog);  
+    res.status(200).json({message:'blog edited successfully'});  
   }
     catch(e)
     {
@@ -158,7 +173,7 @@ exports.removelikeBlog= async(req,res,next)=>{
 
 
 
-/* exports.addcat=async (req,res)=>{
+exports.addcat=async (req,res)=>{
   try{
      const result = await cloudinary.uploader.upload(req.file.path);
       const {title,desc}=req.body;
@@ -171,9 +186,10 @@ exports.removelikeBlog= async(req,res,next)=>{
       res.send(newCat);
       }
   catch(e){
-    console.log(e);
-    res.status(500).json({
-      error: "Database error occurred!",
-    });
+    next(e);
   }
-} */
+}
+
+exports.getfollowingblogs=async (req,res,next)=>{
+  
+}
