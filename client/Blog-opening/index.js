@@ -9,6 +9,13 @@ $(window).scroll(function () {
    
 });
 
+function changeBookmarkIcon(x){
+  x.classList.toggle("fa-solid");
+}
+function changeHeartIcon(x){
+  x.classList.toggle('fa-solid');
+}
+
 /************************************FETCHING BLOG****************************** */
 
 const blogz = (img,title) =>` <section id="post-header">

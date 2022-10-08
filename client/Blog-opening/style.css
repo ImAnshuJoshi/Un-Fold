@@ -215,10 +215,12 @@ progress {
 }
 .blog-content-description{
     background-color: #f5f5f5;
-    padding: 2% 15%;
+    padding: 2% 15% 10%;
     line-height: 1.5;
     font-size: 1.5rem;
     font-weight: 400;
+    color: #252525;
+    /* margin-bottom: 25%; */
 }
 .blog-content-description>ul>li{
     color: black;
@@ -244,6 +246,23 @@ progress {
     margin: 65px 0;
     font-weight: 700;
     padding: 0 10%;
+}
+.reactions{
+    display: flex;
+    flex-direction: row;
+    margin: 2% auto;
+}
+.reactions .like{
+    margin-left: auto;
+}
+.reactions .comment{
+    margin-right: auto;
+}
+.reactions .fa-regular{
+    color: #252525;
+}
+.reactions .like .fa-solid{
+    color: #f8bf8c;
 }
 /****** You might like section ******/
 
@@ -348,6 +367,19 @@ progress {
     padding:3px 9px;
     border-radius: 5.2px;
 
+}
+.fa-regular{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-solid{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-regular:hover,.fa-solid:hover{
+    color: #f8bf8c;
 }
 #you-might-like-section{
     background-color: #252525;
