@@ -67,7 +67,7 @@ exports.login = async (req, res, next) => {
               expiresIn: '10h',
             })
             res.cookie('token', token)
-            res.status(200).json({
+            res.status(200).json( {
               user: currentuser,
               message: 'User has been signed in!',
               token: token,
