@@ -21,7 +21,7 @@ let email;
 let password;
 
 async function ff(){
-  const response = await fetch("http://localhost:3000/api/login/", {
+  const response = await fetch("http://192.168.137.103:3000/api/login/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -31,7 +31,6 @@ async function ff(){
       "Content-Type": "application/json",
     },
     mode: "cors",
-    credentials: 'include',
     withCredentials:true
   });
   const user = await response.json();

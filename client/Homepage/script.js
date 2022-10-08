@@ -16,6 +16,8 @@ function closeMenu() {
     navMenu.classList.remove("active");
 }
 
+
+/************************FETCHING  */
 async function getblogtags(bid)
 {
     const tags= await fetch(
@@ -61,7 +63,7 @@ const blogz = (
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.137.103:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -76,9 +78,12 @@ const finduser = async (id) => {
   const userj = await user.json();
   return userj.user;
 };
+let token;
 window.onload = async () => {
+  token=localStorage.getItem('jwt');
+  console.log(token);
   const blogs = await fetch(
-    "http://localhost:3000/api/blog/getAllBlogs",
+    "http://192.168.137.103:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {
