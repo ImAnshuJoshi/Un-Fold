@@ -16,7 +16,9 @@ function closeMenu() {
   navMenu.classList.remove("active");
 }
 
-
+function changeBookmarkIcon(x){
+  x.classList.toggle("fa-solid");
+}
 
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");

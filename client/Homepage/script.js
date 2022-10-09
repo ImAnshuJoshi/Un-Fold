@@ -45,7 +45,7 @@ async function getblogtags(bid) {
 
 let i=0;
 
-const categoryz = (img, name) => `   <div class="cat first">
+const categoryz = (img, name) => `<div class="cat first">
 <div class="cat-img">
   <img src="${img}" alt="">
 </div>
@@ -62,7 +62,9 @@ const blogCard = (img,title,content,user,id,tags) =>
             <div class="tag-wrap">
             <ul class="tags">
             ${handlecats(tags)}
+            <div class="bookmark">
             <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+            </div>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
@@ -106,7 +108,6 @@ const categoriesfunc = async () => {
     }
   );
   categoryg = await categories.json();
-  console.log(categoryg);
   categoryg.map(async (c) => {
     document
       .getElementById("category-id")
