@@ -21,7 +21,7 @@ function closeMenu() {
 async function getblogtags(bid)
 {
     const tags= await fetch(
-      `http://localhost:3000/api/category/getblogcategories?`+new URLSearchParams({id:bid}),
+      `http://192.168.137.103:3000/api/category/getblogcategories?`+new URLSearchParams({id:bid}),
       {
         method: "GET",
         headers: {

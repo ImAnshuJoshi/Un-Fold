@@ -62,7 +62,7 @@ window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1);
   const id = queryParamsString?.substring(3);
   const userj = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.137.103:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -75,7 +75,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://localhost:3000/api/blog/getAllBlogs",
+    "http://192.168.137.103:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {
