@@ -46,6 +46,20 @@ nav{
     justify-content: space-between;
     align-items: center;
 }
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
+}
 .nav-list{
     list-style: none;
     display: flex;
@@ -55,16 +69,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -91,13 +103,26 @@ nav{
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
 }
+.hamburger {
+    display: none;
+}
 
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8bf8c;
+}
 .name{
     color:white;
     font-family: 'Jost', sans-serif;
     font-size: 48.7px;
     margin-left: 20px;  
     font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: none;
 }
 .name>span{
     color:#f8bf8c;
@@ -115,8 +140,13 @@ nav{
     position: relative;
     left:24px;
     z-index:999;
-    opacity:0.4;
+    opacity:0.4
 }
+nav img{
+    color: white;
+}
+
+
 
 .recent-wrap>h2{
     color:black;
@@ -199,7 +229,20 @@ nav{
     border-radius: 5.2px;
 
 }
-
+.fa-regular{
+    margin-left: 132px;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+.fa-solid{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-regular:hover, .fa-solid:hover {
+    color: #f8bf8c;
+}
 .author{
     height: 50px;
     width: 50px;

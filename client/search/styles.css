@@ -8,13 +8,24 @@ body{
 }
 
 /******* nav bar ******/  
-.navbar-container{
-    background-color: #252525;
-}
 nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
 }
 .nav-list{
     list-style: none;
@@ -25,16 +36,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -61,21 +70,26 @@ nav{
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
 }
-/* .search-input{
-    color:white;
+.hamburger {
+    display: none;
 }
-input:focus{
-    color:white
-} */
-/* .input::placeholder{
-    color: white;
-} */
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8bf8c;
+}
 .name{
     color:white;
     font-family: 'Jost', sans-serif;
     font-size: 48.7px;
-    margin-left: 5%;  
+    margin-left: 20px;  
     font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: none;
 }
 .name>span{
     color:#f8bf8c;
@@ -95,6 +109,10 @@ input:focus{
     z-index:999;
     opacity:0.4
 }
+nav img{
+    color: white;
+}
+
 
 /* **********styling horizontal scrollbar*********  */
 ::-webkit-scrollbar {
