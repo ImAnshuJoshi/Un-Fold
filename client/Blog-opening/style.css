@@ -13,11 +13,24 @@ b{
     color: black;
 }
 /******* nav bar ******/
-
 nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
 }
 .nav-list{
     list-style: none;
@@ -28,16 +41,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -64,13 +75,26 @@ nav{
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
 }
+.hamburger {
+    display: none;
+}
 
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8bf8c;
+}
 .name{
     color:white;
     font-family: 'Jost', sans-serif;
     font-size: 48.7px;
-    margin-left: 5%;  
+    margin-left: 20px;  
     font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: none;
 }
 .name>span{
     color:#f8bf8c;
@@ -90,7 +114,9 @@ nav{
     z-index:999;
     opacity:0.4
 }
-
+nav img{
+    color: white;
+}
 
 /****** upper-body ******/
 
@@ -604,6 +630,53 @@ footer{
 
 
 @media only screen and (max-width: 768px) {
+    .nav-list {
+        position: fixed;
+        left: -150%;
+        top: 5rem;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-list.active {
+        background-color: #252525;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .nav-item {
+        margin: 2.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .fa-search{
+        position: relative;
+        margin-right: 200px;
+        top: 26px;
+    }
+
+
     .post-header-wrap{
         width: 100vw;
     }
@@ -642,4 +715,10 @@ footer{
     .tags-link{
         padding-left: 10px;
     }
+}
+
+@media only screen and (max-width: 768px) {
+    
+
+
 }
