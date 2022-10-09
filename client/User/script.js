@@ -10,7 +10,7 @@ function handlecats(cats)
 const followbtn =document.getElementsByClassName('follow-btn')[0];
 followbtn.addEventListener('click',async()=>{
   await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.137.103:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "POST",
@@ -28,7 +28,7 @@ let user;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.137.103:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -88,7 +88,7 @@ const blogCard = (
 let blogsj;
 async function followers(user) {
   const followers = await fetch(
-    "http://localhost:3000/api/user/getFollowers?" + new URLSearchParams({ id: user.id }),
+    "http://192.168.137.103:3000/api/user/getFollowers?" + new URLSearchParams({ id: user.id }),
     {
       method: "GET",
       headers: {
@@ -103,7 +103,7 @@ async function followers(user) {
 
 async function bookmarkedblogs(user) {
   const blogs = await fetch(
-    "http://localhost:3000/api/user/getbookmarkedblogs?" + new URLSearchParams({ id: user.id }),
+    "http://192.168.137.103:3000/api/user/getbookmarkedblogs?" + new URLSearchParams({ id: user.id }),
     {
       method: "GET",
       headers: {
@@ -122,7 +122,7 @@ const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
   const userinfo = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.137.103:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -135,7 +135,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://localhost:3000/api/blog//allUserBlogs?" +
+    "http://192.168.137.103:3000/api/blog//allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
