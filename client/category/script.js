@@ -39,7 +39,7 @@ window.onload = async () => {
     const queryParamsString = window.location.search?.substring(1);
     const id = queryParamsString?.substring(3);
     const cat = await fetch(
-      "http://192.168.137.103:3000/api/category/getcategoryinfo?" +
+      "http://localhost:3000/api/category/getcategoryinfo?" +
         new URLSearchParams({ id: id }),
       {
         method: "GET",
@@ -51,7 +51,7 @@ window.onload = async () => {
       }
     );
     const catblogs = await fetch(
-      "http://192.168.137.103:3000/api/category/getallcategoryblogs?"+
+      "http://localhost:3000/api/category/getallcategoryblogs?"+
       new URLSearchParams({ id: id }),
       {
         method: "GET",
@@ -63,10 +63,10 @@ window.onload = async () => {
       }
     );
     const catj=await cat.json();
-    const catblogsj = await catblogs.json();
+    const catblogsj = (await catblogs.json()).blogs;
      catblogsj.map(async (b) => {
         const user=await fetch(
-            "http://192.168.137.103:3000/api/user/getuserinfo?" +
+            "http://localhost:3000/api/user/getuserinfo?" +
               new URLSearchParams({ id: b.userId }),
             {
               method: "GET",
@@ -78,7 +78,6 @@ window.onload = async () => {
             }
           );
         const userj=await user.json();  
-        console.log(userj);
        document.getElementsByClassName('row')[0]
          .insertAdjacentHTML(
            "afterbegin",

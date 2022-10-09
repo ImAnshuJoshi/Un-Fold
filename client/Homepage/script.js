@@ -33,21 +33,16 @@ async function getblogtags(bid)
     return blogtags;
 }
 
-const blogz = (
-  img,
-  title,
-  content,
-  user,
-  id
-) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
+const blogz = (img,title,content,user,id,tags) =>
+ `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags">
-                <li>Design</li>
-                <li>Coding</li>
-                <li>Fun</li>
+            <a href="../category/index.html?id=${tags[0]?.id}"><li>${tags[0]?.Title||'-'}</li></a>
+            <li>${tags[1]?.Title||'-'}</li>
+            <li>${tags[2]?.Title||'-'}</li>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
@@ -92,13 +87,12 @@ window.onload = async () => {
   blogsj = await blogs.json();
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
-    // const tagss=await getblogtags(b.id);
-    // console.log(tagss);
+    const tags=(await getblogtags(b.id)).cats;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(b.imageurl, b.title, b.content, user,b.id)
+        blogz(b.imageurl, b.title, b.content, user,b.id,tags)
       );
   });
 };
