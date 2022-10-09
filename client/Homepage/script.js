@@ -4,60 +4,73 @@ const navMenu = document.querySelector(".nav-list");
 hamburger.addEventListener("click", mobileMenu);
 
 function mobileMenu() {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
 }
 const navLink = document.querySelectorAll(".nav-link");
 
-navLink.forEach(n => n.addEventListener("click", closeMenu));
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
 
 function closeMenu() {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
 }
 
-
-/************************FETCHING  */
-async function getblogtags(bid)
+function handlecats(cats)
 {
-    const tags= await fetch(
-      `http://192.168.137.103:3000/api/category/getblogcategories?`+new URLSearchParams({id:bid}),
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "same-origin",
-      }
-    ); 
-    const blogtags= await tags.json();
-    return blogtags;
+  let t=``;
+  cats.forEach((i)=>{
+    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+  })
+  console.log(t);
+  return (t)
 }
 
-const blogz = (
-  img,
-  title,
-  content,
-  user,
-  id
-) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
+async function getblogtags(bid) {
+  const tags = await fetch(
+    `http://192.168.137.103:3000/api/category/getblogcategories?` +
+      new URLSearchParams({ id: bid }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const blogtags = await tags.json();
+  return blogtags;
+}
+
+let i=0;
+
+const categoryz = (img, name) => `   <div class="cat first">
+<div class="cat-img">
+  <img src="${img}" alt="">
+</div>
+<div class="cat-name">
+  <span>${name}</span>
+</div>
+</div>`;
+
+const blogCard = (img,title,content,user,id,tags) =>
+ `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags">
-                <li>Design</li>
-                <li>Coding</li>
-                <li>Fun</li>
+            ${handlecats(tags)}
+            <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
             <div class="desc">${title}</div>
-            <div class="desc2">
-            ${content.substring(0,100)}....
+            <div class="desc2 ${i++}">
+            ${content}
             </div>
             </div></a>`;
 let blogsj;
@@ -70,7 +83,7 @@ const finduser = async (id) => {
       headers: {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
-      },  
+      },
       mode: "cors",
       credentials: "same-origin",
     }
@@ -78,12 +91,10 @@ const finduser = async (id) => {
   const userj = await user.json();
   return userj.user;
 };
-let token;
-window.onload = async () => {
-  token=localStorage.getItem('jwt');
-  console.log(token);
-  const blogs = await fetch(
-    "http://192.168.137.103:3000/api/blog/getAllBlogs",
+let categoryg;
+const categoriesfunc = async () => {
+  const categories = await fetch(
+    "http://192.168.137.103:3000/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -94,16 +105,36 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
+  categoryg = await categories.json();
+  console.log(categoryg);
+  categoryg.map(async (c) => {
+    document
+      .getElementById("category-id")
+      .insertAdjacentHTML("afterbegin", categoryz( c.imageurl,c.Title));
+  });
+};
+window.onload = async () => {
+  const blogs = await fetch("http://192.168.137.103:3000/api/blog/getAllBlogs", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    mode: "cors",
+    credentials: "same-origin",
+  });
+  categoriesfunc();
   blogsj = await blogs.json();
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
-    // const tagss=await getblogtags(b.id);
-    // console.log(tagss);
+    const tags=(await getblogtags(b.id)).cats;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(b.imageurl, b.title, b.content, user,b.id)
+        blogCard(b.imageurl, b.title, b.content, user,b.id,tags)
       );
+      const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
   });
 };

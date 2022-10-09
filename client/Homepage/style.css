@@ -17,6 +17,20 @@ nav{
     justify-content: space-between;
     align-items: center;
 }
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
+}
 .nav-list{
     list-style: none;
     display: flex;
@@ -26,16 +40,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -100,6 +112,9 @@ nav{
     left:24px;
     z-index:999;
     opacity:0.4
+}
+nav img{
+    color: white;
 }
 
 /****** upper-body ******/
@@ -261,6 +276,69 @@ button:hover{
     transform: translate(7px,-125px);
     background-size: cover;
 }
+.fa-regular{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-solid{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-regular:hover, .fa-solid:hover {
+    color: #f8bf8c;
+}
+/**************** Categories names  *******************/
+#categories{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#categories h2{
+    color: #252525;
+    font-size: 1.8rem;
+    font-weight: 400;
+    padding-left: 3%;
+}
+#categories h2 span{
+    color: #f8bf8c;
+}
+.category-wrap{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+.category-wrap .cat{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5% 1.4%;
+    
+}
+
+.cat .cat-img img{
+    height:200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px #252525 solid;
+    transition:transform .75s;
+}
+.cat .cat-img img:hover{
+    transform:scale(1.15);
+}
+.cat .cat-name{
+    justify-content: center;
+    text-align: center;
+}
+.cat .cat-name span{
+    color: #252525;
+    font-size: 1.4rem;
+    font-weight: 500;
+    /* text-align: center; */
+}
+
 
 /******************* Recent-Blogs**************** */
 

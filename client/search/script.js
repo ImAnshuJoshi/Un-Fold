@@ -2,20 +2,45 @@ function changeBookmarkIcon(x){
   x.classList.toggle("fa-solid");
 }
 
-const blogz = (
+function handlecats(cats)
+{
+  let t=``;
+  cats.forEach((i)=>{
+    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+  })
+  console.log(t);
+  return (t)
+}
+
+async function getblogtags(bid) {
+  const tags = await fetch(
+    `http://localhost:3000/api/category/getblogcategories?` +
+      new URLSearchParams({ id: bid }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const blogtags = await tags.json();
+  return blogtags;
+}
+
+const blogCard = (
   img,
   title,
   content,
-  user
+  user,tags
 ) => `<a href='index.html' style="text-decoration:none;"><div class="blog-details">
             <div class="img-container">
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags" style="color:white">
-                <li>Design</li>
-                <li>Coding</li>
-                <li>Fun</li>
+                ${handlecats(tags)}
                 <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
             </ul>
             </div>
@@ -76,16 +101,16 @@ const searchBlogs= async ()=>{
 
 const blogs = await res.json(); 
   console.log(blogs);
-  blogs.forEach(blog => {
-      // if(blog.title)
-      console.log(blog.title);
+  blogs.forEach(async(blog) => {
+      
       if(blog.title.toUpperCase().includes(word.toUpperCase())){
         const user =finduser(blog.userId);
+        const tags=(await getblogtags(blog.id)).cats;
         document
       .getElementById("search")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(blog.imageurl, blog.title, blog.content, user)
+        blogCard(blog.imageurl, blog.title, blog.content, user,tags)
       );
       }
   });

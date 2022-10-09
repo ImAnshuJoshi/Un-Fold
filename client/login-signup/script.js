@@ -34,6 +34,23 @@ async function ff(){
     withCredentials:true
   });
   const user = await response.json();
+  if(user.status!==200)
+  {
+    document.getElementById("para").innerHTML = user.message;
+      var modal = document.getElementById("myModal");
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      modal.style.display = "block";
+      span.onclick = function () {
+        modal.style.display = "none";
+      };
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    }
+  
   const token = user.token;
   if (token) {
     localStorage.setItem("jwt", token);
@@ -42,20 +59,7 @@ async function ff(){
   return user;
   // console.log("hi " + response.status);
   // if (response.status != 200) {r
-  //   document.getElementById("para").innerHTML = resJ.error;
-  //   var modal = document.getElementById("myModal");
-  //   // Get the <span> element that closes the modal
-  //   var span = document.getElementsByClassName("close")[0];
-  //   modal.style.display = "block";
-  //   span.onclick = function () {
-  //     modal.style.display = "none";
-  //   };
-  //   window.onclick = function (event) {
-  //     if (event.target == modal) {
-  //       modal.style.display = "none";
-  //     }
-  //   };
-  // }
+  //  
   // console.log(response.status);
   
 };
