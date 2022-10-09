@@ -1,13 +1,14 @@
-function handlecats(cats) {
-  let t = ``;
-  cats.forEach((i) => {
-    t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
-  });
+function handlecats(cats)
+{
+  let t=``;
+  cats.forEach((i)=>{
+    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+  })
   console.log(t);
-  return t;
+  return (t)
 }
-const followbtn = document.getElementsByClassName("follow-btn")[0];
-followbtn.addEventListener("click", async () => {
+const followbtn =document.getElementsByClassName('follow-btn')[0];
+followbtn.addEventListener('click',async()=>{
   await fetch(
     `http://192.168.137.103:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
@@ -20,9 +21,10 @@ followbtn.addEventListener("click", async () => {
       credentials: "same-origin",
     }
   );
-});
+})
 
 let user;
+
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -59,7 +61,7 @@ const userprofile = (u) =>
                     <div class="count">100 </div><div>Blogs</div>
                   </div>
                 </div>`;
-let i = 0;
+let i=0;
 const blogCard = (
   img,
   title,
@@ -75,12 +77,8 @@ const blogCard = (
                               ${handlecats(tags)}
                               </ul>
                               </div>
-                              <a href="../User/index.html?id=${
-                                user.id
-                              }" style="height: 0;">
-                                  <img class="author" src=${
-                                    user.imageurl
-                                  } alt="author-image">
+                              <a href="../User/index.html?id=${user.id}" style="height: 0;">
+                                  <img class="author" src=${user.imageurl} alt="author-image">
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
@@ -88,10 +86,42 @@ const blogCard = (
                               </div>
                               </div></a>`;
 let blogsj;
+async function followers(user) {
+  const followers = await fetch(
+    "http://192.168.137.103:3000/api/user/getFollowers?" + new URLSearchParams({ id: user.id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",},
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const followerslist=await followers.json();
+  return followerslist;
+}
+
+async function bookmarkedblogs(user) {
+  const blogs = await fetch(
+    "http://192.168.137.103:3000/api/user/getbookmarkedblogs?" + new URLSearchParams({ id: user.id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",},
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const bblogs=(await blogs.json()).bblogs;
+  return bblogs;
+}
+
+
+const queryParamsString = window.location.search?.substring(1);
+const id = queryParamsString?.substring(3);
+
 window.onload = async () => {
-  const queryParamsString = window.location.search?.substring(1);
-  const id = queryParamsString?.substring(3);
-  const userj = await fetch(
+  const userinfo = await fetch(
     "http://192.168.137.103:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
@@ -105,7 +135,8 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://192.168.137.103:3000/api/blog/getAllBlogs",
+    "http://192.168.137.103:3000/api/blog//allUserBlogs?" +
+      new URLSearchParams({ id: id }),
     {
       method: "GET",
       headers: {
@@ -117,39 +148,32 @@ window.onload = async () => {
     }
   );
   blogsj = await blogs.json();
-  user = (await userj.json()).user;
+  user = (await userinfo.json()).user;
 
-  const followerslist = await followers(user);
+  const followerslist= await followers(user);
   console.log(followerslist);
 
-  const bblogs = await bookmarkedblogs(user);
+  const bblogs= await bookmarkedblogs(user);
   console.log(bblogs);
 
   blogsj.map(async (b) => {
-    const tags = (await getblogtags(b.id)).cats;
+    const tags=(await getblogtags(b.id)).cats;
     document
       .getElementsByClassName("latest-cards row")[0]
-      .insertAdjacentHTML(
-        "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, tags)
-      );
-    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML = text;
+      .insertAdjacentHTML("afterbegin", blogCard(b.imageurl, b.title, b.content,tags));
+      const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text;
   });
 
   bblogs.map(async (b) => {
-    const tags = (await getblogtags(b.id)).cats;
+    const tags=(await getblogtags(b.id)).cats;
     document
       .getElementsByClassName("latest-cards row")[1]
-      .insertAdjacentHTML(
-        "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, tags)
-      );
-    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-      text.substring(0, 50) + ".....";
-    console.log(i + " " + text);
-  });
+      .insertAdjacentHTML("afterbegin", blogCard(b.imageurl, b.title, b.content,tags));
+    const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
+    console.log(i+" "+text)
+    });
 
   document
     .getElementsByClassName("profile-user-wrap")[0]
@@ -158,4 +182,3 @@ window.onload = async () => {
     .getElementsByClassName("user-desc")[0]
     .insertAdjacentHTML("afterbegin", user.about);
 };
-
