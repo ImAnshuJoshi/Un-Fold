@@ -4,34 +4,43 @@ const navMenu = document.querySelector(".nav-list");
 hamburger.addEventListener("click", mobileMenu);
 
 function mobileMenu() {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
 }
 const navLink = document.querySelectorAll(".nav-link");
 
-navLink.forEach(n => n.addEventListener("click", closeMenu));
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
 
 function closeMenu() {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
 }
 
-async function getblogtags(bid)
-{
-    const tags= await fetch(
-      `http://localhost:3000/api/category/getblogcategories?`+new URLSearchParams({id:bid}),
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "same-origin",
-      }
-    ); 
-    const blogtags= await tags.json();
-    return blogtags;
+async function getblogtags(bid) {
+  const tags = await fetch(
+    `http://192.168.137.103:3000/api/category/getblogcategories?` +
+      new URLSearchParams({ id: bid }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const blogtags = await tags.json();
+  return blogtags;
 }
+
+const categoryz = (img, name) => `   <div class="cat first">
+<div class="cat-img">
+  <img src="${img}" alt="">
+</div>
+<div class="cat-name">
+  <span>${name}</span>
+</div>
+</div>`;
 
 const blogz = (img,title,content,user,id,tags) =>
  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
@@ -50,30 +59,14 @@ const blogz = (img,title,content,user,id,tags) =>
             </a>
             <div class="desc">${title}</div>
             <div class="desc2">
-            ${content.substring(0,100)}....
+            ${content.substring(0, 100)}....
             </div>
             </div></a>`;
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.70.24:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },  
-      mode: "cors",
-      credentials: "same-origin",
-    }
-  );
-  const userj = await user.json();
-  return userj.user;
-};
-window.onload = async () => {
-  const blogs = await fetch(
-    "http://localhost:3000/api/blog/getAllBlogs",
     {
       method: "GET",
       headers: {
@@ -84,6 +77,42 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
+  const userj = await user.json();
+  return userj.user;
+};
+let categoryg;
+const categoriesfunc = async () => {
+  const categories = await fetch(
+    "http://192.168.70.24:3000/api/category/getallcategories",
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  categoryg = await categories.json();
+  console.log(categoryg);
+  categoryg.map(async (c) => {
+    document
+      .getElementById("category-id")
+      .insertAdjacentHTML("afterbegin", categoryz( c.imageurl,c.Title));
+  });
+};
+window.onload = async () => {
+  const blogs = await fetch("http://192.168.70.24:3000/api/blog/getAllBlogs", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    mode: "cors",
+    credentials: "same-origin",
+  });
+  categoriesfunc();
   blogsj = await blogs.json();
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
