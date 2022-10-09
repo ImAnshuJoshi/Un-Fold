@@ -192,7 +192,64 @@ nav img{
     justify-content: center;
     align-items: center;
 }
+/****************Followers**********/
+/**************** Categories names  *******************/
+#categories{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width:100vw;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+#categories h2{
+    color: #252525;
+    font-size: 1.8rem;
+    font-weight: 400;
+    padding-left: 3%;
+}
+#categories h2 span{
+    color: #f8bf8c;
+}
+.category-wrap{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height:300px;
+    width:80vw;
+    overflow: scroll;
+}
+.category-wrap .cat{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5% 1.4%;
+}
 
+.cat .cat-img img{
+    height:200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px #fdfdfd solid;
+    transition:transform .75s;
+}
+.cat .cat-img img:hover{
+    transform:scale(1.15);
+}
+.cat .cat-name{
+    justify-content: center;
+    text-align: center;
+}
+.cat .cat-name span{
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 500;
+    /* text-align: center; */
+}
 
 /******************* myblogs ****************/
 .blog-header{
@@ -387,10 +444,6 @@ button:hover{
 
 /******************* Recent-Blogs**************** */
 
-#recent{
-    /* height:100vh; */
-    /* background-color: #e5e5e5; */
-}
 .recent-wrap>h2{
     color:black;
     font-weight: 400;
