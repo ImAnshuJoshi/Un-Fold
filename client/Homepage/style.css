@@ -176,6 +176,7 @@ button:hover{
   }
   .latest-cards{
     margin-left: 150px;
+    /* width:100%; */
   }
   .child {
     width:400px;

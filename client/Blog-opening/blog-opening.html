@@ -40,36 +40,98 @@
         <div id="heading_of_blog">
         </div>
         <!------------ blog description ------------- -->
-      <section id="blog-description">
-  <div class="blog-content-description" id="blog-content-description">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem sit illum similique? Maxime quae est praesentium
-    nesciunt, dolorem veniam quidem repudiandae molestiae, modi ipsa neque beatae consequatur libero et corporis repellat.
-    Ratione quisquam modi saepe. Eaque saepe quidem nam sapiente quo harum quia sint, quaerat ad deserunt necessitatibus
-    quos ipsam iusto fugit voluptas tempore vitae optio aliquid cumque laborum. Ea dolore maiores tempore et, molestias
-    obcaecati nemo! Rerum sit architecto inventore sint reprehenderit tempore quibusdam atque veritatis voluptas harum animi
-    iste, alias facilis veniam optio necessitatibus numquam cupiditate expedita debitis unde nam aperiam iusto! Corporis
-    iusto architecto ullam corrupti incidunt quis recusandae tempore similique! Dolore, voluptatibus ducimus! Dicta ipsum
-    soluta dolorum pariatur culpa aut, nam, minima suscipit, delectus voluptates mollitia minus velit repellat fugiat natus
-    perspiciatis ratione? Pariatur cum possimus ea reprehenderit facilis odit soluta quaerat, molestias labore porro, quia
-    magni inventore suscipit ab numquam unde vero iure fugiat est consequatur, animi eum obcaecati quis ipsa! Dolorum
-    aliquam quam ipsa excepturi ad eos ea accusantium. Nemo accusamus ab incidunt atque inventore temporibus ratione, fuga,
-    porro similique, est natus eius unde quisquam dolores eveniet? Iure nisi repudiandae quisquam recusandae ex natus at
-    voluptatem aut soluta laboriosam? Eum consectetur iure rerum reiciendis!
-    <div class="reactions">
-      <div class="like">g
-        <i class="fa-regular fa-heart" onclick="changeHeartIcon(this)"></i>
-      </div>
-      <div class="comment">
-        <i class="fa-regular fa-comment" onclick="changeCommentIcon(this)"></i>
-      </div>
-    </div>
-  </div>
-        </section>
+        <section id="blog-description">
+          <div class="blog-content-description" id="blog-content-description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem sit illum similique? Maxime quae est praesentium
+            nesciunt, dolorem veniam quidem repudiandae molestiae, modi ipsa neque beatae consequatur libero et corporis repellat.
+            Ratione quisquam modi saepe. Eaque saepe quidem nam sapiente quo harum quia sint, quaerat ad deserunt necessitatibus
+            quos ipsam iusto fugit voluptas tempore vitae optio aliquid cumque laborum. Ea dolore maiores tempore et, molestias
+            obcaecati nemo! Rerum sit architecto inventore sint reprehenderit tempore quibusdam atque veritatis voluptas harum animi
+            iste, alias facilis veniam optio necessitatibus numquam cupiditate expedita debitis unde nam aperiam iusto! Corporis
+            iusto architecto ullam corrupti incidunt quis recusandae tempore similique! Dolore, voluptatibus ducimus! Dicta ipsum
+            soluta dolorum pariatur culpa aut, nam, minima suscipit, delectus voluptates mollitia minus velit repellat fugiat natus
+            perspiciatis ratione? Pariatur cum possimus ea reprehenderit facilis odit soluta quaerat, molestias labore porro, quia
+            magni inventore suscipit ab numquam unde vero iure fugiat est consequatur, animi eum obcaecati quis ipsa! Dolorum
+            aliquam quam ipsa excepturi ad eos ea accusantium. Nemo accusamus ab incidunt atque inventore temporibus ratione, fuga,
+            porro similique, est natus eius unde quisquam dolores eveniet? Iure nisi repudiandae quisquam recusandae ex natus at
+            voluptatem aut soluta laboriosam? Eum consectetur iure rerum reiciendis!
+            <div class="reactions">
+              <div class="like">
+                <i class="fa-regular fa-heart" onclick="changeHeartIcon(this)"><p class="likes_count"></p><p>Likes</p></i>
 
-        <div class="partition">
-          
+              </div>
+              <div class="comment">
+                <i class="fa-regular fa-comment" onclick="viewComment()"><p id="comments_count"></p><p>Comments</p></i>
+              </div>
+            </div>
+          </div>
+
+          <div id="all_comments">
+            <div class="comments-container">
+              <div><img src="../assets/person1.jpg" alt=""></div>
+            <div>
+              <p>Anshu Joshi</p>
+              <p>Great Blog!! Keep it up....</p>
+            </div>
+          </div>
+          <div class="comment-partition"></div>
+          <div class="comments-container">
+            <div><img src="../assets/person1.jpg" alt=""></div>
+            <div>
+              <p>Anshu Joshi</p>
+              <p>I agree with you....</p>
+            </div>
+          </div>
+          <div class="comment-partition"></div>
+          <div class="comments-container">
+            <div><img src="../assets/person1.jpg" alt=""></div>
+            <div>
+              <p>Anshu Joshi</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, accusantium!....</p>
+            </div>
+          </div>
+          <div class="comment-partition"></div>
+          <div class="comments-container">
+            <div><img src="../assets/person1.jpg" alt=""></div>
+            <div>
+              <p>Anshu Joshi</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos reprehenderit eveniet ut beatae, repellat consectetur quasi ea quos neque id itaque corporis nam nulla? Mollitia debitis reiciendis sequi ipsa saepe.</p>
+            </div>
+          </div>
+          <div class="comment-partition"></div>
+          <div class="comments-container">
+            <div><img src="../assets/person1.jpg" alt=""></div>
+            <div>
+              <p>Anshu Joshi</p>
+              <p>I agree with you....</p>
+            </div>
+          </div>
         </div>
-    
+          <!-- <section id="app">
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="comment">
+                <p v-for="items in item" v-text="items"></p>
+                  </div>
+                  </div>
+                  </div>
+              <div class="row">
+                <div class="col-6">
+              <textarea type="text" class="input" placeholder="Write a comment" v-model="newItem" @keyup.enter="addItem()"></textarea>
+                  <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+                </div>
+              </div>
+            </div>
+          </section> -->
+                </section>
+
+        
+                <div class="partition">
+                  
+                </div>
+
+
         <section id="you-might-like-section">
           <div class="check-blogs-you-may-like">
             You might <strong style="color:#f8bf8c;">Also Like</strong> ....

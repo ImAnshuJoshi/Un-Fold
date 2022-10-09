@@ -265,6 +265,99 @@ progress {
 .reactions .like .fa-solid{
     color: #f8bf8c;
 }
+.reactions>div>i>p{
+    color: black;
+}
+.container {
+	max-width: 680px;
+	margin: 30px auto;
+    margin-top: -150px;
+	background:none;
+	border-radius: 8px;
+	padding: 60px;
+    padding-right: 80px;
+    color:#f8bf8c
+}
+
+/* .margin-bottom {
+	150px;
+} */
+
+.comment {
+	display: block;
+	transition: all 1s;
+}
+
+.commentClicked {
+	min-height: 0px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	padding: 5px 10px
+}
+
+textarea {
+	width: 100%;
+	/* border: none;
+	background: #E8E8E8;
+	padding: 5px 10px;
+	height: 50%;
+	border-radius: 5px 5px 0px 0px;
+	border-bottom: 2px solid ;
+	margin-top: 15px; */
+}
+
+button.primaryContained {
+	background: #ffad65;
+	color: #fff;
+	padding: 10px 10px;
+	border: none;
+	margin-top: 0px;
+	cursor: pointer;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	font-size: 10px;
+	border-radius: 5px;
+}
+.user-comments{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 40vw;
+    width:30vw
+}
+.comment-partition{
+    height:10px;
+    text-align: center;
+    width:80vw;
+    color:rgb(0, 0, 0)
+}
+.comments-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    justify-content: center;
+    margin-bottom:auto;
+}
+.comments-container>div>img{
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+    background-size: cover;
+    margin-right: 10px;
+    transform: translateY(13px);
+}
+.comments-container>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.comments-container>div>p{
+    color:black;
+    height:auto;
+}
+
 /****** You might like section ******/
 
 .scroll-images {
@@ -532,7 +625,7 @@ footer{
         border-radius: 5%;
     }
     .blog-content-description{
-        padding: 2% 12%;
+        padding: -10% 12%;
         font-size: 1.3rem;
     }
 
