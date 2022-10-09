@@ -16,6 +16,16 @@ function closeMenu() {
   navMenu.classList.remove("active");
 }
 
+function handlecats(cats)
+{
+  let t=``;
+  cats.forEach((i)=>{
+    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+  })
+  console.log(t);
+  return (t)
+}
+
 async function getblogtags(bid) {
   const tags = await fetch(
     `http://localhost:3000/api/category/getblogcategories?` +
@@ -33,6 +43,8 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
+let i=0;
+
 const categoryz = (img, name) => `   <div class="cat first">
 <div class="cat-img">
   <img src="${img}" alt="">
@@ -42,24 +54,23 @@ const categoryz = (img, name) => `   <div class="cat first">
 </div>
 </div>`;
 
-const blogz = (img,title,content,user,id,tags) =>
+const blogCard = (img,title,content,user,id,tags) =>
  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags">
-            <li><a href="../category/index.html?id=${tags[0]?.id}">${tags[0]?.Title||'-'}</a></li>
-            <li><a href="../category/index.html?id=${tags[1]?.id}">${tags[1]?.Title||'-'}</a></li>
-            <li><a href="../category/index.html?id=${tags[2]?.id}">${tags[2]?.Title||'-'}</a></li>
+            ${handlecats(tags)}
+            <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
             <div class="desc">${title}</div>
-            <div class="desc2">
-            ${content.substring(0, 100)}....
+            <div class="desc2 ${i++}">
+            ${content}
             </div>
             </div></a>`;
 let blogsj;
@@ -121,7 +132,9 @@ window.onload = async () => {
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogz(b.imageurl, b.title, b.content, user,b.id,tags)
+        blogCard(b.imageurl, b.title, b.content, user,b.id,tags)
       );
+      const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
   });
 };

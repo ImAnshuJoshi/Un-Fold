@@ -1,20 +1,30 @@
-/* window.onload=
-    async() => {
-    const blogs=await fetch("http://192.168.2.100:3000/api/blog/getAllBlogs", {
-        method: "GET",
-        headers: {
+function handlecats(cats)
+{
+  let t=``;
+  cats.forEach((i)=>{
+    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+  })
+  console.log(t);
+  return (t)
+}
+const followbtn =document.getElementsByClassName('follow-btn')[0];
+followbtn.addEventListener('click',async()=>{
+  await fetch(
+    `http://localhost:3000/api/category/getblogcategories?` +
+      new URLSearchParams({ id: bid }),
+    {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        mode: "cors",
-        credentials: "same-origin",
-    })
-        blogsj=await blogs.json();
-        blogsj.map((b)=>{
-            document.getElementById('i1').insertAdjacentHTML('afterbegin',blogz(b.imageurl,b.title,b.content));
-        })
-    }; */
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+})
+
 let user;
+
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -51,7 +61,8 @@ const userprofile = (u) =>
                     <div class="count">100 </div><div>Blogs</div>
                   </div>
                 </div>`;
-const blogz = (
+let i=0;
+const blogCard = (
   img,
   title,
   content,
@@ -63,16 +74,14 @@ const blogz = (
                               </div>
                               <div class="tag-wrap">
                               <ul class="tags">
-                              <li><a href="../category/index.html?id=${tags[0]?.id}">${tags[0]?.Title||'-'}</a></li>
-                              <li><a href="../category/index.html?id=${tags[1]?.id}">${tags[1]?.Title||'-'}</a></li>
-                              <li><a href="../category/index.html?id=${tags[2]?.id}">${tags[2]?.Title||'-'}</a></li>
+                              ${handlecats(tags)}
                               </ul>
                               </div>
                               <a href="../User/index.html?id=${user.id}" style="height: 0;">
                                   <img class="author" src=${user.imageurl} alt="author-image">
                               </a>
                               <div class="desc">${title}</div>
-                              <div class="desc2">
+                              <div class="desc2 ${i++}">
                               ${content}
                               </div>
                               </div></a>`;
@@ -148,20 +157,23 @@ window.onload = async () => {
   console.log(bblogs);
 
   blogsj.map(async (b) => {
-    const user = await finduser(b.userId);
     const tags=(await getblogtags(b.id)).cats;
     document
       .getElementsByClassName("latest-cards row")[0]
-      .insertAdjacentHTML("afterbegin", blogz(b.imageurl, b.title, b.content,tags));
+      .insertAdjacentHTML("afterbegin", blogCard(b.imageurl, b.title, b.content,tags));
+      const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text;
   });
 
   bblogs.map(async (b) => {
-    const user = await finduser(b.userId);
     const tags=(await getblogtags(b.id)).cats;
     document
       .getElementsByClassName("latest-cards row")[1]
-      .insertAdjacentHTML("afterbegin", blogz(b.imageurl, b.title, b.content,tags));
-  });
+      .insertAdjacentHTML("afterbegin", blogCard(b.imageurl, b.title, b.content,tags));
+    const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
+    console.log(i+" "+text)
+    });
 
   document
     .getElementsByClassName("profile-user-wrap")[0]

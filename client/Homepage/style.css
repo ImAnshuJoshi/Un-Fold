@@ -275,7 +275,19 @@ button:hover{
     transform: translate(7px,-125px);
     background-size: cover;
 }
-
+.fa-regular{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-solid{
+    margin-left: 82.5px;
+    cursor: pointer;
+    user-select: none;
+}
+.fa-regular:hover, .fa-solid:hover {
+    color: #f8bf8c;
+}
 /**************** Categories names  *******************/
 #categories{
     margin-top: 50px;
