@@ -34,7 +34,7 @@ function handlecats(cats)
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://192.168.137.103:3000/api/category/getblogcategories?` +
+    `http://localhost:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -51,14 +51,14 @@ async function getblogtags(bid) {
 
 let i=0;
 
-const categoryz = (img, name) => `<div class="cat first">
+const categoryz = (c) => `<a href='../category/index.html?id=${c.id}'><div class="cat first">
 <div class="cat-img">
-  <img src="${img}" alt="">
+  <img src="${c.imageurl}" alt="">
 </div>
 <div class="cat-name">
-  <span>${name}</span>
+  <span>${c.Title}</span>
 </div>
-</div>`;
+</div></a>`;
 
 const blogCard = (img,title,content,user,id,tags) =>
  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
@@ -84,7 +84,7 @@ const blogCard = (img,title,content,user,id,tags) =>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -102,7 +102,7 @@ const finduser = async (id) => {
 let categoryg;
 const categoriesfunc = async () => {
   const categories = await fetch(
-    "http://192.168.137.103:3000/api/category/getallcategories",
+    "http://localhost:3000/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -117,11 +117,11 @@ const categoriesfunc = async () => {
   categoryg.map(async (c) => {
     document
       .getElementById("category-id")
-      .insertAdjacentHTML("afterbegin", categoryz( c.imageurl,c.Title));
+      .insertAdjacentHTML("afterbegin", categoryz(c));
   });
 };
 window.onload = async () => {
-  const blogs = await fetch("http://192.168.137.103:3000/api/blog/getAllBlogs", {
+  const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

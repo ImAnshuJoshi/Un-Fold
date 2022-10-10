@@ -9,7 +9,7 @@ function handlecats(cats) {
 const followbtn = document.getElementsByClassName("follow-btn")[0];
 followbtn.addEventListener("click", async () => {
   await fetch(
-    `http://192.168.137.103:3000/api/category/getblogcategories?` +
+    `http://localhost:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "POST",
@@ -23,10 +23,13 @@ followbtn.addEventListener("click", async () => {
 });
 
 let user;
+let no_of_followers;
+let no_of_following;
+let no_of_blogs;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://192.168.137.103:3000/api/category/getblogcategories?` +
+    `http://localhost:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -41,7 +44,7 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
-const userprofile = (u) =>
+const userprofile = (u,followers,following,blog) =>
   `<div class="profile-user-img">
                 <img src=${u.imageurl} alt="" />
                 </div>
@@ -50,13 +53,13 @@ const userprofile = (u) =>
                 </div>
                 <div class="user-followers">
                   <div class="followers stats">
-                    <div class="count">150 </div><div>Followers</div>
+                  <div class="count " id="followers-insert">${followers}</div><div>Followers</div>
                </div>
                   <div class="followings stats">
-                    <div class="count">100 </div><div>Following</div>
+                    <div class="count">${following}</div><div>Following</div>
                   </div>
                   <div class="blogs stats">
-                    <div class="count">100 </div><div>Blogs</div>
+                    <div class="count">${blog}</div><div>Blogs</div>
                   </div>
                 </div>`;
 let i = 0;
@@ -87,10 +90,21 @@ const blogCard = (
                               ${content}
                               </div>
                               </div></a>`;
+
+const follower_followingz = (img, fname, lname) => ` <div class="cat first">
+<div class="cat-img">
+  <img src="${img}" alt="">
+</div>
+<div class="cat-name">
+  <span>${fname} ${lname}</span>
+</div>
+</div>`;
+
+
 let blogsj;
 async function followers(user) {
   const followers = await fetch(
-    "http://192.168.137.103:3000/api/user/getFollowers?" +
+    "http://localhost:3000/api/user/getFollowers?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -107,7 +121,7 @@ async function followers(user) {
 
 async function bookmarkedblogs(user) {
   const blogs = await fetch(
-    "http://192.168.137.103:3000/api/user/getbookmarkedblogs?" +
+    "http://localhost:3000/api/user/getbookmarkedblogs?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -127,7 +141,7 @@ const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
   const userinfo = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -140,7 +154,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://192.168.137.103:3000/api/blog//allUserBlogs?" +
+    "http://localhost:3000/api/blog//allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -154,7 +168,7 @@ window.onload = async () => {
   );
   blogsj = await blogs.json();
   user = (await userinfo.json()).user;
-
+  no_of_blogs=blogsj.length;
   const bblogs = await bookmarkedblogs(user);
   // console.log(bblogs);
 
@@ -167,7 +181,7 @@ window.onload = async () => {
         blogCard(b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML = text;
+    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML = text.substring(0,100);
   });
 
   bblogs.map(async (b) => {
@@ -185,72 +199,63 @@ window.onload = async () => {
   });
 
   document
-    .getElementsByClassName("profile-user-wrap")[0]
-    .insertAdjacentHTML("afterbegin", userprofile(user));
-  document
     .getElementsByClassName("user-desc")[0]
     .insertAdjacentHTML("afterbegin", user.about);
 
   //Fetching user FOLLOWERS
-    const fetchfollower = await fetch(`http://192.168.137.103:3000/api/user/getFollowers?id=${user.id}`, {
+  const fetchfollower = await fetch(
+    `http://192.168.137.103:3000/api/user/getFollowers?id=${user.id}`,
+    {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
       credentials: "same-origin",
-    });
-    // console.log("User followers are as followings...");
-    const followers_list=await fetchfollower.json();
-    // console.log(followers_list);
-    followers_list.map(async (list) => {
-      document
-        .querySelector(".follower-class")
-        .insertAdjacentHTML("afterbegin", follower_followingz(list.imageurl, list.firstName,list.lastName));
-    });
-
+    }
+  );
+  // console.log("User followers are as followings...");
+  const followers_list = await fetchfollower.json();
+  no_of_followers = followers_list.length;
+  console.log("No of followers are:", no_of_followers);
+  followers_list.map(async (list) => {
+    document
+      .querySelector(".follower-class")
+      .insertAdjacentHTML(
+        "afterbegin",
+        follower_followingz(list.imageurl, list.firstName, list.lastName)
+      );
+  });
 
   //Fetching user FOLLOWINGS
-  const fetchfollowings = await fetch(`http://192.168.137.103:3000/api/user/getFollowing?id=${user.id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    credentials: "same-origin",
-  });
+  const fetchfollowings = await fetch(
+    `http://192.168.137.103:3000/api/user/getFollowing?id=${user.id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
   // console.log("User followings are as followings...");
-  const following_list=await fetchfollowings.json();
-  // console.log(following_list);
+  const following_list = await fetchfollowings.json();
+  no_of_following = following_list.length;
+  console.log("No of followings are:", no_of_following);
   following_list.map(async (list) => {
     document
       .querySelector(".followings-class")
-      .insertAdjacentHTML("afterbegin", follower_followingz(list.imageurl, list.firstName,list.lastName));
+      .insertAdjacentHTML(
+        "afterbegin",
+        follower_followingz(list.imageurl, list.firstName, list.lastName)
+      );
   });
 
+  //CALLING THE USERPROFILE DETAILS ONLY AFTER FETCHIG ALL THE DETAILS
+  document
+    .getElementsByClassName("profile-user-wrap")[0]
+    .insertAdjacentHTML("afterbegin", userprofile(user,no_of_followers,no_of_following,no_of_blogs));
 };
 
-//VIEWING FOLLOWERS
-// function viewfollowers() {
-//   var x = document.getElementsByClassName("followers-div");
-//   if (x.style.display === "none") {
-//     x.style.display = "block";
-//   } else {
-//     x.style.display = "none";
-//   }
-// }
-// document.getElementById("stats").addEventListener('click',()=>{
-//   viewfollowers();
-// })
-//VIEWING FOLLOWING
 
-//FETCHING FOLLOWERS AND FOLLOWINGS
-
-const follower_followingz = (img, fname,lname) => ` <div class="cat first">
-<div class="cat-img">
-  <img src="${img}" alt="">
-</div>
-<div class="cat-name">
-  <span>${fname} ${lname}</span>
-</div>
-</div>`;
