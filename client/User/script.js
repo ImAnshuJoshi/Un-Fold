@@ -187,7 +187,7 @@ window.onload = async () => {
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
     document
-      .getElementsByClassName("latest-cards row")[1]
+      .getElementsByClassName("latest-cards row 2")[0]
       .insertAdjacentHTML(
         "afterbegin",
         blogCard(b.imageurl, b.title, b.content, tags)
