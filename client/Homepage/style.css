@@ -174,10 +174,7 @@ button:hover{
   .scroll-images::-webkit-scrollbar-thumb {
     background-color: black;
   }
-  .latest-cards{
-    margin-left: 150px;
-    /* width:100%; */
-  }
+
   .child {
     width:400px;
     height:350px;
@@ -299,7 +296,11 @@ button:hover{
     user-select: none;
 }
 .fa-solid{
-    margin-left: 82.5px;
+    position: inherit;
+    left: 100%;
+    right: 0;
+    /* float: right; */
+    /* margin-left: 125px; */
     cursor: pointer;
     user-select: none;
 }
@@ -310,6 +311,7 @@ button:hover{
 .fa-regular:hover, .fa-solid:hover {
     color: #f8bf8c;
 }
+
 /**************** Categories names  *******************/
 #categories{
     margin-top: 50px;
@@ -393,13 +395,19 @@ button:hover{
 .row{
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
-    /* justify-content: center; */
+    justify-content: center;
     flex-wrap: wrap;
-    /* margin-left: 100px; */
     margin-bottom: 30px;
-    transform: translateX(-3vw);
 }
+
+#recent .bookmark .fa-regular{
+    color: black;
+}
+#recent .bookmark .fa-solid{
+    color: black;
+    
+}
+
 
 /******************STYLING HORIZONTAL SCROLL BAR*****************/
 ::-webkit-scrollbar {

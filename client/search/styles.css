@@ -7,6 +7,13 @@ body{
     overflow-x: hidden;
 }
 
+#Landing{
+    margin: -8px;
+    overflow-x: hidden;
+    /* padding:0; */
+    background: #252525;
+}
+
 /******* nav bar ******/  
 nav{
     display: flex;
@@ -216,6 +223,10 @@ nav img{
     list-style: none;
     padding-left: 13px;
 }
+.tags li a{
+    text-decoration: none;
+    color: #f1f1f1;
+}
 .tags>li{
     margin:3px;
     background-color: rgba(0,0,0,.3);
@@ -226,15 +237,37 @@ nav img{
 .search-tags>p{
     font-size: 20px;
 }
+.bookmark{
+    display: flex;
+    position: absolute;
+    height:20px;
+    width: 160px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    transform: translateX(-35px);
+}
 .fa-regular{
-    margin-left: 82.5px;
+    position: inherit;
+    left: 100%;
+    right: 0;
+    /* float: right; */
+    /* margin-left: 125px; */
     cursor: pointer;
     user-select: none;
 }
 .fa-solid{
-    margin-left: 82.5px;
+    position: inherit;
+    left: 100%;
+    right: 0;
+    /* float: right; */
+    /* margin-left: 125px; */
     cursor: pointer;
     user-select: none;
+}
+.tags .fa-regular{
+    float: right;
+
 }
 .fa-regular:hover, .fa-solid:hover {
     color: #f8bf8c;
@@ -242,8 +275,14 @@ nav img{
 
 #search{
     background-color: #252525;
-    margin:-8px;
-    margin-bottom: 20px;
+    /* margin:-8px; */
+    /* margin-bottom: 20px; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    /* margin:0px 150px; */
 }
 
 
@@ -353,9 +392,55 @@ footer{
     padding-top: 30px;
 }
 
-#search{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left:8%;
+
+
+/* media queries  */
+@media only screen and (max-width: 768px) {
+    .nav-list {
+        position: fixed;
+        left: -150%;
+        top: 5rem;
+        flex-direction: column;
+        background-color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow:
+            0 10px 27px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-list.active {
+        background-color: #252525;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .nav-item {
+        margin: 2.5rem 0;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    .fa-search{
+        position: relative;
+        margin-right: 200px;
+        top: 26px;
+    }
+
+
 }

@@ -16,6 +16,12 @@ function closeMenu() {
   navMenu.classList.remove("active");
 }
 
+
+function changeBookmarkIcon(x){
+  x.classList.toggle("fa-solid");
+}
+
+
 function handlecats(cats)
 {
   let t=``;

@@ -2,6 +2,24 @@ function changeBookmarkIcon(x){
   x.classList.toggle("fa-solid");
 }
 
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+}
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
+}
+
 function handlecats(cats)
 {
   let t=``;
@@ -14,7 +32,7 @@ function handlecats(cats)
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.137.103:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -41,7 +59,9 @@ const blogCard = (
             <div class="tag-wrap">
             <ul class="tags" style="color:white">
                 ${handlecats(tags)}
+                <div class="bookmark">
                 <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+              </div>
             </ul>
             </div>
             <div class="desc blog-title" style="color:white">${title}</div>
