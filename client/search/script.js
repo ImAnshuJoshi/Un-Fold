@@ -64,7 +64,7 @@ const userz = (img,fname,lname)=>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.137.103:3000/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -92,7 +92,7 @@ const searchtheword=()=>{
 }
 const searchBlogs= async ()=>{
   document.getElementById("search").innerHTML="";
-  const res=await fetch(`http://192.168.137.103:3000/api/blog/getAllBlogs`,  {
+  const res=await fetch(`http://localhost:3000/api/blog/getAllBlogs`,  {
     method: "GET",
     mode: "cors",
     credentials: "same-origin",
@@ -117,7 +117,7 @@ const blogs = await res.json();
 }
 
 const searchUsers= async ()=>{
-  const res=await fetch(`http://192.168.137.103:3000/api/user/getallusers`,  {
+  const res=await fetch(`http://localhost:3000/api/user/getallusers`,  {
     method: "GET",
     mode: "cors",
     credentials: "same-origin",
