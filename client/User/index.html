@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
-  <!-- <link href="./style.css"> -->
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&family=Jost:wght@300;400&display=swap"
@@ -21,16 +20,23 @@
 <body>
   <!-- creating the nav -->
   <nav>
-    <div class="name">Un<span>Fold</span></div>
-    <div>
+    <div class="logo">
+      <img src="../assets/High Resolution Logo - Transparent Background.png" alt="">
+      <a href="#" class="name">Un<span>Fold</span> </a>
+    </div>
       <ul class="nav-list">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">Compose</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
         <i class="fas fa fa-search" style="color: white"></i>
         <input class="input" type="text" placeholder="Search.." />
       </ul>
     </div>
+    <div class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+  </div>
   </nav>
 
 

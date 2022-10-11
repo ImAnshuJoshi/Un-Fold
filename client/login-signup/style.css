@@ -7,15 +7,26 @@ body{
 }
 
 /******* nav bar ******/  
-.navbar-container{
-    background-color: #252525;
-}
 nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-/* .nav-list{
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
+}
+.nav-list{
     list-style: none;
     display: flex;
     justify-content: center;
@@ -24,16 +35,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -59,37 +68,29 @@ nav{
 .nav-list>li>a:hover::before,
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
-} */
+}
+.hamburger {
+    display: none;
+}
 
-.name>span{
-    color:white;
-    font-family: 'Jost', sans-serif;
-    font-size: 6em;
-    margin-left: 5%;  
-    font-family: 'IBM Plex Sans', sans-serif;
-    position: relative;
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8bf8c;
 }
 .name{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom:-60px;
-}
-.unfold{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width:30vw;
-}
-.name>div{
-    display: block;
-}
-.landing-desc{
     color:white;
-    font-size:20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 48.7px;
+    margin-left: 20px;  
+    font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: none;
 }
-.name>span:nth-child(2){
+.name>span{
     color:#f8bf8c;
     font-family: 'Freehand', cursive;
 }
@@ -101,12 +102,15 @@ nav{
     padding:8.2px;
     padding-left: 30px;
 }
-/* .fa-search{
+.fa-search{
     position: relative;
     left:24px;
     z-index:999;
     opacity:0.4
-} */
+}
+nav img{
+    color: white;
+}
 
 /************* login signup page  **********/
 .hero{
@@ -270,3 +274,6 @@ span{
     text-decoration: none;
     cursor: pointer;
   }
+
+
+

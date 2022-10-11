@@ -174,10 +174,7 @@ button:hover{
   .scroll-images::-webkit-scrollbar-thumb {
     background-color: black;
   }
-  .latest-cards{
-    margin-left: 150px;
-    /* width:100%; */
-  }
+
   .child {
     width:400px;
     height:350px;
@@ -261,7 +258,10 @@ button:hover{
     background-color: rgba(0,0,0,.3);
     padding:3px 9px;
     border-radius: 5.2px;
-
+    /* text-decoration: none; */
+}
+.tags li a {
+    text-decoration: none;
 }
 #latest-blog-section{
     background-color: #252525;
@@ -276,19 +276,42 @@ button:hover{
     transform: translate(7px,-125px);
     background-size: cover;
 }
+.bookmark{
+    display: flex;
+    position: absolute;
+    height:20px;
+    width: 399px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    transform: translateX(-35px);
+}
 .fa-regular{
-    margin-left: 82.5px;
+    position: inherit;
+    left: 100%;
+    right: 0;
+    /* float: right; */
+    /* margin-left: 125px; */
     cursor: pointer;
     user-select: none;
 }
 .fa-solid{
-    margin-left: 82.5px;
+    position: inherit;
+    left: 100%;
+    right: 0;
+    /* float: right; */
+    /* margin-left: 125px; */
     cursor: pointer;
     user-select: none;
+}
+.tags .fa-regular{
+    float: right;
+
 }
 .fa-regular:hover, .fa-solid:hover {
     color: #f8bf8c;
 }
+
 /**************** Categories names  *******************/
 #categories{
     margin-top: 50px;
@@ -307,7 +330,7 @@ button:hover{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     text-align: center;
 }
 .category-wrap .cat{
@@ -372,13 +395,19 @@ button:hover{
 .row{
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
-    /* justify-content: center; */
+    justify-content: center;
     flex-wrap: wrap;
-    /* margin-left: 100px; */
     margin-bottom: 30px;
-    transform: translateX(-3vw);
 }
+
+#recent .bookmark .fa-regular{
+    color: black;
+}
+#recent .bookmark .fa-solid{
+    color: black;
+    
+}
+
 
 /******************STYLING HORIZONTAL SCROLL BAR*****************/
 ::-webkit-scrollbar {

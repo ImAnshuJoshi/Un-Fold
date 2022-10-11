@@ -1,22 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Redacted+Script:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
-
-@font-face {
-  font-family: 'WallSmith';
-  src: url(./assets/Wallsmith-Regular.ttf);
-  font-style: normal;
-}
 *{
-   
-/* background: rgb(0,0,0);
-background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(2,2,79,1) 55%, rgba(7,1,99,1) 100%);
-height:100%; */
-color:white;
-font-family: 'Jost', sans-serif;
-margin: 0;
-padding: 0;
+    /* background-color:#f5f5f5; */
+    font-family: 'Jost', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f1f1f1;
 }
 #Landing{
     margin: -8px;
@@ -29,10 +16,24 @@ padding: 0;
 /******* nav bar ******/
 
 nav{
+    background-color: #252525;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #252525;
+}
+
+nav .logo img{
+    display: inline;
+    color: white;
+    height: 65px;
+    width: 65px;
+    margin-left: 45px;
+    position: relative;
+    top: 15px;
+}
+
+nav a:first-child{
+    margin-left:100px;
 }
 .nav-list{
     list-style: none;
@@ -43,16 +44,14 @@ nav{
 }
 .nav-list>li{
     margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
+    /* padding-right:15px; */
+    margin-right: 20px;
+    font-size: 1.4rem;
 }
 .nav-list>li>a{
     text-decoration: none;
     color:white;
     font-family: 'Jost', sans-serif;
-
     position:relative;
     display: inline-block;
 }
@@ -79,13 +78,26 @@ nav{
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
 }
+.hamburger {
+    display: none;
+}
 
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #f8bf8c;
+}
 .name{
     color:white;
     font-family: 'Jost', sans-serif;
     font-size: 48.7px;
     margin-left: 20px;  
     font-family: 'IBM Plex Sans', sans-serif;
+    text-decoration: none;
 }
 .name>span{
     color:#f8bf8c;
@@ -105,6 +117,10 @@ nav{
     z-index:999;
     opacity:0.4
 }
+nav img{
+    color: white;
+}
+
 
 
 /***************profile-user-img************************/
@@ -199,9 +215,6 @@ nav{
     font-weight: 400;
     padding-left: 3%;
 }
-#categories>h2{
-    color:black;
-}
 #categories h2 span{
     color: #f8bf8c;
 }
@@ -237,7 +250,7 @@ nav{
     text-align: center;
 }
 .cat .cat-name span{
-    color: #000000;
+    color: #ffffff;
     font-size: 1.4rem;
     font-weight: 500;
     /* text-align: center; */
@@ -255,12 +268,6 @@ nav{
 .latest-cards{
     /* height:1000px; */
     color:black;
-    /* margin-left: 5vw;; */
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
 }
 .author{
     height: 50px;
@@ -269,116 +276,6 @@ nav{
     margin-left: 12px;
     transform: translate(7px,-100px);
     background-size: cover;
-}
-
-
-
-
-
-/*************************************************/
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Redacted+Script:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
-
-
-@font-face {
-  font-family: 'WallSmith';
-  src: url(./assets/Wallsmith-Regular.ttf);
-  font-style: normal;
-}
-*{
-   
-/* background: rgb(0,0,0);
-background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(2,2,79,1) 55%, rgba(7,1,99,1) 100%);
-height:100%; */
-color:white;
-font-family: 'Jost', sans-serif;
-}
-#Landing{
-    margin: -8px;
-    overflow-x: hidden;
-    /* padding:0; */
-    background: #252525;
-    height:100vh;
-}
-
-/******* nav bar ******/
-
-nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.nav-list{
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-}
-.nav-list>li{
-    margin:10px;
-    padding-right:30px;
-    margin-right: 40px;
-    font-size: 23px;
-
-}
-.nav-list>li>a{
-    text-decoration: none;
-    color:white;
-    font-family: 'Jost', sans-serif;
-
-    position:relative;
-    display: inline-block;
-}
-.nav-list>li>a::before,
-.nav-list>li>a::after{
-    content:'';
-    position:absolute;
-    left: 0;
-    width:100%;
-    height:2px;
-    background-color: #f8bf8c;
-    transform: scaleX(0);
-    transition: transform 0.25s ;
-}
-.nav-list>li>a::before{
-    top:-3px;
-    transform-origin: left;
-}
-.nav-list>li>a::after{
-    bottom:-3px;
-    transform-origin: right;
-}
-.nav-list>li>a:hover::before,
-.nav-list>li>a:hover::after{
-    transform:scaleX(1);
-}
-
-.name{
-    color:white;
-    font-family: 'Jost', sans-serif;
-    font-size: 48.7px;
-    margin-left: 20px;  
-    font-family: 'IBM Plex Sans', sans-serif;
-}
-.name>span{
-    color:#f8bf8c;
-    font-family: 'Freehand', cursive;
-}
-.input{
-    background: none;
-    border:1px solid #f8bf8c;
-    margin-right: 20px;
-    border-radius: 30px;
-    padding:8.2px;
-    padding-left: 30px;
-}
-.fa-search{
-    position: relative;
-    left:24px;
-    z-index:999;
-    opacity:0.4
 }
 
 /****** upper-body ******/

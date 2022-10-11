@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="editor.css" />
+  <!-- <link rel="stylesheet" href="editor.css"> -->
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,20 +18,30 @@
   <title>search</title>
 </head>
 <body>
+  <section id="Landing">
+    <nav>
+      <div class="logo">
+        <img src="../assets/High Resolution Logo - Transparent Background.png" alt="">
+        <a href="#" class="name">Un<span>Fold</span> </a>
+      </div>
+        <ul class="nav-list">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          <i class="fas fa fa-search" style="color: white"></i>
+          <input class="input search-input" type="text" placeholder="Search.." />
+          <button onclick="searchtheword()">Search</button>
+        </ul>
+      </div>
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    </nav>
+  </section>
     <div class="navbar-container">
-        <nav>
-            <div class="name">Un<span>Fold</span></div>
-            <div>
-              <ul class="nav-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <i class="fas fa fa-search" style="color: white"></i>
-                <input class="input search-input" type="text" placeholder="Search.." />
-                <button onclick="searchtheword()">Search</button>
-              </ul>
-            </div>
-          </nav>
+      
     </div>
     
     <div class="search-text">
@@ -44,128 +54,6 @@
   </div>
 
     <section id="search" style="color:white">
-          <!-- <div class="cover">
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/food.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-
-            </div> -->
-            <!-- <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/lighthouse.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-
-            </div>
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/splash vegetable.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-
-            </div>
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/shutterbug.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet.</div>
-
-            </div>
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/VR.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet.</div>
-
-            </div>
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/workspace.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-
-            </div>
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/pexels-faruk-tokluoğlu-6777376.jpg" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-            </div>
-
-            <div class="blog-details">
-              <div class="img-container">
-                <img src="../assets/High Resolution Logo - Transparent Background.png" alt="" />
-              </div>
-              <div class="tag-wrap">
-                <ul class="tags">
-                  <li>Design</li>
-                  <li>Coding</li>
-                  <li>Fun</li>
-                  <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-                </ul>
-              </div>
-              <div class="blog-title">Lorem ipsum dolor sit amet consectetur.</div>
-
-            </div>
-        </div> -->
     </section>
 
     <div class="search-text search-tags">

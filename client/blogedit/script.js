@@ -1,3 +1,25 @@
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+}
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
+}
+
+function changeBookmarkIcon(x){
+  x.classList.toggle("fa-solid");
+}
+
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");
 // let fontName = document.getElementById("fontName");
@@ -9,15 +31,15 @@ let spacingButtons = document.querySelectorAll(".spacing");
 let formatButtons = document.querySelectorAll(".format");
 let scriptButtons = document.querySelectorAll(".script");
 //List of fontlist
-let fontList = [
-  "Arial",
-  "Verdana",
-  "Times New Roman",
-  "Garamond",
-  "Georgia",
-  "Courier New",
-  "cursive",
-];
+// let fontList = [
+//   "Arial",
+//   "Verdana",
+//   "Times New Roman",
+//   "Garamond",
+//   "Georgia",
+//   "Courier New",
+//   "cursive",
+// ];
 //Initial Settings
 const initializer = () => {
   //function calls for highlighting buttons
