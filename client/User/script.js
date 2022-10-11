@@ -1,3 +1,6 @@
+import {set} from '../currentuser.js'
+import get from '../currentuser.js';
+
 function handlecats(cats) {
   let t = ``;
   cats.forEach((i) => {
@@ -140,6 +143,8 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
+  set('a','b');
+  console.log(get());
   const userinfo = await fetch(
     "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
