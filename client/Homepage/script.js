@@ -1,7 +1,11 @@
 import get from "../currentuser.js";
-import {set} from "../currentuser.js";
+let currentlyloggedinuser;
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
+
+function changeBookmarkIcon(x) {
+  if (x.classList.includes(fa - solid)) x.classList.toggle("fa-solid");
+}
 
 hamburger.addEventListener("click", mobileMenu);
 
@@ -16,10 +20,6 @@ navLink.forEach((n) => n.addEventListener("click", closeMenu));
 function closeMenu() {
   hamburger.classList.remove("active");
   navMenu.classList.remove("active");
-}
-
-function changeBookmarkIcon(x) {
-  x.classList.toggle("fa-solid");
 }
 
 function handlecats(cats) {
@@ -48,6 +48,21 @@ async function getblogtags(bid) {
 }
 
 let i = 0;
+async function bookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
+}
 
 const categoryz = (
   c
@@ -81,6 +96,37 @@ const blogCard = (img, title, content, user, id, tags) =>
             ${content}
             </div>
             </div></a>`;
+const blogCard2 = (img, title, content, user, id, tags) =>
+  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="follow-cards column">
+  <div class="blog-details">
+                      <div class="child">
+                      <img src = ${img} alt="" />
+                      </div>
+                      <div class="tag-wrap">
+                      <ul class="tags">
+                      ${handlecats(tags)}
+                      <div class="bookmark">
+                      <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+                      </div>
+                      </ul>
+                      </div>
+                      <a href="../User/index.html?id=${
+                        user.id
+                      }" style="height: 0;">
+                          <img class="author" src=${
+                            user.imageurl
+                          } alt="author-image">
+                      </a>
+                      <div class="desc">${title}</div>
+                      <div class="desc2 ${i++}">
+                      ${content}
+                      </div>
+                      </div></div></a>`;
+
+{
+  /* */
+}
+
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
@@ -121,8 +167,7 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  set("SAAA", "G")
-  console.log(get());
+  currentlyloggedinuser = get();
   const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
@@ -134,6 +179,31 @@ window.onload = async () => {
   });
   categoriesfunc();
   blogsj = await blogs.json();
+  const followingblogs = await fetch(
+    "http://localhost:3000/api/user/getFollowingblogs?" +
+      new URLSearchParams({ id: currentlyloggedinuser.id }),
+    {
+      method: "GET",
+      headers: {},
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const followingblogsj = (await followingblogs.json()).followingblogs;
+  console.log(followingblogsj);
+  followingblogsj.map(async (b) => {
+    const user = await finduser(b.userId);
+    const tags = (await getblogtags(b.id)).cats;
+    document
+      .getElementsByClassName("latest-cards row")[0]
+      .insertAdjacentHTML(
+        "afterbegin",
+        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags)
+      );
+    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+      text.substring(0, 50) + ".....";
+  });
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;

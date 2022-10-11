@@ -1,5 +1,31 @@
-function changeBookmarkIcon(x) {
+import get from "../currentuser.js";
+let currentlyloggedinuser;
+window.changeBookmarkIcon = async (x) => {
+  const id = x.parentNode.parentNode.parentNode.id;
+  if (x.classList.value.includes("fa-solid")) {
+    console.log("unbookmark")
+  } else {
+    
+    console.log("bookmarked")
+    await addbookmark(id);
+  }
   x.classList.toggle("fa-solid");
+};
+async function addbookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body)
+  const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
 }
 
 const hamburger = document.querySelector(".hamburger");
@@ -28,8 +54,8 @@ function handlecats(cats) {
   return t;
 }
 
-const blogcard = (blog,tags) => `
-<div class="blog-details">
+const blogcard = (blog, tags,K) => `
+<div class="blog-details" id=${blog.id}>
                     <div class="img-container">
                       <img src=${blog.imageurl} alt="" />
                     </div>
@@ -44,7 +70,6 @@ const blogcard = (blog,tags) => `
                   </div>`;
 
 /************************************FETCHING BLOG****************************** */
-
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -65,6 +90,7 @@ async function getblogtags(bid) {
 
 let blog_id;
 window.onload = async () => {
+  currentlyloggedinuser = get();
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
   console.log("Id is:", blog_id);
@@ -81,15 +107,37 @@ window.onload = async () => {
     }
   );
   const userinfo = (await user.json()).user;
-  console.log(userinfo);
-  const userblogs=await getuserblogs(userinfo.id);
-  userblogs.map(async(b)=>{
-    const t=await getblogtags(b.id); 
+  const bmarkedblogs= await getbmarkedblogs(currentlyloggedinuser.id);
+  const bmarkedblogsk=bmarkedblogs.map((b)=>b.id);
+  console.log(bmarkedblogsk);
+  const userblogs = await getuserblogs(userinfo.id);
+  userblogs.map(async (b) => {
+    const t = await getblogtags(b.id);
+    let K=false;
+    if(bmarkedblogsk.includes(b.id))
+    K=true;
     console.log(t);
-    document.getElementById('scroll-images')
-    .insertAdjacentHTML('afterbegin',blogcard(b,t.cats))
-  })
+    document
+      .getElementById("scroll-images")
+      .insertAdjacentHTML("afterbegin", blogcard(b, t.cats,K));
+  });
 };
+async function getbmarkedblogs(id) {
+  const blogs = await fetch(
+    "http://localhost:3000/api/user/getbookmarkedblogs?id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const allblogs = await blogs.json();
+  return allblogs.bblogs;
+}
+
 async function getuserblogs(id) {
   const blogs = await fetch(
     "http://localhost:3000/api/blog/alluserBlogs?id=" + id,
@@ -103,7 +151,7 @@ async function getuserblogs(id) {
     }
   );
   const allblogs = await blogs.json();
-  return (allblogs);
+  return allblogs;
 }
 
 const findblog = async (id) => {
