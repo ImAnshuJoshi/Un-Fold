@@ -1,5 +1,5 @@
-import {set} from '../currentuser.js'
-import get from '../currentuser.js';
+import { set } from "../currentuser.js";
+import get from "../currentuser.js";
 
 function handlecats(cats) {
   let t = ``;
@@ -12,7 +12,7 @@ function handlecats(cats) {
 const followbtn = document.getElementsByClassName("follow-btn")[0];
 followbtn.addEventListener("click", async () => {
   await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.68.155:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "POST",
@@ -32,7 +32,7 @@ let no_of_blogs;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.68.155:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -47,7 +47,7 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
-const userprofile = (u,followers,following,blog) =>
+const userprofile = (u, followers, following, blog) =>
   `<div class="profile-user-img">
                 <img src=${u.imageurl} alt="" />
                 </div>
@@ -103,11 +103,10 @@ const follower_followingz = (img, fname, lname) => ` <div class="cat first">
 </div>
 </div>`;
 
-
 let blogsj;
 async function followers(user) {
   const followers = await fetch(
-    "http://localhost:3000/api/user/getFollowers?" +
+    "http://192.168.68.155:3000/api/user/getFollowers?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -124,7 +123,7 @@ async function followers(user) {
 
 async function bookmarkedblogs(user) {
   const blogs = await fetch(
-    "http://localhost:3000/api/user/getbookmarkedblogs?" +
+    "http://192.168.68.155:3000/api/user/getbookmarkedblogs?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -143,10 +142,10 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  set('a','b');
-  console.log(get());
+  set("abc defasdasd", "45ea82fe-5a2d-402b-a19c-fccafa383b85");
+  const logged_in_user = get();
   const userinfo = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.68.155:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -159,7 +158,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://localhost:3000/api/blog//allUserBlogs?" +
+    "http://192.168.68.155:3000/api/blog//allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -173,7 +172,7 @@ window.onload = async () => {
   );
   blogsj = await blogs.json();
   user = (await userinfo.json()).user;
-  no_of_blogs=blogsj.length;
+  no_of_blogs = blogsj.length;
   const bblogs = await bookmarkedblogs(user);
   // console.log(bblogs);
 
@@ -186,7 +185,8 @@ window.onload = async () => {
         blogCard(b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML = text.substring(0,100);
+    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+      text.substring(0, 100);
   });
 
   bblogs.map(async (b) => {
@@ -209,7 +209,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWERS
   const fetchfollower = await fetch(
-    `http://192.168.137.103:3000/api/user/getFollowers?id=${user.id}`,
+    `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
     {
       method: "GET",
       headers: {
@@ -222,7 +222,7 @@ window.onload = async () => {
   // console.log("User followers are as followings...");
   const followers_list = await fetchfollower.json();
   no_of_followers = followers_list.length;
-  console.log("No of followers are:", no_of_followers);
+  // console.log("No of followers are:", no_of_followers);
   followers_list.map(async (list) => {
     document
       .querySelector(".follower-class")
@@ -234,7 +234,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWINGS
   const fetchfollowings = await fetch(
-    `http://192.168.137.103:3000/api/user/getFollowing?id=${user.id}`,
+    `http://192.168.68.155:3000/api/user/getFollowing?id=${user.id}`,
     {
       method: "GET",
       headers: {
@@ -247,7 +247,7 @@ window.onload = async () => {
   // console.log("User followings are as followings...");
   const following_list = await fetchfollowings.json();
   no_of_following = following_list.length;
-  console.log("No of followings are:", no_of_following);
+  // console.log("No of followings are:", no_of_following);
   following_list.map(async (list) => {
     document
       .querySelector(".followings-class")
@@ -260,7 +260,107 @@ window.onload = async () => {
   //CALLING THE USERPROFILE DETAILS ONLY AFTER FETCHIG ALL THE DETAILS
   document
     .getElementsByClassName("profile-user-wrap")[0]
-    .insertAdjacentHTML("afterbegin", userprofile(user,no_of_followers,no_of_following,no_of_blogs));
+    .insertAdjacentHTML(
+      "afterbegin",
+      userprofile(user, no_of_followers, no_of_following, no_of_blogs)
+    );
+
+  //MANAGING FOLLOW AND UNFOLLOW PART
+  var follower_ids = followers_list;
+  for (var i = 0; i < followers_list.length; i++) {
+    follower_ids[i] = followers_list[i].id;
+  }
+  console.log(follower_ids);
+  console.log(follower_ids.includes(logged_in_user.id));
+  if (user.id === logged_in_user.id) {
+    document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
+  } else {
+    console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
+    if (follower_ids.includes(logged_in_user.id)) {
+      document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";
+      const body = {
+        id1: user.id,
+        id2: logged_in_user.id,
+      };
+      document
+        .getElementById("follow-unfollow-edit")
+        .addEventListener("click", async () => {
+          const res = await fetch(
+            `http://192.168.68.155:3000/api/user/unfollowUser`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(body),
+              mode: "cors",
+              credentials: "same-origin",
+            }
+          );
+          console.log(res);
+          document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
+          const newfetchfollower = await fetch(
+            `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              mode: "cors",
+              credentials: "same-origin",
+            }
+          );
+          console.log(newfetchfollower);
+          const followers_list = await newfetchfollower.json();
+          no_of_followers = followers_list.length;
+          console.log("No of followers are:", no_of_followers);
+          document.getElementById("followers-insert").innerHTML =
+            no_of_followers;
+            location.reload();
+        });
+        
+    } else {
+      document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
+      const body = {
+        id1: user.id,
+        id2: logged_in_user.id,
+      };
+      document
+        .getElementById("follow-unfollow-edit")
+        .addEventListener("click", async () => {
+          const res = await fetch(
+            `http://192.168.68.155:3000/api/user/followUser`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(body),
+              mode: "cors",
+              credentials: "same-origin",
+            }
+          );
+          document.getElementById("follow-unfollow-edit").innerHTML =
+            "UNFOLLOW";
+          const newfetchfollower = await fetch(
+            `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              mode: "cors",
+              credentials: "same-origin",
+            }
+          );
+          console.log(newfetchfollower);
+          const followers_list = await newfetchfollower.json();
+          no_of_followers = followers_list.length;
+          console.log("No of followers are:", no_of_followers);
+          document.getElementById("followers-insert").innerHTML =
+            no_of_followers;
+            location.reload();
+        });
+    }
+  }
 };
-
-
