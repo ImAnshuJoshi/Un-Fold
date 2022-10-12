@@ -6,6 +6,7 @@ const upload = require("../Config/multerConfig");
 router.get("/getAllBlogs", blogcontroller.getAllBlogs);
 router.get("/getblogbyid", blogcontroller.getblogbyid);
 router.get("/allUserBlogs",blogcontroller.getUserBlogs);
+router.get("/getlikedusers",blogcontroller.getUserBlogs);
 router.post("/addBlog", upload.single("item"), blogcontroller.addBlog);
 router.post("/addblogcategory",blogcontroller.addblogcat);
 router.put("/editBlog",upload.single("item"),blogcontroller.editBlog);

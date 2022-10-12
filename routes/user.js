@@ -18,6 +18,8 @@ router.post('/bookmarkblog', usercontroller.bookmarkblog)
 
 router.post('/unbookmarkblog', usercontroller.unbookmarkblog)
 
+router.get('/getFollowingblogs', usercontroller.getFollowingblogs)
+
 router.get('/getbookmarkedblogs', usercontroller.getbookmarkedblogs)
 
 router.get('/getFollowers', usercontroller.getFollowers)

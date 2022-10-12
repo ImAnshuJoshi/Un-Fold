@@ -148,19 +148,17 @@ exports.getFollowing = async (req, res, next) => {
   }
 }
 
-/* exports.getFollowingblogs = async (req, res, next) => {
+exports.getFollowingblogs = async (req, res, next) => {
   const { id } = req.query
   try {
     const currentuser = await db.user.findOne({ where: { id: id } })
-    const FollowingList = await currentuser.getFollower()
-    res.status(200).send(FollowingList)
+    const FollowingList = (await currentuser.getFollower({attributes:['id']})).map((m)=>m.id);
+    const blogs= await db.blog.findAll({where:{userId:FollowingList},order:[['updatedAt','DESC']]})
+    res.status(200).json({followingblogs:blogs})
   } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      error: 'Database error occurred while signing in!',
-    })
+    next(e);
   }
-} */
+}
 
 exports.bookmarkblog = async (req, res) => {
   try {
