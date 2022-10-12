@@ -34,7 +34,7 @@ function handlecats(cats)
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.68.155:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -84,7 +84,7 @@ const blogCard = (img,title,content,user,id,tags) =>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://192.168.68.155:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -102,7 +102,7 @@ const finduser = async (id) => {
 let categoryg;
 const categoriesfunc = async () => {
   const categories = await fetch(
-    "http://localhost:3000/api/category/getallcategories",
+    "http://192.168.68.155:3000/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -121,7 +121,7 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
+  const blogs = await fetch("http://192.168.68.155:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 *{
-    /* background-color:#f5f5f5; */
+    background-color: #252525;
     font-family: 'Jost', sans-serif;
     margin: 0;
     padding: 0;
@@ -16,7 +16,6 @@
 /******* nav bar ******/
 
 nav{
-    background-color: #252525;
     display: flex;
     justify-content: space-between;
     align-items: center;
