@@ -3,17 +3,41 @@ let currentlyloggedinuser;
 window.changeBookmarkIcon = async (x) => {
   const id = x.parentNode.parentNode.parentNode.id;
   if (x.classList.value.includes("fa-solid")) {
-    console.log("unbookmark")
+    console.log("unbookmarked");
+    await removebookmark(id);
   } else {
-    
-    console.log("bookmarked")
+    console.log("bookmarked");
     await addbookmark(id);
   }
   x.classList.toggle("fa-solid");
 };
+
+function bookmarksign(K) {
+  if (K) {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+  } else {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+  }
+}
+async function removebookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://localhost:3000/api/user/unbookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to unBookmark :(");
+}
 async function addbookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
-  console.log(body)
+  console.log(body);
   const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
@@ -54,7 +78,7 @@ function handlecats(cats) {
   return t;
 }
 
-const blogcard = (blog, tags,K) => `
+const blogcard = (blog, tags, K) => `
 <div class="blog-details" id=${blog.id}>
                     <div class="img-container">
                       <img src=${blog.imageurl} alt="" />
@@ -62,7 +86,7 @@ const blogcard = (blog, tags,K) => `
                     <div class="tag-wrap">
                       <ul class="tags">
                         ${handlecats(tags)}
-                        <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+                        ${bookmarksign(K)}
                       </ul>
                     </div>
                     <div class="blog-title">${blog.title}</div>
@@ -107,19 +131,18 @@ window.onload = async () => {
     }
   );
   const userinfo = (await user.json()).user;
-  const bmarkedblogs= await getbmarkedblogs(currentlyloggedinuser.id);
-  const bmarkedblogsk=bmarkedblogs.map((b)=>b.id);
+  const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
+  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
   console.log(bmarkedblogsk);
   const userblogs = await getuserblogs(userinfo.id);
   userblogs.map(async (b) => {
     const t = await getblogtags(b.id);
-    let K=false;
-    if(bmarkedblogsk.includes(b.id))
-    K=true;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     console.log(t);
     document
       .getElementById("scroll-images")
-      .insertAdjacentHTML("afterbegin", blogcard(b, t.cats,K));
+      .insertAdjacentHTML("afterbegin", blogcard(b, t.cats, K));
   });
 };
 async function getbmarkedblogs(id) {

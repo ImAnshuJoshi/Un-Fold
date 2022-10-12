@@ -3,6 +3,74 @@ let currentlyloggedinuser;
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
+window.changeBookmarkIcon = async (x) => {
+  const id = x.parentNode.parentNode.parentNode.id;
+  if (x.classList.value.includes("fa-solid")) {
+    console.log("unbookmarked");
+    await removebookmark(id);
+  } else {
+    console.log("bookmarked");
+    await addbookmark(id);
+  }
+  x.classList.toggle("fa-solid");
+};
+async function getbmarkedblogs(id) {
+  const blogs = await fetch(
+    "http://localhost:3000/api/user/getbookmarkedblogs?id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const allblogs = await blogs.json();
+  return allblogs.bblogs;
+}
+function bookmarksign(K) {
+  if (K) {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+  } else {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+  }
+}
+async function removebookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://localhost:3000/api/user/unbookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to unBookmark :(");
+}
+async function addbookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
+}
+
+
+
 function changeBookmarkIcon(x) {
   if (x.classList.includes(fa - solid)) x.classList.toggle("fa-solid");
 }
@@ -75,28 +143,29 @@ const categoryz = (
 </div>
 </div></a>`;
 
-const blogCard = (img, title, content, user, id, tags) =>
+const blogCard = (img, title, content, user, id, tags,K) =>
   `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
-            </div>
+            </div></a>
             <div class="tag-wrap">
             <ul class="tags">
             ${handlecats(tags)}
             <div class="bookmark">
-            <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+            ${bookmarksign(K)}
             </div>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
+            <a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="desc">${title}</div>
             <div class="desc2 ${i++}">
             ${content}
             </div>
             </div></a>`;
-const blogCard2 = (img, title, content, user, id, tags) =>
+const blogCard2 = (img, title, content, user, id, tags,K) =>
   `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="follow-cards column">
   <div class="blog-details">
                       <div class="child">
@@ -106,7 +175,7 @@ const blogCard2 = (img, title, content, user, id, tags) =>
                       <ul class="tags">
                       ${handlecats(tags)}
                       <div class="bookmark">
-                      <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+                      ${bookmarksign(K)}
                       </div>
                       </ul>
                       </div>
@@ -191,27 +260,35 @@ window.onload = async () => {
   );
   const followingblogsj = (await followingblogs.json()).followingblogs;
   console.log(followingblogsj);
+  const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
+  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
+  console.log(bmarkedblogsk);
   followingblogsj.map(async (b) => {
     const user = await finduser(b.userId);
-    const tags = (await getblogtags(b.id)).cats;
+    const tags = (await getblogtags(b.id)).cats;  
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;  
     document
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags,K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
   });
+ 
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags,K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
