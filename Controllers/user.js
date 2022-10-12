@@ -21,12 +21,22 @@ exports.signup = async (req, res, next) => {
       imageurl: result.secure_url,
       cloudid: result.public_id,
     })
-    res.json(reguser)
+    if (reguser) {
+      const token = jwt.sign({ email: req.body.email, id: req.body.id }, process.env.secretstring, {
+        expiresIn: '10h',
+      })
+      res.status(200).json({
+        user: currentuser,
+        message: 'User has been signed in!',
+        token: token,
+      })
+    } else {
+      res.status(400).json({
+        message: 'Database error',
+      }) 
+    }
   } catch (e) {
-    console.log(e);
-    res.status(500).json({
-      error: e.errors[0].message,
-    })
+    next(e)
   }
   /* const u2=await db.user.create({
     firstName: 'AAAA',
@@ -46,24 +56,24 @@ exports.login = async (req, res, next) => {
     const { email, password } = req.body
     if (!email) {
       res.status(400).json({
-        error: 'Email is empty',
+        message: 'Email is empty',
       })
     }
     const currentuser = await db.user.findOne({ where: { email: email } })
     if (!currentuser) {
       res.status(400).json({
-        error: 'User is not registered, Sign Up first',
+        message: 'User is not registered, Sign Up first',
       })
     } else {
       bcrypt.compare(password, currentuser.password, (err, result) => {
         //Comparing the hashed password
         if (err) {
           res.status(500).json({
-            error: 'Server error',
+            message: 'Server error',
           })
         } else {
           if (result) {
-            const token = jwt.sign({ email: email }, process.env.secretstring, {
+            const token = jwt.sign({ email: email, id: currentuser.id }, process.env.secretstring, {
               expiresIn: '10h',
             })
             res.cookie('token', token)
@@ -73,13 +83,13 @@ exports.login = async (req, res, next) => {
               token: token,
             })
           } else {
-            res.status(400).json({ error: 'Enter correct password!' })
+            res.status(400).json({ message: 'Enter correct password!' })
           }
         }
       })
     }
   } catch (err) {
-    error.next();
+    next(err)
   }
 }
 
@@ -139,6 +149,20 @@ exports.getFollowing = async (req, res, next) => {
   }
 }
 
+/* exports.getFollowingblogs = async (req, res, next) => {
+  const { id } = req.query
+  try {
+    const currentuser = await db.user.findOne({ where: { id: id } })
+    const FollowingList = await currentuser.getFollower()
+    res.status(200).send(FollowingList)
+  } catch (e) {
+    console.log(e)
+    res.status(500).json({
+      error: 'Database error occurred while signing in!',
+    })
+  }
+} */
+
 exports.bookmarkblog = async (req, res) => {
   try {
     const { uid, bid } = req.body
@@ -160,7 +184,7 @@ exports.unbookmarkblog = async (req, res) => {
     const user = await db.user.findOne({ id: uid })
     const blog = await db.blog.findOne({ id: bid })
     const bmark = await blog.removeBookmarker(user)
-    res.status(200).send("yo")
+    res.status(200).send('yo')
   } catch (e) {
     console.log(e)
     res.status(500).json({
@@ -169,27 +193,22 @@ exports.unbookmarkblog = async (req, res) => {
   }
 }
 
-exports.getuserinfo=async(req,res,next)=>{
-  try{
-    console.log(req.query);
-    const user=await db.user.findOne({where:{id:req.query.id}});
-    if(!user)
-    res.status(400).json({error:"User not Found!!"});
-    res.json({user:user});
-  }
-  catch(e)
-  {
-    next(e);
+exports.getuserinfo = async (req, res, next) => {
+  try {
+    console.log(req.query)
+    const user = await db.user.findOne({ where: { id: req.query.id } })
+    if (!user) res.status(400).json({ error: 'User not Found!!' })
+    res.json({ user: user })
+  } catch (e) {
+    next(e)
   }
 }
 
-exports.getallusers=async(req,res,next)=>{
-  try{
-    const users=await db.user.findAll({});
-    res.status(200).json({user:users});
-  }
-  catch(e)
-  {
-    next(e);
+exports.getallusers = async (req, res, next) => {
+  try {
+    const users = await db.user.findAll({})
+    res.status(200).json({ user: users })
+  } catch (e) {
+    next(e)
   }
 }
