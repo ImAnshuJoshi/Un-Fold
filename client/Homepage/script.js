@@ -1,3 +1,5 @@
+import get from "../currentuser.js";
+import {set} from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
@@ -16,25 +18,21 @@ function closeMenu() {
   navMenu.classList.remove("active");
 }
 
-
-function changeBookmarkIcon(x){
+function changeBookmarkIcon(x) {
   x.classList.toggle("fa-solid");
 }
 
-
-function handlecats(cats)
-{
-  let t=``;
-  cats.forEach((i)=>{
-    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
-  })
-  console.log(t);
-  return (t)
+function handlecats(cats) {
+  let t = ``;
+  cats.forEach((i) => {
+    t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
+  });
+  return t;
 }
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://192.168.68.155:3000/api/category/getblogcategories?` +
+    `http://192.168.68.175:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -49,9 +47,11 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
-let i=0;
+let i = 0;
 
-const categoryz = (c) => `<a href='../category/index.html?id=${c.id}'><div class="cat first">
+const categoryz = (
+  c
+) => `<a href='../category/index.html?id=${c.id}'><div class="cat first">
 <div class="cat-img">
   <img src="${c.imageurl}" alt="">
 </div>
@@ -60,8 +60,8 @@ const categoryz = (c) => `<a href='../category/index.html?id=${c.id}'><div class
 </div>
 </div></a>`;
 
-const blogCard = (img,title,content,user,id,tags) =>
- `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
+const blogCard = (img, title, content, user, id, tags) =>
+  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
             <div class="child">
             <img src = ${img} alt="" />
             </div>
@@ -84,7 +84,7 @@ const blogCard = (img,title,content,user,id,tags) =>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://192.168.68.155:3000/api/user/getuserinfo?" +
+    "http://192.168.68.175:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -102,7 +102,7 @@ const finduser = async (id) => {
 let categoryg;
 const categoriesfunc = async () => {
   const categories = await fetch(
-    "http://192.168.68.155:3000/api/category/getallcategories",
+    "http://192.168.68.175:3000/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -121,7 +121,9 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  const blogs = await fetch("http://192.168.68.155:3000/api/blog/getAllBlogs", {
+  set("SAAA", "G")
+  console.log(get());
+  const blogs = await fetch("http://192.168.68.175:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -134,14 +136,15 @@ window.onload = async () => {
   blogsj = await blogs.json();
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
-    const tags=(await getblogtags(b.id)).cats;
+    const tags = (await getblogtags(b.id)).cats;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user,b.id,tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
       );
-      const text=document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
+    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+      text.substring(0, 50) + ".....";
   });
 };
