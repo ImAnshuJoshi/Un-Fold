@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize')
+const db = require('../Config/dbconfig')
 
 require('dotenv').config()
 
@@ -14,6 +15,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_CONNECTION, 
   },
   logging: false,
 })
+db.config.username=process.env.DB_USERNAME
 sequelize
   .authenticate()
   .then(() => {
