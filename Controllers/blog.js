@@ -8,7 +8,7 @@ exports. getAllBlogs = async (req, res, next) => {
         error: "No blogs Found",
       });
     }
-    res.send(Allblogs.sort((a,b)=>b.updatedAt-a.updatedAt));
+    res.send(Allblogs.sort((a,b)=>a.updatedAt-b.updatedAt));
   } catch (e) { console.log(e)
     res.status(500).json({
       error: "Database error occurred!",
@@ -28,16 +28,14 @@ exports.addBlog = async (req, res, next) => {
         error: "No blogs Found!",
       });
     }
-    const newb = await db.blog.create({
+    const newblog = (await db.blog.create({
       title: req.body.title,
       content: req.body.content,
       imageurl: result.secure_url,
       cloudid: result.public_id,
-    });
-     await user.addPost(newb);
-     const newblog= await db.blog.findOne({where:{userId:req.query.id}})
-     console.log(newblog);
-    res.status(200).json({ blogid: newblog.id });
+    })).dataValues;
+     await user.addPost(newblog);
+     res.status(200).json({ blogid: newblog.id });
   } catch (e) {
     console.log(e);
     next(e,res);

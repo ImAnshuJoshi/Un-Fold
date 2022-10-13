@@ -76,8 +76,7 @@ exports.login = async (req, res, next) => {
             const token = jwt.sign({ email: email, id: currentuser.id }, process.env.secretstring, {
               expiresIn: '10h',
             })
-            res.cookie('token', token)
-            res.status(200).json( {
+            res.status(200).json({
               user: currentuser,
               message: 'User has been signed in!',
               token: token,
@@ -149,48 +148,56 @@ exports.getFollowing = async (req, res, next) => {
   }
 }
 
-/* exports.getFollowingblogs = async (req, res, next) => {
+exports.getFollowingblogs = async (req, res, next) => {
   const { id } = req.query
   try {
     const currentuser = await db.user.findOne({ where: { id: id } })
-    const FollowingList = await currentuser.getFollower()
-    res.status(200).send(FollowingList)
+    const FollowingList = (await currentuser.getFollower({attributes:['id']})).map((m)=>m.id);
+    const blogs= await db.blog.findAll({where:{userId:FollowingList},order:[['updatedAt','DESC']]})
+    res.status(200).json({followingblogs:blogs})
   } catch (e) {
-    console.log(e)
-    res.status(500).json({
-      error: 'Database error occurred while signing in!',
-    })
+    next(e);
   }
-} */
+}
 
 exports.bookmarkblog = async (req, res) => {
   try {
     const { uid, bid } = req.body
-    const user = await db.user.findOne({ id: uid })
-    const blog = await db.blog.findOne({ id: bid })
+    const user = await db.user.findOne({ where:{id: uid }})
+    const blog = await db.blog.findOne({ where:{id: bid }})
     const bmark = await blog.addBookmarker(user)
-    res.status(200).send(bmark)
+    res.status(200).json({bblog:bmark})
   } catch (e) {
     console.log(e)
-    res.status(500).json({
-      error: 'Database error occurred while signing in!',
-    })
+    next(e)
   }
 }
 
-exports.unbookmarkblog = async (req, res) => {
+exports.unbookmarkblog = async (req, res,next) => {
   try {
     const { uid, bid } = req.body
-    const user = await db.user.findOne({ id: uid })
-    const blog = await db.blog.findOne({ id: bid })
+    const user = await db.user.findOne({ where:{id: uid }})
+    const blog = await db.blog.findOne({ where:{id: bid }})
     const bmark = await blog.removeBookmarker(user)
-    res.status(200).send('yo')
+    res.status(200).json({message:'removed bookmark'});
   } catch (e) {
     console.log(e)
-    res.status(500).json({
-      error: 'Database error occurred while signing in!',
-    })
+    next(e)
   }
+}
+
+exports.getbookmarkedblogs= async(req,res,next)=>{
+  try{
+    const {id}=req.query;
+    const bids= await db.blog.findAll({
+      include:{model:db.user, as:'Bookmarker',
+      where:{id:id}
+    }
+    });
+    res.status(200).json({bblogs:bids});
+  }
+  catch(e)
+  {next(e)}
 }
 
 exports.getuserinfo = async (req, res, next) => {
