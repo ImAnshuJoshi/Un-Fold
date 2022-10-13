@@ -6,7 +6,7 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const userRoutes = require('./routes/user')
 const blogRoutes = require('./routes/blog')
-const profileRoutes=require('./routes/profile');
+const commentRoutes=require('./routes/comment');
 const categoryRoutes=require('./routes/category');
 const { error } = require('./Middlewares/error')
 const cors = require('cors')
@@ -32,7 +32,7 @@ app.get('/', (_, res) => {
 app.use('/api', userRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
-app.use('/api/profile', profileRoutes)
+app.use('/api/comment', commentRoutes)
 app.use('/api/category', categoryRoutes)
 app.use(require('./Middlewares/error'))
 app.listen(3000, function () {
