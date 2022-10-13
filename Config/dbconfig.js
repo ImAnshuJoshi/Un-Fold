@@ -21,7 +21,7 @@ User.belongsToMany(User, {
 Blog.hasMany(Comment,{as:'Comment'})
 Comment.belongsTo(Blog,{as:'Log'});
 
-User.hasMany(Comment,{as:'discussion'})
+User.hasMany(Comment,{as:'Message'})
 Comment.belongsTo(User,{as:'Commenter'})
 
 User.belongsToMany(Blog, {

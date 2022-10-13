@@ -12,16 +12,12 @@ const { DataTypes } = require("sequelize");
       content: {
         type: DataTypes.TEXT,
       },
-      likes:{
-        type: DataTypes.INTEGER,
-        defaultValue:0
-      }
     },
     {
       freezeTableName: true,
     }
   );
-  Comment.sync({ alter: false }).then(() => {
+  Comment.sync({ alter: true }).then(() => {
     console.log("yes re-sync done!");
   });
   module.exports=Comment;
