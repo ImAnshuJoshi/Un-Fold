@@ -63,8 +63,8 @@ exports.getlikedusers = async (req, res, next) => {
   const { id } = req.query
   try {
     const blog = await db.blog.findOne({ where: { id: id } })
-    const lusers= (await blog.getLiker()).map((b)=>b.id);  
-    res.status(200).json({ids:lusers});
+    const lusers = (await blog.getLiker()).map((b) => b.id)
+    res.status(200).json({ ids: lusers })
   } catch (e) {
     console.log(e)
     next(e)
@@ -137,7 +137,7 @@ exports.editBlog = async (req, res, next) => {
 }
 
 exports.likeBlog = async (req, res, next) => {
-  const { uid,bid } = req.body
+  const { uid, bid } = req.body
   console.log(req.body)
   try {
     const blog = await db.blog.findOne({ where: { id: bid } })
@@ -152,7 +152,7 @@ exports.likeBlog = async (req, res, next) => {
         },
       }
     )
-    await blog.addLiker(user);
+    await blog.addLiker(user)
     console.log(blog)
     res.status(200).send('upblog')
   } catch (e) {
@@ -161,7 +161,7 @@ exports.likeBlog = async (req, res, next) => {
 }
 
 exports.unlikeBlog = async (req, res, next) => {
-  const { uid,bid } = req.body
+  const { uid, bid } = req.body
   console.log(req.body)
   try {
     const blog = await db.blog.findOne({ where: { id: bid } })
@@ -176,15 +176,13 @@ exports.unlikeBlog = async (req, res, next) => {
         },
       }
     )
-    await blog.removeLiker(user);
+    await blog.removeLiker(user)
     console.log(blog)
     res.status(200).send('upblog')
   } catch (e) {
     next(e)
   }
 }
-
-
 
 exports.addcat = async (req, res) => {
   try {
@@ -201,5 +199,3 @@ exports.addcat = async (req, res) => {
     next(e)
   }
 }
-
-exports.getfollowingblogs = async (req, res, next) => {}
