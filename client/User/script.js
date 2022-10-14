@@ -8,12 +8,6 @@ function handlecats(cats) {
   // console.log(t);
   return t;
 }
-<<<<<<< HEAD
-// const followbtn = document.getElementsByClassName("follow-btn")[0];
-// followbtn.addEventListener("click", async () => {
-//   await fetch(
-//     `http://65.0.100.50:3000/api/category/getblogcategories?` +
-=======
 
 function changeEditIcon(x) {
   x.classList.toggle("fa-solid");
@@ -23,7 +17,6 @@ const followbtn = document.getElementsByClassName("follow-btn")[0];
 // followbtn.addEventListener("click", async () => {
 //   await fetch(
 //     `http://65.0.100.50/api/category/getblogcategories?` +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
 //       new URLSearchParams({ id: bid }),
 //     {
 //       method: "POST",
@@ -43,11 +36,7 @@ let no_of_blogs;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-<<<<<<< HEAD
-    `http://65.0.100.50:3000/api/category/getblogcategories?` +
-=======
     `http://65.0.100.50/api/category/getblogcategories?` +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -124,11 +113,7 @@ const follower_followingz = (img, fname, lname) => ` <div class="cat first">
 let blogsj;
 async function followers(user) {
   const followers = await fetch(
-<<<<<<< HEAD
-    "http://65.0.100.50:3000/api/user/getFollowers?" +
-=======
     "http://65.0.100.50/api/user/getFollowers?" +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -145,11 +130,7 @@ async function followers(user) {
 
 async function bookmarkedblogs(user) {
   const blogs = await fetch(
-<<<<<<< HEAD
-    "http://65.0.100.50:3000/api/user/getbookmarkedblogs?" +
-=======
     "http://65.0.100.50/api/user/getbookmarkedblogs?" +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -170,11 +151,7 @@ const id = queryParamsString?.substring(3);
 window.onload = async () => {
   const logged_in_user = get();
   const userinfo = await fetch(
-<<<<<<< HEAD
-    "http://65.0.100.50:3000/api/user/getuserinfo?" +
-=======
     "http://65.0.100.50/api/user/getuserinfo?" +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -187,11 +164,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-<<<<<<< HEAD
-    "http://65.0.100.50:3000/api/blog//allUserBlogs?" +
-=======
     "http://65.0.100.50/api/blog//allUserBlogs?" +
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -242,11 +215,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWERS
   const fetchfollower = await fetch(
-<<<<<<< HEAD
-    `http://65.0.100.50:3000/api/user/getFollowers?id=${user.id}`,
-=======
     `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
     {
       method: "GET",
       headers: {
@@ -271,11 +240,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWINGS
   const fetchfollowings = await fetch(
-<<<<<<< HEAD
-    `http://65.0.100.50:3000/api/user/getFollowing?id=${user.id}`,
-=======
     `http://65.0.100.50/api/user/getFollowing?id=${user.id}`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
     {
       method: "GET",
       headers: {
@@ -329,11 +294,7 @@ window.onload = async () => {
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
           const res = await fetch(
-<<<<<<< HEAD
-            `http://65.0.100.50:3000/api/user/unfollowUser`,
-=======
             `http://65.0.100.50/api/user/unfollowUser`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
             {
               method: "POST",
               headers: {
@@ -347,11 +308,7 @@ window.onload = async () => {
           console.log(res);
           document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
           const newfetchfollower = await fetch(
-<<<<<<< HEAD
-            `http://65.0.100.50:3000/api/user/getFollowers?id=${user.id}`,
-=======
             `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
             {
               method: "GET",
               headers: {
@@ -380,11 +337,7 @@ window.onload = async () => {
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
           const res = await fetch(
-<<<<<<< HEAD
-            `http://65.0.100.50:3000/api/user/followUser`,
-=======
             `http://65.0.100.50/api/user/followUser`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
             {
               method: "POST",
               headers: {
@@ -398,11 +351,7 @@ window.onload = async () => {
           document.getElementById("follow-unfollow-edit").innerHTML =
             "UNFOLLOW";
           const newfetchfollower = await fetch(
-<<<<<<< HEAD
-            `http://65.0.100.50:3000/api/user/getFollowers?id=${user.id}`,
-=======
             `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
->>>>>>> af561e1568b32faae0c53312e30de24b788d0b19
             {
               method: "GET",
               headers: {
