@@ -21,7 +21,7 @@ let email;
 let password;
 
 async function ff(){
-  const response = await fetch("http://192.168.137.103:3000/api/login/", {
+  const response = await fetch("http://65.0.100.50/api/login/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -101,7 +101,7 @@ const ff2 = async () => {
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://192.168.137.103:3000/api/register/", {
+  const response = await fetch("http://65.0.100.50/api/register/", {
     method: "POST",
     body: formdata,
     // headers: {
@@ -110,6 +110,7 @@ const ff2 = async () => {
     mode: "cors",
     credentials: "same-origin",
   });
+  console.log(response);
   const resJ = await response.json();
   console.log("hi " + response.status);
   if (response.status != 200) {

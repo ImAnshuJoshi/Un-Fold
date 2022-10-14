@@ -281,9 +281,23 @@ progress {
 }
 .reactions .like{
     margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.likes_count{
+    color:black;
 }
 .reactions .comment{
     margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.comments_count{
+    color:black;
 }
 .reactions .fa-regular{
     color: #252525;

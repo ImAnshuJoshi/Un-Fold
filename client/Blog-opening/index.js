@@ -1,5 +1,58 @@
-function changeBookmarkIcon(x) {
+// import get from "../currentuser.js";
+
+// const get=require('../currentuser')
+let currentlyloggedinuser;
+let blog_id;
+window.changeBookmarkIcon = async (x) => {
+  const id = x.parentNode.parentNode.parentNode.id;
+  if (x.classList.value.includes("fa-solid")) {
+    console.log("unbookmarked");
+    await removebookmark(id);
+  } else {
+    console.log("bookmarked");
+    await addbookmark(id);
+  }
   x.classList.toggle("fa-solid");
+};
+
+function bookmarksign(K) {
+  if (K) {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+  } else {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+  }
+}
+async function removebookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://192.168.137.93:3000/api/user/unbookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to unBookmark :(");
+}
+async function addbookmark(bid) {
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://192.168.137.93:3000/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {},
+    mode: "cors",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
 }
 
 const hamburger = document.querySelector(".hamburger");
@@ -28,27 +81,26 @@ function handlecats(cats) {
   return t;
 }
 
-const blogcard = (blog,tags) => `
-<div class="blog-details">
+const blogcard = (blog, tags, K) => `
+<div class="blog-details" id=${blog.id}>
                     <div class="img-container">
                       <img src=${blog.imageurl} alt="" />
                     </div>
                     <div class="tag-wrap">
                       <ul class="tags">
                         ${handlecats(tags)}
-                        <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
+                        ${bookmarksign(K)}
                       </ul>
                     </div>
                     <div class="blog-title">${blog.title}</div>
     
                   </div>`;
 
-/************************************FETCHING BLOG****************************** */
-
+/*************FETCHING BLOG*********** */
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://192.168.68.155:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -63,14 +115,14 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
-let blog_id;
 window.onload = async () => {
+  currentlyloggedinuser = get();
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
   console.log("Id is:", blog_id);
   const userid = await findblog(blog_id);
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?id=" + userid,
+    "http://192.168.137.93:3000/api/user/getuserinfo?id=" + userid,
     {
       method: "GET",
       headers: {
@@ -81,18 +133,23 @@ window.onload = async () => {
     }
   );
   const userinfo = (await user.json()).user;
-  console.log(userinfo);
-  const userblogs=await getuserblogs(userinfo.id);
-  userblogs.map(async(b)=>{
-    const t=await getblogtags(b.id); 
+  const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
+  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
+  console.log(bmarkedblogsk);
+  const userblogs = await getuserblogs(userinfo.id);
+  userblogs.map(async (b) => {
+    const t = await getblogtags(b.id);
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     console.log(t);
-    document.getElementById('scroll-images')
-    .insertAdjacentHTML('afterbegin',blogcard(b,t.cats))
-  })
+    document
+      .getElementById("scroll-images")
+      .insertAdjacentHTML("afterbegin", blogcard(b, t.cats, K));
+  });
 };
-async function getuserblogs(id) {
+async function getbmarkedblogs(id) {
   const blogs = await fetch(
-    "http://localhost:3000/api/blog/alluserBlogs?id=" + id,
+    "http://192.168.137.93:3000/api/user/getbookmarkedblogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -103,12 +160,28 @@ async function getuserblogs(id) {
     }
   );
   const allblogs = await blogs.json();
-  return (allblogs);
+  return allblogs.bblogs;
+}
+
+async function getuserblogs(id) {
+  const blogs = await fetch(
+    "http://192.168.137.93:3000/api/blog/alluserBlogs?id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const allblogs = await blogs.json();
+  return allblogs;
 }
 
 const findblog = async (id) => {
   const blog = await fetch(
-    "http://localhost:3000/api/blog/getblogbyid?id=" + id,
+    "http://192.168.137.93:3000/api/blog/getblogbyid?id=" + id,
     {
       method: "GET",
       headers: {
@@ -135,39 +208,38 @@ const findblog = async (id) => {
   return blogbody.userId;
 };
 
-/***********************************IMPLEMENTING LIKES AND COMMENTS PART************************ */
-/* var likes = 39;
-var comments = 60;
+/************IMPLEMENTING LIKES AND COMMENTS PART********* */
+window.onload=async (req,res)=>{
+  const queryParamsString = window.location.search?.substring(1);
+  blog_id = queryParamsString?.substring(3);
+  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  console.log(body);
+  console.log(blog_id);
+  res= await fetch(`http://192.168.137.93/api/blog/get/getlikedusers`,{
 
-
-
-function changeHeartIcon(x) {
-  x.classList.toggle("fa-solid");
-  if (classList == "fa-solid") {
-    likes = likes + 1;
-  } else {
-    likes = likes - 1;
-  }
+  })
 }
-
-
-function viewComment() {
-  var x = document.getElementById("all_comments");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
+let likeicon = document.querySelector('.like');
+let clicked=false;
+let count =0;
+likeicon.addEventListener("click",()=>{
+  console.log('clicked');
+  if(!clicked){
+    clicked=true;
+    likeicon.innerHTML=`<i class="fa-solid fa-heart" 
+    id="heart"></i>
+    <div class="likes_count">0 Likes</div>
+ </div>`
+    count++;
+    document.querySelector('.likes_count').innerHTML=`${count} Likes`;
   }
-}
-
-
-
-
-
-
-
-window.onload = function () {
- document.getElementsByClassName("likes_count")[0].innerHTML = `${likes}`;
-  document.getElementById("comments_count").innerHTML = `${comments}`;
-};
- */
+  else{
+    clicked=false;
+    likeicon.innerHTML=`<i class="fa-regular fa-heart" 
+    id="heart"></i>
+    <div class="likes_count">0 Likes</div>
+ </div>`;
+    count--;
+    document.querySelector('.likes_count').innerHTML=`${count} Likes`;
+  }
+})

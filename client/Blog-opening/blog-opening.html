@@ -88,11 +88,13 @@
             voluptatem aut soluta laboriosam? Eum consectetur iure rerum reiciendis!
             <div class="reactions">
               <div class="like">
-                <i class="fa-regular fa-heart" onclick="changeHeartIcon(this)"><p class="likes_count"></p><p>Likes</p></i>
-
+                <i class="fa-regular fa-heart" 
+                 id="heart"></i>
+                 <div class="likes_count">0 Likes</div>
               </div>
               <div class="comment">
-                <i class="fa-regular fa-comment" onclick="viewComment()"><p id="comments_count"></p><p>Comments</p></i>
+                <i class="fa-regular fa-comment"></i>
+                <div class="comments_count">0 Comments</div>
               </div>
             </div>
           </div>
@@ -266,6 +268,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
+<script src="../currentuser.js"></script>
 <script>
   function leftScroll() {
     const left = document.querySelector(".scroll-images");
