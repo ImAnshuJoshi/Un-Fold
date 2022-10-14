@@ -8,10 +8,15 @@ function handlecats(cats) {
   // console.log(t);
   return t;
 }
+
+function changeEditIcon(x) {
+  x.classList.toggle("fa-solid");
+}
+
 const followbtn = document.getElementsByClassName("follow-btn")[0];
 // followbtn.addEventListener("click", async () => {
 //   await fetch(
-//     `http://192.168.68.155:3000/api/category/getblogcategories?` +
+//     `http://65.0.100.50/api/category/getblogcategories?` +
 //       new URLSearchParams({ id: bid }),
 //     {
 //       method: "POST",
@@ -31,7 +36,7 @@ let no_of_blogs;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://192.168.68.155:3000/api/category/getblogcategories?` +
+    `http://65.0.100.50/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -78,6 +83,11 @@ const blogCard = (
                               <div class="tag-wrap">
                               <ul class="tags">
                               ${handlecats(tags)}
+                              <li>kjvnk</li>
+                              <li>nfdtg</li>
+                              <div class="edit">
+                              <i onclick="changeEditIcon(this)" class="fa-regular fa-pen-to-square"></i>
+                              </div>
                               </ul>
                               </div>
                               <a href="../User/index.html?id=${
@@ -105,7 +115,7 @@ const follower_followingz = (img, fname, lname) => ` <div class="cat first">
 let blogsj;
 async function followers(user) {
   const followers = await fetch(
-    "http://192.168.68.155:3000/api/user/getFollowers?" +
+    "http://65.0.100.50/api/user/getFollowers?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -122,7 +132,7 @@ async function followers(user) {
 
 async function bookmarkedblogs(user) {
   const blogs = await fetch(
-    "http://192.168.68.155:3000/api/user/getbookmarkedblogs?" +
+    "http://65.0.100.50/api/user/getbookmarkedblogs?" +
       new URLSearchParams({ id: user.id }),
     {
       method: "GET",
@@ -143,7 +153,7 @@ const id = queryParamsString?.substring(3);
 window.onload = async () => {
   const logged_in_user = get();
   const userinfo = await fetch(
-    "http://192.168.68.155:3000/api/user/getuserinfo?" +
+    "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -156,7 +166,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://192.168.68.155:3000/api/blog//allUserBlogs?" +
+    "http://65.0.100.50/api/blog//allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -207,7 +217,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWERS
   const fetchfollower = await fetch(
-    `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
+    `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
     {
       method: "GET",
       headers: {
@@ -232,7 +242,7 @@ window.onload = async () => {
 
   //Fetching user FOLLOWINGS
   const fetchfollowings = await fetch(
-    `http://192.168.68.155:3000/api/user/getFollowing?id=${user.id}`,
+    `http://65.0.100.50/api/user/getFollowing?id=${user.id}`,
     {
       method: "GET",
       headers: {
@@ -286,7 +296,7 @@ window.onload = async () => {
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
           const res = await fetch(
-            `http://192.168.68.155:3000/api/user/unfollowUser`,
+            `http://65.0.100.50/api/user/unfollowUser`,
             {
               method: "POST",
               headers: {
@@ -300,7 +310,7 @@ window.onload = async () => {
           console.log(res);
           document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
           const newfetchfollower = await fetch(
-            `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
+            `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
             {
               method: "GET",
               headers: {
@@ -329,7 +339,7 @@ window.onload = async () => {
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
           const res = await fetch(
-            `http://192.168.68.155:3000/api/user/followUser`,
+            `http://65.0.100.50/api/user/followUser`,
             {
               method: "POST",
               headers: {
@@ -343,7 +353,7 @@ window.onload = async () => {
           document.getElementById("follow-unfollow-edit").innerHTML =
             "UNFOLLOW";
           const newfetchfollower = await fetch(
-            `http://192.168.68.155:3000/api/user/getFollowers?id=${user.id}`,
+            `http://65.0.100.50/api/user/getFollowers?id=${user.id}`,
             {
               method: "GET",
               headers: {
