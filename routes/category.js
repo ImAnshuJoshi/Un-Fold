@@ -1,4 +1,5 @@
 const express = require('express')
+const upload = require("../Config/multerConfig");
 const usercontroller = require('../Controllers/user')
 const router = express.Router()
 const catcontrollers= require('../Controllers/category');
@@ -7,5 +8,5 @@ router.get('/getallcategoryblogs',catcontrollers.getallcategoryblogs);
 router.get('/getcategoryinfo',catcontrollers.getcategoryinfo);
 router.get('/getblogcategories',catcontrollers.getblogcategories);
 router.post('/addcategorytoblog',catcontrollers.addcategorytoblog);
-router.post('/addcategory',catcontrollers.addcategory);
+router.post('/addcategory',upload.single("item"),catcontrollers.addcategory);
 module.exports=router;

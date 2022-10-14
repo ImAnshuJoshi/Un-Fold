@@ -23,7 +23,7 @@ exports.addBlog = async (req, res, next) => {
     const result = await cloudinary.uploader.upload(req.file.path)
     console.log('id is ', req.query.id)
     const user = await db.user.findOne({ where: { id: req.query.id } })
-    if (!user) {
+    if (!user) {  
       res.status(400).json({
         error: 'No blogs Found!',
       })

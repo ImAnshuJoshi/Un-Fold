@@ -1,4 +1,5 @@
 const db = require('../Config/dbconfig')
+const cloudinary = require('../Config/cloudinaryConfig')
 
 exports.getallcategories = async (req, res, next) => {
   try {
@@ -37,11 +38,14 @@ exports.addcategorytoblog = async (req, res, next) => {
 
 exports.addcategory = async (req, res, next) => {
   try {
-    
+    console.log(req.body)
+    const result = await cloudinary.uploader.upload(req.file.path)
     const {cname,desc } = req.body
     const cat= await db.cat.create({
       Title:cname,
-      Description:desc
+      Description:desc,
+      imageurl:result.secure_url,
+      cloudid:result.public_id
     })
     res.status(200).json({data:cat})
   } catch (e) {
@@ -69,7 +73,7 @@ exports.getblogcategories = async (req, res, next) => {
     const catids =( await (await db.tag.findAll({ where: { b_id: id } })).map((c)=>c.dataValues.c_id))
     console.log(catids);
     const catsdata=await (await db.cat.findAll({where:{id:catids}})).map((c)=>c.dataValues);
-    console.log(catsdata);
+    console.log(catsdata);  
     res.status(200).send({cats:catsdata});
   } catch (e) {
     next(e)
