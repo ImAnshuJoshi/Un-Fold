@@ -238,11 +238,11 @@ button:hover{
     width:450px;
 }
 .desc{
-    padding-left: 20px;
+    /* padding-left: 20px; */
     font-size: 30px;
 }
 .desc2{
-    padding-left: 20px;
+    /* padding-left: 20px; */
     font-size: 15px;
 }
 .tags{
@@ -273,7 +273,9 @@ button:hover{
     width: 50px;
     border-radius: 50%;
     margin-left: 12px;
-    transform: translate(7px,-125px);
+    position: relative;
+    bottom: 90px;
+    left: -2px;
     background-size: cover;
 }
 .bookmark{
@@ -448,31 +450,40 @@ footer{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 30px;
+    /* padding: 30px; */
+    width: 100%;
 }
-.subscribe>div{
+.subscribe > .subscribe-us {
+    display: block;
     font-size: 3rem;
-    padding-left: 0;
-    
+    padding-left: 30px;
+    width: fit-content;
 }
-.subscribe-input-btn{
+
+.subscribe-input-btn {
     display: flex;
+    margin-left: 40%;
+    margin-right: 5%;
+    padding-left: 10px;
 }
 .subscribe-input{
+    border: 2px solid #f8bf8c;
     border-radius: 20px;
     font-size: 20px;
-    padding:10px
+    padding:10px;
 }
 .footer-btn{
     font-size: 1.3rem;
     background: none;
     border:1px solid #f8bf8c;
-    padding:10px;
+    padding:10px 15px;
+    margin-left: 10px;
     border-radius: 20px;;
     color:white;
 }
 .footer-btn:hover{
-    color:black;
+    color: black;
+    background-color: #f8bf8c;
     cursor: pointer;
 }
 .main-footer{
@@ -513,6 +524,7 @@ footer{
 }
 .footer-links>ul>li>a{
     text-decoration: none;
+    color: #f5f5f5;
 }
 .rights{
     display: flex;
@@ -522,6 +534,10 @@ footer{
 }
 
 /* media queries  */
+@media only screen and (max-width: 991px){
+
+}
+
 @media only screen and (max-width: 768px) {
     .nav-list {
         position: fixed;

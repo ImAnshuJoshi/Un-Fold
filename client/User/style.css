@@ -1,21 +1,17 @@
 *{
-    background-color: #252525;
+    /* background-color: #252525; */
     font-family: 'Jost', sans-serif;
     margin: 0;
     padding: 0;
     color: #f1f1f1;
 }
-#Landing{
-    margin: -8px;
+body{
     overflow-x: hidden;
-    /* padding:0; */
-    background: #252525;
-    height:100vh;
 }
-
 /******* nav bar ******/
 
 nav{
+    background-color: #252525;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -265,16 +261,18 @@ nav img{
     color:#ff9d47;
 }   
 .latest-cards{
-    /* height:1000px; */
     color:black;
+    margin-left: 5%;
 }
 .author{
     height: 50px;
     width: 50px;
     border-radius: 50%;
     margin-left: 12px;
-    transform: translate(7px,-100px);
     background-size: cover;
+    position: relative;
+    bottom: 95px;
+    left: 8px;
 }
 
 /****** upper-body ******/
@@ -395,13 +393,13 @@ button:hover{
     display: flex;
     flex-direction: column;
     word-wrap:wrap;
-    width:400px;
+    width:420px;
     margin:25px;
     /* border: #252525 1px solid; */
 }
 .desc{
     padding-left: 20px;
-    font-size: 30px;
+    font-size: 1.9rem;
     color: #252525;
 }
 .desc2{
@@ -409,6 +407,11 @@ button:hover{
     font-size: 15px;
     color: #252525;
 }
+.desc2 div{
+    font-size: 1rem;
+    color: #252525;
+}
+
 .tags{
     display: flex;
     flex-direction: row;
@@ -422,19 +425,32 @@ button:hover{
     background-color: rgba(0,0,0,.3);
     padding:3px 9px;
     border-radius: 5.2px;
+    color: white;
 
+}
+.edit{
+    display: flex;
+    /* position: relative; */
+    height:20px;
+    width: 400px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    /* transform: translateX(-35px); */
 }
 .fa-regular{
     color: #252525;
-    margin-left: 177px;
+    margin-right: 20px;
     cursor: pointer;
     user-select: none;
 }
 .fa-solid{
-    margin-left: 82.5px;
+    color: #252525;
+    margin-right: 20px;
     cursor: pointer;
     user-select: none;
 }
+
 .fa-regular:hover, .fa-solid:hover {
     color: #f8bf8c;
 }
@@ -447,10 +463,6 @@ button:hover{
 
 
 /******************* Recent-Blogs**************** */
-#recent{
-    /* height:auto; */
-    /* height:auto; */
-}
 .recent-wrap>h2{
     color:black;
     font-weight: 400;
@@ -461,13 +473,7 @@ button:hover{
 .recent-wrap>h2>span{
     color:#ffa556
 }
-.desc-white{
-    color:black;
-    font-weight: 500;
-}
-.desc2-white{
-    color:black;
-}
+
 .child-white{
     width:400px;
     height:350px;
