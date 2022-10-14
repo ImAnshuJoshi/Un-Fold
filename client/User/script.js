@@ -1,4 +1,3 @@
-import { set } from "../currentuser.js";
 import get from "../currentuser.js";
 
 function handlecats(cats) {
@@ -10,20 +9,20 @@ function handlecats(cats) {
   return t;
 }
 const followbtn = document.getElementsByClassName("follow-btn")[0];
-followbtn.addEventListener("click", async () => {
-  await fetch(
-    `http://192.168.68.155:3000/api/category/getblogcategories?` +
-      new URLSearchParams({ id: bid }),
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      credentials: "same-origin",
-    }
-  );
-});
+// followbtn.addEventListener("click", async () => {
+//   await fetch(
+//     `http://192.168.68.155:3000/api/category/getblogcategories?` +
+//       new URLSearchParams({ id: bid }),
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       mode: "cors",
+//       credentials: "same-origin",
+//     }
+//   );
+// });
 
 let user;
 let no_of_followers;
@@ -142,7 +141,6 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  set("abc defasdasd", "45ea82fe-5a2d-402b-a19c-fccafa383b85");
   const logged_in_user = get();
   const userinfo = await fetch(
     "http://192.168.68.155:3000/api/user/getuserinfo?" +
@@ -276,6 +274,7 @@ window.onload = async () => {
   if (user.id === logged_in_user.id) {
     document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
   } else {
+    console.log(user," ",lo)
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
     if (follower_ids.includes(logged_in_user.id)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";
