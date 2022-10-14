@@ -1,4 +1,3 @@
-import { set } from "../currentuser.js";
 import get from "../currentuser.js";
 
 function handlecats(cats) {
@@ -142,7 +141,6 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  set("abc defasdasd", "45ea82fe-5a2d-402b-a19c-fccafa383b85");
   const logged_in_user = get();
   const userinfo = await fetch(
     "http://65.0.100.50:3000/api/user/getuserinfo?" +
@@ -270,11 +268,13 @@ window.onload = async () => {
   for (var i = 0; i < followers_list.length; i++) {
     follower_ids[i] = followers_list[i].id;
   }
-  console.log(follower_ids);
-  console.log(follower_ids.includes(logged_in_user.id));
+  // console.log(follower_ids);
+  // console.log(follower_ids.includes(logged_in_user.id));
+  // console.log(user);
   if (user.id === logged_in_user.id) {
     document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
   } else {
+    console.log(user," ",lo)
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
     if (follower_ids.includes(logged_in_user.id)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";

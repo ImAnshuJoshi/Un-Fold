@@ -208,10 +208,6 @@ progress {
     margin: 0;
     /* margin-left: 5%; */
 }
-.post-header-description>.global-exrept{
-    font-size: 1.5rem;
-    /* margin-left: 5%; */
-}
 
 .post-header-wrap{
     width: 55vw;
@@ -232,6 +228,38 @@ progress {
     width: 375px;
     border-radius: 15px;
 }
+.post-author{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+.post-author .author-img img{
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+}
+.post-author .author-content{
+    display: flex;
+    flex-direction: column;
+}
+.post-author .author-name{
+    /* margin-top: 15px; */
+    margin-left: 15px;
+    font-size: 1.5rem;
+}
+.post-author .author-name span{
+    font-size: 1.5rem;
+    color: #f8bf8c;
+}
+.post-author .author-content .published-date{
+    /* margin-top: 15px; */
+    margin-left: 15px;
+    font-size: 1rem;
+    color: #f5f5f5
+} 
+/* .post-author .author-content .published-date span{
+    font-size: 1rem;
+} */
 
 /* blog description  */
 #blog-description{
@@ -375,10 +403,12 @@ button.primaryContained {
 .comments-container{
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    text-align: left;
-    justify-content: center;
+    /* align-items: flex-start; */
+    /* text-align: left; */
+    /* justify-content: center; */
     margin-bottom:auto;
+    margin-left: 10%;
+    width: 70vw;
 }
 .comments-container>div>img{
     height:40px;
@@ -386,16 +416,19 @@ button.primaryContained {
     border-radius: 50%;
     background-size: cover;
     margin-right: 10px;
-    transform: translateY(13px);
+    margin-bottom: 75%;
 }
 .comments-container>div{
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+.comments-container div strong{
+    color:black;
+}
 .comments-container>div>p{
     color:black;
-    height:auto;
+    /* height:auto; */
 }
 
 /****** You might like section ******/

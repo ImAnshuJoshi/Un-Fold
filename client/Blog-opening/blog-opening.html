@@ -59,9 +59,19 @@
                 <div class="post-header-title">
                   
                 </div>
-                <div class="post-header-description">
-                  <p class="global-exrept"></p>
-                </div>
+                <div class="post-author">
+                  <div class="author-img">
+                    <img src="../assets/person1.jpg" alt="">
+                  </div>
+                  <div class="author-content">
+                    <div class="author-name">
+                      <span>Author</span>
+                    </div>
+                    <div class="published-date">
+                      Published on <span>28th August, 2022</span>
+                    </div>
+                  </div>
+                  </div>
               </div>
               <div class="post-header-img-container">
                   
@@ -103,7 +113,7 @@
             <div class="comments-container">
               <div><img src="../assets/person1.jpg" alt=""></div>
             <div>
-              <p>Anshu Joshi</p>
+              <strong>Anshu Joshi</strong>
               <p>Great Blog!! Keep it up....</p>
             </div>
           </div>
@@ -111,7 +121,7 @@
           <div class="comments-container">
             <div><img src="../assets/person1.jpg" alt=""></div>
             <div>
-              <p>Anshu Joshi</p>
+              <strong>Anshu Joshi</strong>
               <p>I agree with you....</p>
             </div>
           </div>
@@ -119,7 +129,7 @@
           <div class="comments-container">
             <div><img src="../assets/person1.jpg" alt=""></div>
             <div>
-              <p>Anshu Joshi</p>
+              <strong>Anshu Joshi</strong>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, accusantium!....</p>
             </div>
           </div>
@@ -127,7 +137,7 @@
           <div class="comments-container">
             <div><img src="../assets/person1.jpg" alt=""></div>
             <div>
-              <p>Anshu Joshi</p>
+              <strong>Anshu Joshi</strong>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos reprehenderit eveniet ut beatae, repellat consectetur quasi ea quos neque id itaque corporis nam nulla? Mollitia debitis reiciendis sequi ipsa saepe.</p>
             </div>
           </div>
@@ -135,7 +145,7 @@
           <div class="comments-container">
             <div><img src="../assets/person1.jpg" alt=""></div>
             <div>
-              <p>Anshu Joshi</p>
+              <strong>Anshu Joshi</strong>
               <p>I agree with you....</p>
             </div>
           </div>
@@ -265,29 +275,28 @@
 
     <!-- script file included -->
 
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+<script src="index.js" type="module"></script>
 </body>
-<script src="../currentuser.js"></script>
+<script src="../currentuser.js" type="module"></script>
 <script>
-  function leftScroll() {
-    const left = document.querySelector(".scroll-images");
-    left.scrollBy(-200, 0);
-  }
-  function rightScroll() {
-    const right = document.querySelector(".scroll-images");
-    right.scrollBy(200, 0);
-  }
-  $(window).scroll(function () {
-     var s = $(window).scrollTop(),
-           d = $(document).height(),
-           c = $(window).height();
-           scrollPercent = (s / (d-c)) * 100;
-           var position = scrollPercent;
+//   function leftScroll() {
+//     const left = document.querySelector(".scroll-images");
+//     left.scrollBy(-200, 0);
+//   }
+//   function rightScroll() {
+//     const right = document.querySelector(".scroll-images");
+//     right.scrollBy(200, 0);
+//   }
+//   $(window).scroll(function () {
+//      var s = $(window).scrollTop(),
+//            d = $(document).height(),
+//            c = $(window).height();
+//            scrollPercent = (s / (d-c)) * 100;
+//            var position = scrollPercent;
    
-      $("#progressbar").attr('value', position);
+//       $("#progressbar").attr('value', position);
    
-});
+// });
 </script>
 
 </html>
