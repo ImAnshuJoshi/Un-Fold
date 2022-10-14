@@ -28,14 +28,12 @@ exports.addBlog = async (req, res, next) => {
         error: 'No blogs Found!',
       })
     }
-    const newblog = (
-      await db.blog.create({
+    const newblog =await db.blog.create({
         title: req.body.title,
         content: req.body.content,
         imageurl: result.secure_url,
         cloudid: result.public_id,
       })
-    ).dataValues
     await user.addPost(newblog)
     res.status(200).json({ blogid: newblog.id })
   } catch (e) {
