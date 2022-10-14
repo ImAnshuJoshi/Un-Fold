@@ -26,7 +26,7 @@ exports.signup = async (req, res, next) => {
         expiresIn: '10h',
       })
       res.status(200).json({
-        user: currentuser,
+        user: reguser,
         message: 'User has been signed in!',
         token: token,
       })

@@ -7,4 +7,5 @@ router.get('/getallcategoryblogs',catcontrollers.getallcategoryblogs);
 router.get('/getcategoryinfo',catcontrollers.getcategoryinfo);
 router.get('/getblogcategories',catcontrollers.getblogcategories);
 router.post('/addcategorytoblog',catcontrollers.addcategorytoblog);
+router.post('/addcategory',catcontrollers.addcategory);
 module.exports=router;
