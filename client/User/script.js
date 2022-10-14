@@ -83,8 +83,6 @@ const blogCard = (
                               <div class="tag-wrap">
                               <ul class="tags">
                               ${handlecats(tags)}
-                              <li>kjvnk</li>
-                              <li>nfdtg</li>
                               <div class="edit">
                               <i onclick="changeEditIcon(this)" class="fa-regular fa-pen-to-square"></i>
                               </div>

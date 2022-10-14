@@ -153,7 +153,11 @@ button:hover{
 
 
 /****** Latest-body ******/
-
+#latest-blog-section{
+    background-color: #252525;
+    margin:-8px;
+    margin-bottom: 20px;
+}
 .scroll-images {
     width: 100%;
     height: auto;
@@ -251,30 +255,26 @@ button:hover{
     justify-content: flex-start;
     align-items: center;
     list-style: none;
-    padding-left: 13px;
+    padding-left: 20px;
+    transform: translateX(-15px);
 }
 .tags>li{
     margin:3px;
     background-color: rgba(0,0,0,.3);
     padding:3px 9px;
     border-radius: 5.2px;
-    /* text-decoration: none; */
 }
 .tags li a {
     text-decoration: none;
 }
-#latest-blog-section{
-    background-color: #252525;
-    margin:-8px;
-    margin-bottom: 20px;
-}
+
 .author{
     height: 50px;
     width: 50px;
     border-radius: 50%;
     margin-left: 12px;
     position: relative;
-    bottom: 90px;
+    bottom: 125px;
     left: -2px;
     background-size: cover;
 }
@@ -286,7 +286,7 @@ button:hover{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    transform: translateX(-35px);
+    transform: translateX(-60px);
 }
 .fa-regular{
     position: inherit;
