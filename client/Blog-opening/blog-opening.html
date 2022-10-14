@@ -98,11 +98,13 @@
             voluptatem aut soluta laboriosam? Eum consectetur iure rerum reiciendis!
             <div class="reactions">
               <div class="like">
-                <i class="fa-regular fa-heart" onclick="changeHeartIcon(this)"><p class="likes_count"></p><p>Likes</p></i>
-
+                <i class="fa-regular fa-heart" 
+                 id="heart"></i>
+                 <div class="likes_count">0 Likes</div>
               </div>
               <div class="comment">
-                <i class="fa-regular fa-comment" onclick="viewComment()"><p id="comments_count"></p><p>Comments</p></i>
+                <i class="fa-regular fa-comment"></i>
+                <div class="comments_count">0 Comments</div>
               </div>
             </div>
           </div>
@@ -275,6 +277,26 @@
 
 <script src="index.js" type="module"></script>
 </body>
+<script src="../currentuser.js" type="module"></script>
+<script>
+//   function leftScroll() {
+//     const left = document.querySelector(".scroll-images");
+//     left.scrollBy(-200, 0);
+//   }
+//   function rightScroll() {
+//     const right = document.querySelector(".scroll-images");
+//     right.scrollBy(200, 0);
+//   }
+//   $(window).scroll(function () {
+//      var s = $(window).scrollTop(),
+//            d = $(document).height(),
+//            c = $(window).height();
+//            scrollPercent = (s / (d-c)) * 100;
+//            var position = scrollPercent;
+   
+//       $("#progressbar").attr('value', position);
+   
+// });
 </script>
 
 </html>

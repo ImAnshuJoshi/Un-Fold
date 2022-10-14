@@ -1,5 +1,9 @@
 import get from "../currentuser.js";
-let currentlyloggedinuser;
+import { set } from "../currentuser.js";
+set("name", "73ff605f-5c8a-4c11-ad32-93ffc002834d");
+console.log(get());
+let currentlyloggedinuser = get().id;
+let blog_id;
 window.changeBookmarkIcon = async (x) => {
   const id = x.parentNode.parentNode.parentNode.id;
   if (x.classList.value.includes("fa-solid")) {
@@ -22,7 +26,7 @@ function bookmarksign(K) {
 async function removebookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://192.168.68.175:3000/api/user/unbookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50:3000/api/user/unbookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -38,7 +42,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://192.168.68.175:3000/api/user/bookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50:3000/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -93,7 +97,7 @@ const blogcard = (blog, tags, K) => `
     
                   </div>`;
 
-/************************************FETCHING BLOG****************************** */
+/*************FETCHING BLOG*********** */
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -112,15 +116,13 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
-let blog_id;
 window.onload = async () => {
-  currentlyloggedinuser = get();
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
   console.log("Id is:", blog_id);
   const userid = await findblog(blog_id);
   const user = await fetch(
-    "http://192.168.68.175:3000/api/user/getuserinfo?id=" + userid,
+    "http://65.0.100.50:3000/api/user/getuserinfo?id=" + userid,
     {
       method: "GET",
       headers: {
@@ -147,7 +149,7 @@ window.onload = async () => {
 };
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
-    "http://192.168.68.175:3000/api/user/getbookmarkedblogs?id=" + id,
+    "http://65.0.100.50:3000/api/user/getbookmarkedblogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -163,7 +165,7 @@ async function getbmarkedblogs(id) {
 
 async function getuserblogs(id) {
   const blogs = await fetch(
-    "http://192.168.68.175:3000/api/blog/alluserBlogs?id=" + id,
+    "http://65.0.100.50:3000/api/blog/alluserBlogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -179,7 +181,7 @@ async function getuserblogs(id) {
 
 const findblog = async (id) => {
   const blog = await fetch(
-    "http://192.168.68.175:3000/api/blog/getblogbyid?id=" + id,
+    "http://65.0.100.50:3000/api/blog/getblogbyid?id=" + id,
     {
       method: "GET",
       headers: {
@@ -206,39 +208,87 @@ const findblog = async (id) => {
   return blogbody.userId;
 };
 
-/***********************************IMPLEMENTING LIKES AND COMMENTS PART************************ */
-/* var likes = 39;
-var comments = 60;
-
-
-
-function changeHeartIcon(x) {
-  x.classList.toggle("fa-solid");
-  if (classList == "fa-solid") {
-    likes = likes + 1;
+/************IMPLEMENTING LIKES AND COMMENTS PART********* */
+let blog_likes;
+window.onload = async () => {
+  const queryParamsString = window.location.search?.substring(1);
+  blog_id = queryParamsString?.substring(3);
+  console.log(blog_id);
+  console.log("hi");
+  const res = await fetch(
+    `http://65.0.100.50/api/blog/getlikedusers?id=${blog_id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const all_likes_users = await res.json();
+  console.log(all_likes_users.ids);
+  blog_likes = all_likes_users.ids.length;
+  console.log(blog_likes);
+  let likeicon = document.querySelector(".like");
+  const body = { uid: currentlyloggedinuser, bid: blog_id };
+  document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
+  let clicked = false;
+  console.log(currentlyloggedinuser);
+  if (all_likes_users.ids.includes(currentlyloggedinuser)) {
+    clicked = true;
   } else {
-    likes = likes - 1;
+    clicked = false;
   }
-}
-
-
-function viewComment() {
-  var x = document.getElementById("all_comments");
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  console.log(clicked);
+  if (!clicked) {
+    clicked = true;
+    likeicon.innerHTML = `<i class="fa-regular fa-heart" 
+    id="heart"></i>
+    <div class="likes_count">${blog_likes} Likes</div>
+ </div>`;
+    likeicon.addEventListener("click", async () => {
+      console.log("clicked");
+      likeicon.innerHTML = `<i class="fa-solid fa-heart" 
+        id="heart"></i>
+        <div class="likes_count">${blog_likes} Likes</div>
+     </div>`;
+      blog_likes++;
+      document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
+      const res = await fetch(`http://65.0.100.50/api/blog/likeBlog`, {
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(res);
+      location.reload();
+    });
   } else {
-    x.style.display = "none";
+    clicked = false;
+    likeicon.innerHTML = `<i class="fa-solid fa-heart" 
+    id="heart"></i>
+    <div class="likes_count">${blog_likes} Likes</div>
+ </div>`;
+    likeicon.addEventListener("click", async () => {
+      console.log("clicked");
+      likeicon.innerHTML = `<i class="fa-regular fa-heart" 
+        id="heart"></i>
+        <div class="likes_count">${blog_likes} Likes</div>
+     </div>`;
+      blog_likes--;
+      document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
+      const res = await fetch(`http://65.0.100.50/api/blog/unlikeBlog`, {
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      location.reload();
+    });
   }
-}
-
-
-
-
-
-
-
-window.onload = function () {
- document.getElementsByClassName("likes_count")[0].innerHTML = `${likes}`;
-  document.getElementById("comments_count").innerHTML = `${comments}`;
 };
- */

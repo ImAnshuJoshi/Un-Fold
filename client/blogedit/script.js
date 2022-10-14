@@ -145,7 +145,7 @@ async function handleCats(selectedCboxes,blogid) {
   });
   const body = { bid: blogid, cname: cname };
   const res = await fetch(
-    "http://localhost:3000/api/category/addcategorytoblog",
+    "http://65.0.100.50:3000/api/category/addcategorytoblog",
     {
       method: "POST",
       body: JSON.stringify(body),
@@ -176,7 +176,7 @@ window.onload = async() => {
   const queryParamsString = window.location.search?.substring(1);
   id = queryParamsString?.substring(3);
   const currentblog= await fetch(
-    "http://localhost:3000/api/blog/getblogbyid?"+new URLSearchParams({ id: id }),
+    "http://65.0.100.50:3000/api/blog/getblogbyid?"+new URLSearchParams({ id: id }),
     {
       method: "GET",
       headers: {
@@ -204,7 +204,7 @@ button.addEventListener("click", async () => {
   formdata.append("item", item); 
   
   const editedblog = await fetch(
-    "http://localhost:3000/api/blog/editBlog?" + new URLSearchParams({ id: id }),
+    "http://65.0.100.50:3000/api/blog/editBlog?" + new URLSearchParams({ id: id }),
     {
       method: "PUT",
       body: formdata,
@@ -217,7 +217,7 @@ button.addEventListener("click", async () => {
   if (editedblog.status !== 200) console.log(editedblog.message);
   else {
     alert(editedblogj.message);
-    window.location.href = `http://localhost:5500/Un-Fold/client/Blog-opening/blog-opening.html?id=${id}`;
+    window.location.href = `http://127.0.0.1/:5500/Un-Fold/client/Blog-opening/blog-opening.html?id=${id}`;
   }
   
 });
