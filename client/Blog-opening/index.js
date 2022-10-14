@@ -26,7 +26,7 @@ function bookmarksign(K) {
 async function removebookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://65.0.100.50:3000/api/user/unbookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -42,7 +42,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://65.0.100.50:3000/api/user/bookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -101,7 +101,7 @@ const blogcard = (blog, tags, K) => `
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://192.168.68.155:3000/api/category/getblogcategories?` +
+    `http://65.0.100.50/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -122,7 +122,7 @@ window.onload = async () => {
   console.log("Id is:", blog_id);
   const userid = await findblog(blog_id);
   const user = await fetch(
-    "http://65.0.100.50:3000/api/user/getuserinfo?id=" + userid,
+    "http://65.0.100.50/api/user/getuserinfo?id=" + userid,
     {
       method: "GET",
       headers: {
@@ -149,7 +149,7 @@ window.onload = async () => {
 };
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
-    "http://65.0.100.50:3000/api/user/getbookmarkedblogs?id=" + id,
+    "http://65.0.100.50/api/user/getbookmarkedblogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -165,7 +165,7 @@ async function getbmarkedblogs(id) {
 
 async function getuserblogs(id) {
   const blogs = await fetch(
-    "http://65.0.100.50:3000/api/blog/alluserBlogs?id=" + id,
+    "http://65.0.100.50/api/blog/alluserBlogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -180,17 +180,14 @@ async function getuserblogs(id) {
 }
 
 const findblog = async (id) => {
-  const blog = await fetch(
-    "http://65.0.100.50:3000/api/blog/getblogbyid?id=" + id,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      credentials: "same-origin",
-    }
-  );
+  const blog = await fetch("http://65.0.100.50/api/blog/getblogbyid?id=" + id, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    credentials: "same-origin",
+  });
   const blogbody = (await blog.json()).blog;
   console.log(blogbody);
   document

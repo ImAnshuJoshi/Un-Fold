@@ -33,6 +33,11 @@ let user;
 let no_of_followers;
 let no_of_following;
 let no_of_blogs;
+window.editblog=(e)=>
+{
+  location.href=`http://127.0.0.1:5501/client/blogedit/texteditor.html?id=${e.id}`;
+  console.log(e)
+}
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -71,6 +76,7 @@ const userprofile = (u, followers, following, blog) =>
                 </div>`;
 let i = 0;
 const blogCard = (
+  id,
   img,
   title,
   content,
@@ -84,7 +90,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
-                              <i onclick="changeEditIcon(this)" class="fa-regular fa-pen-to-square"></i>
+                              <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
                               </div>
                               </ul>
                               </div>
@@ -188,7 +194,7 @@ window.onload = async () => {
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, tags)
+        blogCard(b.id,b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
@@ -282,7 +288,7 @@ window.onload = async () => {
   if (user.id === logged_in_user.id) {
     document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
   } else {
-    console.log(user," ",lo)
+    console.log(user," ")
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
     if (follower_ids.includes(logged_in_user.id)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";

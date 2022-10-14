@@ -1,5 +1,5 @@
 import get from "../currentuser.js";
-import {set} from "../currentuser.js";
+import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
@@ -121,7 +121,7 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  set("SAAA", "G")
+  set("SAAA", "G");
   console.log(get());
   const blogs = await fetch("http://65.0.100.50/api/blog/getAllBlogs", {
     method: "GET",
@@ -146,5 +146,5 @@ window.onload = async () => {
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
-  });
+  }); 
 };

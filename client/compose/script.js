@@ -143,7 +143,7 @@ async function handleCats(selectedCboxes,blogid) {
   });
   const body = { bid: blogid, cname: cname };
   const res = await fetch(
-    "http://localhost:3000/api/category/addcategorytoblog",
+    "http://65.0.100.50/api/category/addcategorytoblog",
     {
       method: "POST",
       body: JSON.stringify(body),
@@ -162,6 +162,7 @@ let id
 window.onload = () => {
   const queryParamsString = window.location.search?.substring(1);
   id = queryParamsString?.substring(3);
+  console.log(id)
 };
 button.addEventListener("click", async () => {
   selectedCboxes = Array.prototype.slice
@@ -182,7 +183,7 @@ button.addEventListener("click", async () => {
   formdata.append("content", content);
   formdata.append("item", item);
   const addblog = await fetch(
-    "http://localhost:3000/api/blog/addBlog?" + new URLSearchParams({ id: id }),
+    "http://65.0.100.50/api/blog/addBlog?" + new URLSearchParams({ id: id }),
     {
       method: "POST",
       body: formdata,

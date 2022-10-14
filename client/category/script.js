@@ -33,7 +33,7 @@ function handlecats(cats)
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://65.0.100.50/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -98,7 +98,7 @@ window.onload = async () => {
     const queryParamsString = window.location.search?.substring(1);
     const id = queryParamsString?.substring(3);
     const cat = await fetch(
-      "http://localhost:3000/api/category/getcategoryinfo?" +
+      "http://65.0.100.50/api/category/getcategoryinfo?" +
         new URLSearchParams({ id: id }),
       {
         method: "GET",
@@ -110,7 +110,7 @@ window.onload = async () => {
       }
     );
     const catblogs = await fetch(
-      "http://localhost:3000/api/category/getallcategoryblogs?"+
+      "http://65.0.100.50/api/category/getallcategoryblogs?"+
       new URLSearchParams({ id: id }),
       {
         method: "GET",
@@ -125,7 +125,7 @@ window.onload = async () => {
     const catblogsj = (await catblogs.json()).blogs;
      catblogsj.map(async (b) => {
         const user=await fetch(
-            "http://localhost:3000/api/user/getuserinfo?" +
+            "http://65.0.100.50/api/user/getuserinfo?" +
               new URLSearchParams({ id: b.userId }),
             {
               method: "GET",
