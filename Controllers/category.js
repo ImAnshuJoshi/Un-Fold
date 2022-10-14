@@ -38,7 +38,7 @@ exports.addcategorytoblog = async (req, res, next) => {
 exports.addcategory = async (req, res, next) => {
   try {
     
-    const {cname,desc } = req.body65
+    const {cname,desc } = req.body
     const cat= await db.cat.create({
       Title:cname,
       Description:desc
