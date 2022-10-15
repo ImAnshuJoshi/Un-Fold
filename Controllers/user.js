@@ -27,7 +27,7 @@ exports.signup = async (req, res, next) => {
       })
       const currentuser= await reguser.json();
       res.status(200).json({
-        user: currentuser,
+        user: reguser,
         message: 'User has been signed in!',
         token: token,
       })

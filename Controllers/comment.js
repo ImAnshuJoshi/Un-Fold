@@ -5,10 +5,20 @@ exports.addcomment=async (req,res,next)=>{
         const {uid,bid,com}=req.body;
         const user=await db.user.findOne({where:{id:uid}});
         const blog=await db.blog.findByPk(bid);
-        const comment= (await db.comment.create({content:com})).dataValues;
+        const comment= await db.comment.create({content:com});
         await blog.addComment(comment);
-        await comment.addCommenter(user);
-        res.status(200).json('done');
+        await comment.setCommenter(user);
+        res.status(200).json({comment:comment});
+    }
+    catch(e)
+    {next(e);}
+} 
+exports.getcomments=async (req,res,next)=>{
+    try{
+        const {bid}=req.query;
+        const blog=await db.blog.findByPk(bid);
+        const comment= await blog.getComment();
+        res.status(200).json({comment:comment});
     }
     catch(e)
     {next(e);}

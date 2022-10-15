@@ -17,7 +17,7 @@ const { DataTypes } = require("sequelize");
       freezeTableName: true,
     }
   );
-  Comment.sync({ alter: true }).then(() => {
+  Comment.sync({ alter: false }).then(() => {
     console.log("yes re-sync done!");
   });
   module.exports=Comment;

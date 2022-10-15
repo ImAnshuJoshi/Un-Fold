@@ -23,19 +23,17 @@ exports.addBlog = async (req, res, next) => {
     const result = await cloudinary.uploader.upload(req.file.path)
     console.log('id is ', req.query.id)
     const user = await db.user.findOne({ where: { id: req.query.id } })
-    if (!user) {
+    if (!user) {  
       res.status(400).json({
         error: 'No blogs Found!',
       })
     }
-    const newblog = (
-      await db.blog.create({
+    const newblog =await db.blog.create({
         title: req.body.title,
         content: req.body.content,
         imageurl: result.secure_url,
         cloudid: result.public_id,
       })
-    ).dataValues
     await user.addPost(newblog)
     res.status(200).json({ blogid: newblog.id })
   } catch (e) {
@@ -63,8 +61,8 @@ exports.getlikedusers = async (req, res, next) => {
   const { id } = req.query
   try {
     const blog = await db.blog.findOne({ where: { id: id } })
-    const lusers= (await blog.getLiker()).map((b)=>b.id);  
-    res.status(200).json({ids:lusers});
+    const lusers = (await blog.getLiker()).map((b) => b.id)
+    res.status(200).json({ ids: lusers })
   } catch (e) {
     console.log(e)
     next(e)
@@ -137,7 +135,7 @@ exports.editBlog = async (req, res, next) => {
 }
 
 exports.likeBlog = async (req, res, next) => {
-  const { uid,bid } = req.body
+  const { uid, bid } = req.body
   console.log(req.body)
   try {
     const blog = await db.blog.findOne({ where: { id: bid } })
@@ -152,7 +150,7 @@ exports.likeBlog = async (req, res, next) => {
         },
       }
     )
-    await blog.addLiker(user);
+    await blog.addLiker(user)
     console.log(blog)
     res.status(200).send('upblog')
   } catch (e) {
@@ -161,7 +159,7 @@ exports.likeBlog = async (req, res, next) => {
 }
 
 exports.unlikeBlog = async (req, res, next) => {
-  const { uid,bid } = req.body
+  const { uid, bid } = req.body
   console.log(req.body)
   try {
     const blog = await db.blog.findOne({ where: { id: bid } })
@@ -176,15 +174,13 @@ exports.unlikeBlog = async (req, res, next) => {
         },
       }
     )
-    await blog.removeLiker(user);
+    await blog.removeLiker(user)
     console.log(blog)
     res.status(200).send('upblog')
   } catch (e) {
     next(e)
   }
 }
-
-
 
 exports.addcat = async (req, res) => {
   try {
@@ -201,5 +197,3 @@ exports.addcat = async (req, res) => {
     next(e)
   }
 }
-
-exports.getfollowingblogs = async (req, res, next) => {}
