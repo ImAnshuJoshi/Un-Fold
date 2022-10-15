@@ -35,6 +35,7 @@ exports.signup = async (req, res, next) => {
         message: 'Database error',
       }) 
     }
+
   } catch (e) {
     next(e)
   }
@@ -76,7 +77,8 @@ exports.login = async (req, res, next) => {
             const token = jwt.sign({ email: email, id: currentuser.id }, process.env.secretstring, {
               expiresIn: '10h',
             })
-            res.status(200).json({
+            res.cookie("token",token);
+            res.status(200).json({  
               user: currentuser,
               message: 'User has been signed in!',
               token: token,
