@@ -6,13 +6,18 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const userRoutes = require('./routes/user')
 const blogRoutes = require('./routes/blog')
-const commentRoutes=require('./routes/comment');
-const categoryRoutes=require('./routes/category');
+const commentRoutes = require('./routes/comment')
+const categoryRoutes = require('./routes/category')
 const { error } = require('./Middlewares/error')
 const cors = require('cors')
 dotenv.config()
 const app = express()
-app.use(cors())
+app.use(
+  cors({
+    origin: ['http://127.0.0.1:5501', 'http://localhost:5501'],
+    credentials: true,
+  })
+)
 
 app.use(express.static('public'))
 
