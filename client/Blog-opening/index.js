@@ -368,11 +368,12 @@ window.onload = async () => {
   const add_comm_uid =currentlyloggedinuser;
   document.getElementById('commbtn').addEventListener('click',async ()=>{
    add_content=await document.getElementById('textbox_id').value;
-   const comm_body={uid:add_comm_uid,comm:add_content,bid:blog_id};
+   console.log(add_content);
+   const comm_body={uid:add_comm_uid,com:add_content,bid:blog_id};
 
    const add_comment= await fetch(`http://65.0.100.50/api/comment/addComment`,{
     method:"POST",
-    body:JSON.stringify(body),
+    body:JSON.stringify(comm_body),
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -405,5 +406,6 @@ window.onload = async () => {
       }
     );
     const blog_user_detail = await blog_user_details.json();
-  document.querySelector('.post-author').insertAdjacentHTML("afterbegin",publisher( blog_user_detail.user.imageurl,blog_user_detail.user.firstName,the_blog.blog.createdAt));
+    const createdAtDate = new Date(the_blog.blog.createdAt);
+  document.querySelector('.post-author').insertAdjacentHTML("afterbegin",publisher( blog_user_detail.user.imageurl,blog_user_detail.user.firstName, createdAtDate));
 };
