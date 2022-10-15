@@ -25,6 +25,7 @@ exports.signup = async (req, res, next) => {
       const token = jwt.sign({ email: req.body.email, id: req.body.id }, process.env.secretstring, {
         expiresIn: '10h',
       })
+      const currentuser= await reguser.json();
       res.status(200).json({
         user: currentuser,
         message: 'User has been signed in!',
