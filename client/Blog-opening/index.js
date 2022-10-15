@@ -1,6 +1,6 @@
 import get from "../currentuser.js";
 import { set } from "../currentuser.js";
-set("name", "73ff605f-5c8a-4c11-ad32-93ffc002834d");
+set("name", "d6761390-8759-48a9-8d75-ce453ca3ecd2");
 console.log(get());
 let currentlyloggedinuser = get().id;
 let blog_id;
@@ -96,6 +96,28 @@ const blogcard = (blog, tags, K) => `
                     <div class="blog-title">${blog.title}</div>
     
                   </div>`;
+
+const comments = (username, img, comm) => ` <div class="comments-container">
+                  <div><img src="${img}" alt=""></div>
+                  <div>
+                    <strong>${username}</strong>
+                    <p>${comm}</p>
+                  </div>
+                </div>
+                <div class="comment-partition"></div>`;
+
+const publisher = (img, username, date) => `  <div class="author-img">
+<img src="${img}" alt="">
+</div>
+<div class="author-content">
+<div class="author-name">
+  <span>${username}</span>
+</div>
+<div class="published-date">
+  Published on <span>${date}</span>
+</div>
+</div>
+</div>`;
 
 /*************FETCHING BLOG*********** */
 
@@ -205,13 +227,12 @@ const findblog = async (id) => {
   return blogbody.userId;
 };
 
-/************IMPLEMENTING LIKES AND COMMENTS PART********* */
+/************IMPLEMENTING LIKES PART********* */
 let blog_likes;
 window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
-  console.log(blog_id);
-  console.log("hi");
+  findblog(blog_id);
   const res = await fetch(
     `http://65.0.100.50/api/blog/getlikedusers?id=${blog_id}`,
     {
@@ -223,6 +244,7 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
+  console.log(res);
   const all_likes_users = await res.json();
   console.log(all_likes_users.ids);
   blog_likes = all_likes_users.ids.length;
@@ -288,4 +310,100 @@ window.onload = async () => {
       location.reload();
     });
   }
+
+  /**************IMPLEMENTING COMMENTS PART************* */
+
+  const comments_visibility = () => {
+    var x = document.getElementById("all_comments");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  };
+  document.querySelector(".comment").addEventListener("click", () => {
+    comments_visibility();
+  });
+
+  console.log(blog_id);
+
+  const result = await fetch(
+    `http://65.0.100.50/api/comment/getComments?bid=${blog_id}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const all_user_comments = await result.json();
+  console.log(all_user_comments.comment);
+
+  document.querySelector('.comments_count').innerHTML=`${all_user_comments.comment.length} Comments`
+
+  all_user_comments.comment.map(async (b) => {
+    const user_details = await fetch(
+      `http://65.0.100.50/api/getuserinfo?id=${b.CommenterId}`,
+      {
+        method: "GET",
+      }
+    );
+    const user_detail = await user_details.json();
+    // console.log(user_detail.user);
+
+    document
+      .getElementById("all_comments")
+      .insertAdjacentHTML(
+        "afterbegin",
+        comments(
+          user_detail.user.firstName,
+          user_detail.user.imageurl,
+          b.content
+        )
+      );
+  });
+
+  let add_content;
+  const add_comm_uid =currentlyloggedinuser;
+  document.getElementById('commbtn').addEventListener('click',async ()=>{
+   add_content=await document.getElementById('textbox_id').value;
+   const comm_body={uid:add_comm_uid,comm:add_content,bid:blog_id};
+
+   const add_comment= await fetch(`http://65.0.100.50/api/comment/addComment`,{
+    method:"POST",
+    body:JSON.stringify(body),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+   })
+   const new_comment=await add_comment.json();
+   console.log(new_comment);
+   location.reload();
+  } )
+
+
+  //fetching a blog details
+
+  const particular_blog= await fetch(`http://65.0.100.50/api/blog/getblogbyid?id=${blog_id}`,{
+    method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+  })
+  const the_blog=await particular_blog.json();
+  console.log(the_blog.blog);
+
+  const publisher_id=the_blog.blog.userId;
+    const blog_user_details = await fetch(
+      `http://65.0.100.50/api/getuserinfo?id=${publisher_id}`,
+      {
+        method: "GET",
+      }
+    );
+    const blog_user_detail = await blog_user_details.json();
+  document.querySelector('.post-author').insertAdjacentHTML("afterbegin",publisher( blog_user_detail.user.imageurl,blog_user_detail.user.firstName,the_blog.blog.createdAt));
 };
