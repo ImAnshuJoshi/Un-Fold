@@ -1,3 +1,14 @@
+/********************  ending the preloading *******************************/
+var preloader = document.querySelector('#loading');
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
+
+
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 

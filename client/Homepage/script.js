@@ -1,3 +1,16 @@
+/********************  ending the preloading *******************************/
+var preloader = document.getElementById('loading');
+
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
+
+
+
 import get from "../currentuser.js";
 import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
