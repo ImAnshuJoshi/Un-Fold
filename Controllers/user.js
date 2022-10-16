@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken')
 const db = require('../Config/dbconfig')
 const cloudinary = require('../Config/cloudinaryConfig')
-const bcrypt = require('bcrypt')
 const error = require('../Middlewares/error')
 exports.test = async (req, res, next) => {
   console.log(req.body)

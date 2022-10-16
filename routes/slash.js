@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const upload = require('../Config/multerConfig')
+const db = require('../Config/dbconfig')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 router.post('/register', upload.single('item'),  async (req, res, next) => {
     try {
