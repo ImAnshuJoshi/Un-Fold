@@ -11,6 +11,14 @@ document.querySelector("body").onload = endPreloader();
 
 
 
+function handle(e){
+  if(e.keyCode === 13){
+    e.preventDefault(); // Ensure it is only this code that runs
+
+}
+}
+
+
 import get from "../currentuser.js";
 import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
