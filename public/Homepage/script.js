@@ -17,18 +17,9 @@ const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
 
-const token=localStorage.getItem("jwt")
-function parseJwt (token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+const userId=localStorage.getItem("userId");
 
-  return JSON.parse(jsonPayload);
-};
 
-console.log(parseJwt(token).id)
 hamburger.addEventListener("click", mobileMenu);
 
 function mobileMenu() {
@@ -147,7 +138,6 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  console.log(parseJwt(token).id);
   const blogs = await fetch("http://65.0.100.50/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
@@ -159,6 +149,30 @@ window.onload = async () => {
   });
   categoriesfunc();
   blogsj = await blogs.json();
+  const followingblogs = await fetch(
+    "http://65.0.100.50/api/user/getFollowingblogs?" +
+      new URLSearchParams({ id: userId }),
+    {
+      method: "GET",
+      headers: {},
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const followingblogsj = (await followingblogs.json()).followingblogs;
+  followingblogsj.map(async (b) => {
+    const user = await finduser(b.userId);
+    const tags = (await getblogtags(b.id)).cats;
+    document
+      .getElementsByClassName("latest-cards row")[0]
+      .insertAdjacentHTML(
+        "afterbegin",
+        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags)
+      );
+    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+      text.substring(0, 50) + ".....";
+  });
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
