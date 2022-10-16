@@ -46,6 +46,8 @@ document.querySelector("body").onload = endPreloader();
     withCredentials:true
   });
   const user = await response.json();
+  console.log(user.user.id)
+  console.log(user.user)
   if(user.status!==200)
   {
     document.getElementById("para").innerHTML = user.message;
@@ -65,7 +67,8 @@ document.querySelector("body").onload = endPreloader();
 
   const token = user.token;
   if (token) {
-    localStorage.setItem("jwt", token);
+    // localStorage.setItem("jwt", token);
+    localStorage.setItem("userId",user.user.id);
     location.href = "../Homepage/index.html";
   }
   return user;
@@ -82,8 +85,8 @@ document.querySelector("body").onload = endPreloader();
   email = document.getElementById("login-email").value;
   password = document.getElementById("login-pass").value;
   const a = await ff();
-  console.log(a);
-  });
+  // console.log(a);
+});
 
   /******************************************************register ***********************************************/
 

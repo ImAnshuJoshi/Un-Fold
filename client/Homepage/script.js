@@ -24,6 +24,19 @@ import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
+
+const token=localStorage.getItem("jwt")
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+console.log(parseJwt(token).id)
 hamburger.addEventListener("click", mobileMenu);
 
 function mobileMenu() {
@@ -142,8 +155,7 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  set("SAAA", "G");
-  console.log(get());
+  console.log(parseJwt(token).id);
   const blogs = await fetch("http://65.0.100.50/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
