@@ -1,3 +1,15 @@
+/********************  ending the preloading *******************************/
+var preloader = document.getElementById('loading');
+
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
+
+
 import get from "../currentuser.js";
 
 function handlecats(cats) {
@@ -33,11 +45,10 @@ let user;
 let no_of_followers;
 let no_of_following;
 let no_of_blogs;
-window.editblog=(e)=>
-{
-  location.href=`http://127.0.0.1:5501/client/blogedit/texteditor.html?id=${e.id}`;
-  console.log(e)
-}
+window.editblog = (e) => {
+  location.href = `http://127.0.0.1:5501/blogedit/texteditor.html?id=${e.id}`;
+  console.log(e);
+};
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -194,7 +205,7 @@ window.onload = async () => {
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.id,b.imageurl, b.title, b.content, tags)
+        blogCard(b.id, b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
@@ -288,7 +299,7 @@ window.onload = async () => {
   if (user.id === logged_in_user.id) {
     document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
   } else {
-    console.log(user," ")
+    console.log(user, " ");
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
     if (follower_ids.includes(logged_in_user.id)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";
@@ -299,18 +310,15 @@ window.onload = async () => {
       document
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
-          const res = await fetch(
-            `http://65.0.100.50/api/user/unfollowUser`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(body),
-              mode: "cors",
-              credentials: "same-origin",
-            }
-          );
+          const res = await fetch(`http://65.0.100.50/api/user/unfollowUser`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+            mode: "cors",
+            credentials: "same-origin",
+          });
           console.log(res);
           document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
           const newfetchfollower = await fetch(
@@ -330,9 +338,8 @@ window.onload = async () => {
           console.log("No of followers are:", no_of_followers);
           document.getElementById("followers-insert").innerHTML =
             no_of_followers;
-            location.reload();
+          location.reload();
         });
-        
     } else {
       document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
       const body = {
@@ -342,18 +349,15 @@ window.onload = async () => {
       document
         .getElementById("follow-unfollow-edit")
         .addEventListener("click", async () => {
-          const res = await fetch(
-            `http://65.0.100.50/api/user/followUser`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(body),
-              mode: "cors",
-              credentials: "same-origin",
-            }
-          );
+          const res = await fetch(`http://65.0.100.50/api/user/followUser`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+            mode: "cors",
+            credentials: "same-origin",
+          });
           document.getElementById("follow-unfollow-edit").innerHTML =
             "UNFOLLOW";
           const newfetchfollower = await fetch(
@@ -373,7 +377,7 @@ window.onload = async () => {
           console.log("No of followers are:", no_of_followers);
           document.getElementById("followers-insert").innerHTML =
             no_of_followers;
-            location.reload();
+          location.reload();
         });
     }
   }

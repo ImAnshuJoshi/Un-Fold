@@ -46,35 +46,31 @@ document.querySelector("body").onload = endPreloader();
     withCredentials:true
   });
   const user = await response.json();
-  console.log(user.user.id)
-  console.log(user.user)
-  if(user.status!==200)
-  {
+  if (user.status !== 200) {
     document.getElementById("para").innerHTML = user.message;
-      var modal = document.getElementById("myModal");
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-      modal.style.display = "block";
-      span.onclick = function () {
+    var modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
         modal.style.display = "none";
-      };
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      };
-    }
+      }
+    };
+  }
 
   const token = user.token;
   if (token) {
-    // localStorage.setItem("jwt", token);
-    localStorage.setItem("userId",user.user.id);
+    localStorage.setItem("jwt", token);
     location.href = "../Homepage/index.html";
   }
   return user;
   // console.log("hi " + response.status);
   // if (response.status != 200) {r
-  //  
+  //
   // console.log(response.status);
 
   };
@@ -116,16 +112,16 @@ document.querySelector("body").onload = endPreloader();
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://65.0.100.50/api/register/", {
+  const response = await fetch("http://localhost:3000/api/register/", {
     method: "POST",
     body: formdata,
     // headers: {
     //   "Content-Type": "application/form-data",
     // },
     mode: "cors",
-    credentials: "same-origin",
+    withCredentials:true
   });
-  console.log(response);
+  console.log(response.body);
   const resJ = await response.json();
   console.log("hi " + response.status);
   if (response.status != 200) {
