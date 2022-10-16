@@ -25,7 +25,7 @@ exports.signup = async (req, res, next) => {
       const token = jwt.sign({ email: req.body.email, id: req.body.id }, process.env.secretstring, {
         expiresIn: '10h',
       })
-      const currentuser= await reguser.json();
+      res.cookie("token",token);
       res.status(200).json({
         user: reguser,
         message: 'User has been signed in!',
@@ -36,21 +36,10 @@ exports.signup = async (req, res, next) => {
         message: 'Database error',
       }) 
     }
+
   } catch (e) {
     next(e)
   }
-  /* const u2=await db.user.create({
-    firstName: 'AAAA',
-      lastName: 'req.body.lname',
-      email: 'a@a.com',
-      password: req.body.password,
-      about: req.body.about,
-      imageurl: result.secure_url,
-      cloudid: result.public_id,
-  })
-  const newu=reguser.addUser(u2); 
-  Method of adding in many to many tables
-  */
 }
 exports.login = async (req, res, next) => {
   try {
@@ -77,7 +66,8 @@ exports.login = async (req, res, next) => {
             const token = jwt.sign({ email: email, id: currentuser.id }, process.env.secretstring, {
               expiresIn: '10h',
             })
-            res.status(200).json({
+            res.cookie("token",token);
+            res.status(200).json({  
               user: currentuser,
               message: 'User has been signed in!',
               token: token,
