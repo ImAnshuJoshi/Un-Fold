@@ -210,6 +210,7 @@ window.onload = async () => {
   user = (await userinfo.json()).user;
   no_of_blogs = blogsj.length;
   const bblogs = await bookmarkedblogs(user);
+  console.log(bblogs);
   // console.log(bblogs);
 
   blogsj.map(async (b) => {
