@@ -271,13 +271,9 @@ window.onload = async () => {
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
-<<<<<<< HEAD
   }); 
 
 
-=======
-  });
->>>>>>> 991fd389827a49e180e45655057aae01ef522582
 };
 
 //SETTING PROFILE ON THE NAV_BAR

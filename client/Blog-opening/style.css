@@ -1,5 +1,5 @@
 *{  
-    color:white;
+    color:black;
     font-family: 'Jost', sans-serif;
 }
 #Landing{
@@ -218,6 +218,7 @@ progress {
     font-size: 3.3rem;
     font-family: 'Bona Nova';
     margin: 0;
+    color:white;
     /* margin-left: 5%; */
 }
 
@@ -239,6 +240,7 @@ progress {
     height: 400px;
     width: 375px;
     border-radius: 15px;
+    object-fit: cover;
 }
 .post-author{
     display: flex;
@@ -249,6 +251,7 @@ progress {
     border-radius: 50%;
     height: 60px;
     width: 60px;
+    object-fit: cover;
 }
 .post-author .author-content{
     display: flex;
