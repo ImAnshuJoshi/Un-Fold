@@ -372,7 +372,7 @@ window.onload = async () => {
 
   all_user_comments.comment.map(async (b) => {
     const user_details = await fetch(
-      `http://65.0.100.50/api/getuserinfo?id=${b.CommenterId}`,
+      `http://65.0.100.50/api/user/getuserinfo?id=${b.CommenterId}`,
       {
         method: "GET",
       }
@@ -433,7 +433,7 @@ window.onload = async () => {
 
   const publisher_id = the_blog.blog.userId;
   const blog_user_details = await fetch(
-    `http://65.0.100.50/api/getuserinfo?id=${publisher_id}`,
+    `http://65.0.100.50/api/user/getuserinfo?id=${publisher_id}`,
     {
       method: "GET",
     }
