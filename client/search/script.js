@@ -1,3 +1,14 @@
+/********************  ending the preloading *******************************/
+var preloader = document.querySelector('#loading');
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
+
+
 function changeBookmarkIcon(x){
   x.classList.toggle("fa-solid");
 }
