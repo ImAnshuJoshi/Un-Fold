@@ -81,6 +81,9 @@ nav a:first-child{
     bottom:-3px;
     transform-origin: right;
 }
+.nav-current>a{
+    transform: scaleX(1);
+}
 .nav-list>li>a:hover::before,
 .nav-list>li>a:hover::after{
     transform:scaleX(1);
