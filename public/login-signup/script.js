@@ -64,8 +64,7 @@ document.querySelector("body").onload = endPreloader();
 
   const token = user.token;
   if (token) {
-    // localStorage.setItem("jwt", token);
-    localStorage.setItem("userId",user.user.id);
+    localStorage.setItem("jwt", token);
     location.href = "../Homepage/index.html";
   }
   return user;

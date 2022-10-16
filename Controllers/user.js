@@ -8,6 +8,11 @@ exports.test = async (req, res, next) => {
   res.send(result.secure_url)
 }
 
+exports.user=(req,res,next)=>{
+  res.send(req.userid);
+}
+
+
 exports.signup = async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path)
@@ -26,6 +31,7 @@ exports.signup = async (req, res, next) => {
         expiresIn: '10h',
       })
       res.cookie("token",token);
+      req.userid=reguser.id;
       res.status(200).json({
         user: reguser,
         message: 'User has been signed in!',
@@ -67,6 +73,7 @@ exports.login = async (req, res, next) => {
               expiresIn: '10h',
             })
             res.cookie("token",token);
+            req.userid=currentuser.id;
             res.status(200).json({  
               user: currentuser,
               message: 'User has been signed in!',

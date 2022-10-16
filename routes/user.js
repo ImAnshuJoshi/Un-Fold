@@ -6,6 +6,8 @@ const upload = require('../Config/multerConfig')
 
 router.post('/register', upload.single('item'), usercontroller.signup)
 
+router.get('/currentuser',usercontroller.user);
+
 router.post('/login', usercontroller.login)
 
 router.get('/getuserinfo',usercontroller.getuserinfo);
