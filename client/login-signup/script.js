@@ -1,3 +1,6 @@
+import get from "../currentuser.js";
+import { set } from "../currentuser.js";
+
 /***********************************toggling between login and sign up********************************** */
 
 var x = document.getElementById("login");
@@ -34,6 +37,9 @@ async function ff(){
     withCredentials:true
   });
   const user = await response.json();
+  console.log(user.user.id)
+  console.log(user.user)
+  set(user.user.id);
   if(user.status!==200)
   {
     document.getElementById("para").innerHTML = user.message;
@@ -53,24 +59,23 @@ async function ff(){
   
   const token = user.token;
   if (token) {
-    localStorage.setItem("jwt", token);
+    // localStorage.setItem("jwt", token);
+    localStorage.setItem("userId",user.user.id);
     location.href = "../Homepage/index.html";
   }
   return user;
-  // console.log("hi " + response.status);
-  // if (response.status != 200) {r
-  //  
-  // console.log(response.status);
+  
   
 };
 
 const loginBtn = document.querySelector(".loginbtn");
 
 loginBtn.addEventListener("click", async () => {
+  console.log(get());
   email = document.getElementById("login-email").value;
   password = document.getElementById("login-pass").value;
   const a = await ff();
-  console.log(a);
+  // console.log(a);
 });
 
 /******************************************************register ***********************************************/
