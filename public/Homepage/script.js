@@ -9,15 +9,11 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
-
-
-import get from "../currentuser.js";
-import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
 
-const userId=localStorage.getItem("userId");
+const token=localStorage.getItem("jwt");
 
 
 hamburger.addEventListener("click", mobileMenu);

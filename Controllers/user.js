@@ -12,84 +12,6 @@ exports.user=(req,res,next)=>{
   res.send(req.userid);
 }
 
-
-exports.signup = async (req, res, next) => {
-  try {
-    const result = await cloudinary.uploader.upload(req.file.path)
-    let reguser
-    reguser = await db.user.create({
-      firstName: req.body.fname,
-      lastName: req.body.lname,
-      email: req.body.email,
-      password: req.body.password,
-      about: req.body.about,
-      imageurl: result.secure_url,
-      cloudid: result.public_id,
-    })
-    if (reguser) {
-      const token = jwt.sign({ email: req.body.email, id: req.body.id }, process.env.secretstring, {
-        expiresIn: '10h',
-      })
-      res.cookie("token",token);
-      req.userid=reguser.id;
-      res.status(200).json({
-        user: reguser,
-        message: 'User has been signed in!',
-        token: token,
-      })
-    } else {
-      res.status(400).json({
-        message: 'Database error',
-      }) 
-    }
-
-  } catch (e) {
-    next(e)
-  }
-}
-exports.login = async (req, res, next) => {
-  try {
-    const { email, password } = req.body
-    if (!email) {
-      res.status(400).json({
-        message: 'Email is empty',
-      })
-    }
-    const currentuser = await db.user.findOne({ where: { email: email } })
-    if (!currentuser) {
-      res.status(400).json({
-        message: 'User is not registered, Sign Up first',
-      })
-    } else {
-      bcrypt.compare(password, currentuser.password, (err, result) => {
-        //Comparing the hashed password
-        if (err) {
-          res.status(500).json({
-            message: 'Server error',
-          })
-        } else {
-          if (result) {
-            const token = jwt.sign({ email: email, id: currentuser.id }, process.env.secretstring, {
-              expiresIn: '10h',
-            })
-            res.cookie("token",token);
-            req.userid=currentuser.id;
-            res.status(200).json({  
-              user: currentuser,
-              message: 'User has been signed in!',
-              token: token,
-            })
-          } else {
-            res.status(400).json({ message: 'Enter correct password!' })
-          }
-        }
-      })
-    }
-  } catch (err) {
-    next(err)
-  }
-}
-
 exports.followUser = async (req, res, next) => {
   const { id1, id2 } = req.body
   try {
@@ -215,5 +137,45 @@ exports.getallusers = async (req, res, next) => {
     res.status(200).json({ user: users })
   } catch (e) {
     next(e)
+  }
+}
+
+exports.editprofile = async (req, res, next) => {
+  const { id,fname,lname,email,about } = req.body
+  const result = req.file ? await cloudinary.uploader.upload(req.file.path) : null
+  try {
+    const newuser = result
+    ? await db.user.update(
+      {
+        firstName: fname,
+        lastName: lname,
+        email:email,
+        about: about,
+        imageurl: result.secure_url,
+        cloudid: result.public_id,
+      },
+      {
+        where: {
+          id: id,
+        },
+      }
+    ): await db.user.update(
+      {
+        firstName: fname,
+        lastName: lname,
+        email:email,
+        about: about,},
+      {
+        where: {
+          id: id,
+        },
+      }
+    ) 
+
+    console.log(newuser)
+    res.status(200).send(newuser)
+  } catch (e) {
+    console.log(e);
+    next(e);
   }
 }

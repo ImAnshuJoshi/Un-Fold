@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const path = require('path')
 const jwt = require('jsonwebtoken')
+const slashRoutes = require('./routes/slash');
 const userRoutes = require('./routes/user')
 const blogRoutes = require('./routes/blog')
 const commentRoutes = require('./routes/comment')
@@ -13,10 +14,9 @@ const cors = require('cors')
 dotenv.config()
 const app = express()
 app.use(
-  cors(/* {
-    origin: ['http://127.0.0.1:5501', 'http://localhost:5501'],
-    credentials: true,
-  } */)
+  cors({
+    origin: ['http://127.0.0.1:5501', 'http://localhost:5501']
+  })
 )
 
 app.use(express.static('public'))
@@ -30,12 +30,12 @@ app.use(
 )
 
 app.use(express.json())
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
-app.get('/', (_, res) => {
-  res.redirect('/login-signup')
-})
-app.use('/api', userRoutes)
+// app.get('/', (_, res) => {
+//   res.redirect('/login-signup')
+// })
+app.use('/api', slashRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/comment', commentRoutes)
