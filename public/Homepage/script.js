@@ -10,6 +10,19 @@ function endPreloader(){
 document.querySelector("body").onload = endPreloader();
 
 
+/********************************* Search page loader ******************************************/
+var myInput = document.getElementsByClassName('input');
+myInput.addEventListener('keypress', function(e){
+  if(e.key === "Enter"){
+    e.preventDefault();
+    document.getElementsByClassName('myBtn').click();
+  }
+});
+
+function myFunction(){
+  alert('searched');
+}
+
 
 import get from "../currentuser.js";
 import { set } from "../currentuser.js";
