@@ -7,12 +7,23 @@ function endPreloader(){
   }, 1000);
 }
 document.querySelector("body").onload = endPreloader();
-import get from "../currentuser.js";
-import { set } from "../currentuser.js";
-set("name", "d6761390-8759-48a9-8d75-ce453ca3ecd2");
-console.log(get());
-let currentlyloggedinuser = get().id;
+
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const token=localStorage.getItem('jwt');
+const decodedtoken=parseJwt(token);
+const currentlyloggedinuser=decodedtoken.id;
 let blog_id;
+
+
 window.changeBookmarkIcon = async (x) => {
   const id = x.parentNode.parentNode.parentNode.id;
   if (x.classList.value.includes("fa-solid")) {

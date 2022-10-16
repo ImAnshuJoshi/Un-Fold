@@ -54,8 +54,6 @@ function parseJwt (token) {
 const token=localStorage.getItem('jwt');
 const decodedtoken=parseJwt(token);
 const userId=decodedtoken.id;
-console.log(decodedtoken);
-
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -170,6 +168,7 @@ window.onload = async () => {
     }
   );
   const followingblogsj = (await followingblogs.json()).followingblogs;
+  console.log(followingblogsj);
   followingblogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
@@ -177,12 +176,14 @@ window.onload = async () => {
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
   });
+
+  //LATEST BLOGS ALL
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;

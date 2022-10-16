@@ -9,8 +9,21 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
+// import get from "../currentuser.js";
 
-import get from "../currentuser.js";
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const token=localStorage.getItem('jwt');
+const decodedtoken=parseJwt(token);
+// const userId=decodedtoken.id;
 
 function handlecats(cats) {
   let t = ``;
@@ -166,7 +179,7 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  const logged_in_user = get();
+  const logged_in_user = decodedtoken;
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),

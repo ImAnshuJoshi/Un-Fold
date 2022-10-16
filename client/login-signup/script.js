@@ -65,7 +65,7 @@ document.querySelector("body").onload = endPreloader();
   const token = user.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "../Homepage/index.html";
+    location.href = "../Homepage";
   }
   return user;
   // console.log("hi " + response.status);
@@ -149,3 +149,4 @@ document.querySelector("body").onload = endPreloader();
   }
   };
 // },5000);
+  
