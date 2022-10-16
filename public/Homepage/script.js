@@ -9,6 +9,27 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
+
+/********************************* Search page loader ******************************************/
+var myInput = document.getElementsByClassName('input');
+
+function myFunction(){
+  alert('searched');
+}
+myInput.addEventListener("keydown", function(event){
+  console.log("jknv");
+  if(event.key === "Enter"){
+    event.preventDefault();
+    document.getElementsByClassName('myBtn').click();
+    console.log("fgnfdgns");
+  }
+});
+
+
+
+
+import get from "../currentuser.js";
+import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
