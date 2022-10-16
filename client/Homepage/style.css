@@ -324,6 +324,7 @@ button:hover{
     transform: translateX(-60px);
 }
 .fa-regular{
+    color: #252525;
     position: inherit;
     left: 100%;
     margin-left: 30px;
@@ -331,6 +332,7 @@ button:hover{
     user-select: none;
 }
 .fa-solid{
+    color: #252525;
     position: inherit;
     left: 100%;
     margin-left: 30px;
