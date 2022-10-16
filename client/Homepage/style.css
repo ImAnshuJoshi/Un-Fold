@@ -256,12 +256,13 @@ button:hover{
     width:450px;
 }
 .desc{
-    /* padding-left: 20px; */
     font-size: 30px;
 }
 .desc2{
-    /* padding-left: 20px; */
     font-size: 15px;
+}
+.descblack .desc2black{
+    color:black;    
 }
 .tags{
     display: flex;
@@ -290,7 +291,23 @@ button:hover{
     position: relative;
     bottom: 125px;
     left: -2px;
-    background-size: cover;
+    object-fit: cover;
+}
+.my-img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 12px;
+    /* position: relative; */
+    bottom: 125px;
+    left: -2px;
+    object-fit: cover;
+    transform: translate(-7px,4px);
+}
+.nav-link-profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .bookmark{
     display: flex;

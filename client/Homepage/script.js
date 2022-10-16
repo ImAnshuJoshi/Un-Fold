@@ -101,8 +101,8 @@ const blogCard = (img, title, content, user, id, tags) =>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
-            <div class="desc">${title}</div>
-            <div class="desc2 ${i++}">
+            <div class="desc descblack">${title}</div>
+            <div class="desc2 ${i++} desc2black">
             ${content}
             </div>
             </div></a>`;
@@ -184,6 +184,7 @@ window.onload = async () => {
   });
 
   //LATEST BLOGS ALL
+  console.log(blogsj);
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
@@ -197,4 +198,12 @@ window.onload = async () => {
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
   }); 
+
+
 };
+
+//SETTING PROFILE ON THE NAV_BAR
+const currently_logged_in_user =await finduser(userId);
+console.log(currently_logged_in_user);
+
+document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
