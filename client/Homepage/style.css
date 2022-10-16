@@ -2,6 +2,9 @@
     color:white;
     font-family: 'Jost', sans-serif;
 }
+body{
+    background-color: #FAF9F6;
+}
 #Landing{
     margin: -8px;
     overflow-x: hidden;
@@ -168,7 +171,7 @@ button:hover{
 
 /****** Latest-body ******/
 #latest-blog-section{
-    background-color: #252525;
+    background-color: #FAF9F6;
     margin:-8px;
     margin-bottom: 20px;
 }
@@ -242,6 +245,7 @@ button:hover{
     text-align: center;
 }
 .check-latest-blog{
+    color: #252525;
     margin:20px;
     font-size:20px;
     margin-left:5vw;    
@@ -261,8 +265,8 @@ button:hover{
 .desc2{
     font-size: 15px;
 }
-.descblack .desc2black{
-    color:black;    
+.descblack, .desc2black{
+    color: #252525;  
 }
 .tags{
     display: flex;
@@ -339,8 +343,10 @@ button:hover{
 
 /**************** Categories names  *******************/
 #categories{
-    margin-top: 50px;
-    margin-bottom: 50px;
+    background-color: #FAF9F6;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 100%;
 }
 #categories h2{
     color: #252525;
@@ -390,10 +396,11 @@ button:hover{
 
 /******************* Recent-Blogs**************** */
 
-/* #recent{
+#recent{
     /* height:100vh; */
-    /* background-color: #e5e5e5; 
-} */
+    width: 100%;
+    background-color: #FAF9F6;
+}
 .recent-wrap>h2{
     color:black;
     font-weight: 400;
