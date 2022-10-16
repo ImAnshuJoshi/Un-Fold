@@ -16,12 +16,12 @@ document.querySelector("body").onload = endPreloader();
   var y = document.getElementById("register");
   var z = document.getElementById("btn");
 
-  function register() {
+  window.register=()=> {
   x.style.left = "-400px";
   y.style.left = "50px";
   z.style.left = "110px";
   }
-  function login() {
+  window.login=()=>{
   x.style.left = "50px";
   y.style.left = "450px";
   z.style.left = "0";
@@ -88,7 +88,7 @@ document.querySelector("body").onload = endPreloader();
 
   let fname, lname, reg_email, desc, img, pass;
 
-  function register123() {
+  window.register123=()=>{
   password = "";
   // fname = document.getElementById("register-fname").value;
   fname = (document.getElementById("register-fname") || {}).value || "";
@@ -112,7 +112,7 @@ document.querySelector("body").onload = endPreloader();
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://localhost:3000/api/register/", {
+  const response = await fetch("http://65.0.100.50/api/register/", {
     method: "POST",
     body: formdata,
     // headers: {

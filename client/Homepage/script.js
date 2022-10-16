@@ -1,7 +1,7 @@
 /********************  ending the preloading *******************************/
-var preloader = document.getElementById('loading');
+var preloader = document.getElementById("loading");
 
-function endPreloader(){
+function endPreloader() {
   setTimeout(() => {
     preloader.style.display = "none";
     console.log("preloader ending");
@@ -12,7 +12,68 @@ document.querySelector("body").onload = endPreloader();
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
-
+window.changeBookmarkIcon = async (x) => {
+  const id = x.parentNode.parentNode.parentNode.parentNode.id;
+  console.log(x.parentNode.parentNode.parentNode.parentNode);
+  if (x.classList.value.includes("fa-solid")) {
+    console.log("unbookmarked");
+    await removebookmark(id);
+  } else {
+    console.log("bookmarked");
+    await addbookmark(id);
+  }
+  x.classList.toggle("fa-solid");
+};
+async function getbmarkedblogs(id) {
+  const blogs = await fetch(
+    "http://65.0.100.50/api/user/getbookmarkedblogs?id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const allblogs = await blogs.json();
+  return allblogs.bblogs;
+}
+function bookmarksign(K) {
+  if (K) {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+  } else {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+  }
+}
+async function removebookmark(bid) {
+  const body = { uid: userId, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to unBookmark :(");
+}
+async function addbookmark(bid) {
+  const body = { uid: userId, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
+}
 
 hamburger.addEventListener("click", mobileMenu);
 
@@ -41,19 +102,25 @@ function handlecats(cats) {
   return t;
 }
 
-function parseJwt (token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
 
   return JSON.parse(jsonPayload);
-};
+}
 
-const token=localStorage.getItem('jwt');
-const decodedtoken=parseJwt(token);
-const userId=decodedtoken.id;
+const token = localStorage.getItem("jwt");
+const decodedtoken = parseJwt(token);
+const userId = decodedtoken.id;
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -85,17 +152,16 @@ const categoryz = (
 </div>
 </div></a>`;
 
-const blogCard = (img, title, content, user, id, tags) =>
-  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
-            <div class="child">
+const blogCard = (img, title, content, user, id, tags, K) =>
+  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details" id=${id} >
+            <div class="child" >
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags">
             ${handlecats(tags)}
             <div class="bookmark">
-            <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-            </div>
+            ${bookmarksign(K)}</div>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
@@ -169,14 +235,20 @@ window.onload = async () => {
   );
   const followingblogsj = (await followingblogs.json()).followingblogs;
   console.log(followingblogsj);
+  const bmarkedblogs = await getbmarkedblogs(userId);
+  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
+  console.log(bmarkedblogsk);
+
   followingblogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
@@ -188,18 +260,24 @@ window.onload = async () => {
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
+<<<<<<< HEAD
   }); 
 
 
+=======
+  });
+>>>>>>> 991fd389827a49e180e45655057aae01ef522582
 };
 
 //SETTING PROFILE ON THE NAV_BAR
