@@ -21,7 +21,7 @@ let email;
 let password;
 
 async function ff() {
-  const response = await fetch("http://localhost:3000/api/login/", {
+  const response = await fetch("http://65.0.100.50/api/login/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -99,7 +99,7 @@ const ff2 = async () => {
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://localhost:3000/api/register/", {
+  const response = await fetch("http://65.0.100.50/api/register/", {
     method: "POST",
     body: formdata,
     // headers: {
