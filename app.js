@@ -13,10 +13,10 @@ const cors = require('cors')
 dotenv.config()
 const app = express()
 app.use(
-  cors({
+  cors(/* {
     origin: ['http://127.0.0.1:5501', 'http://localhost:5501'],
     credentials: true,
-  })
+  } */)
 )
 
 app.use(express.static('public'))
@@ -30,9 +30,10 @@ app.use(
 )
 
 app.use(express.json())
+app.use(express.static("public"));
 
 app.get('/', (_, res) => {
-  res.send(' server is up and running 🚀')
+  res.redirect('/login-signup')
 })
 app.use('/api', userRoutes)
 app.use('/api/blog', blogRoutes)
