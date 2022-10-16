@@ -12,6 +12,18 @@
 b{
     color: black;
 }
+
+#loading{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #fff 
+    url('../assets/gif.svg')
+    no-repeat center;
+    background-color: #252525;
+    background-size: 150px 200px;
+    z-index: 5;
+}
 /******* nav bar ******/
 nav{
     display: flex;

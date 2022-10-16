@@ -1,26 +1,38 @@
+/********************  ending the preloading *******************************/
+var preloader = document.querySelector('#loading');
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
+
+
+
 /***********************************toggling between login and sign up********************************** */
+// setTimeout(
+  var x = document.getElementById("login");
+  var y = document.getElementById("register");
+  var z = document.getElementById("btn");
 
-var x = document.getElementById("login");
-var y = document.getElementById("register");
-var z = document.getElementById("btn");
-
-function register() {
+  function register() {
   x.style.left = "-400px";
   y.style.left = "50px";
   z.style.left = "110px";
-}
-function login() {
+  }
+  function login() {
   x.style.left = "50px";
   y.style.left = "450px";
   z.style.left = "0";
-}
+  }
 
-/*****************************LOGIN SIGN UP Functionality*************************** */
+  /*****************************LOGIN SIGN UP Functionality*************************** */
 
-let email;
-let password;
+  let email;
+  let password;
 
-async function ff() {
+  async function ff(){
   const response = await fetch("http://65.0.100.50/api/login/", {
     method: "POST",
     body: JSON.stringify({
@@ -60,22 +72,23 @@ async function ff() {
   // if (response.status != 200) {r
   //
   // console.log(response.status);
-}
 
-const loginBtn = document.querySelector(".loginbtn");
+  };
 
-loginBtn.addEventListener("click", async () => {
+  const loginBtn = document.querySelector(".loginbtn");
+
+  loginBtn.addEventListener("click", async () => {
   email = document.getElementById("login-email").value;
   password = document.getElementById("login-pass").value;
   const a = await ff();
   console.log(a);
-});
+  });
 
-/******************************************************register ***********************************************/
+  /******************************************************register ***********************************************/
 
-let fname, lname, reg_email, desc, img, pass;
+  let fname, lname, reg_email, desc, img, pass;
 
-function register123() {
+  function register123() {
   password = "";
   // fname = document.getElementById("register-fname").value;
   fname = (document.getElementById("register-fname") || {}).value || "";
@@ -87,9 +100,9 @@ function register123() {
 
   console.log(img);
   ff2();
-}
+  }
 
-const ff2 = async () => {
+  const ff2 = async () => {
   // formdata
   const formdata = new FormData();
   formdata.append("fname", fname);
@@ -99,7 +112,7 @@ const ff2 = async () => {
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://65.0.100.50/api/register/", {
+  const response = await fetch("http://localhost:3000/api/register/", {
     method: "POST",
     body: formdata,
     // headers: {
@@ -134,4 +147,5 @@ const ff2 = async () => {
     localStorage.setItem("jwt", token);
     location.href = "../Homepage/index.html";
   }
-};
+  };
+// },5000);

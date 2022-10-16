@@ -1,3 +1,12 @@
+/********************  ending the preloading *******************************/
+var preloader = document.querySelector('#loading');
+function endPreloader(){
+  setTimeout(() => {
+    preloader.style.display = "none";
+    console.log("preloader ending");
+  }, 1000);
+}
+document.querySelector("body").onload = endPreloader();
 import get from "../currentuser.js";
 import { set } from "../currentuser.js";
 set("name", "d6761390-8759-48a9-8d75-ce453ca3ecd2");
