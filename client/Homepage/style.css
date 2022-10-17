@@ -171,7 +171,7 @@ button:hover{
 
 /****** Latest-body ******/
 #latest-blog-section{
-    background-color: #FAF9F6;
+    background-color: #252525;
     margin:-8px;
     margin-bottom: 20px;
 }
@@ -245,10 +245,10 @@ button:hover{
     text-align: center;
 }
 .check-latest-blog{
-    color: #252525;
+    color: #FAF9F6;
     margin:20px;
-    font-size:20px;
-    margin-left:5vw;    
+    font-size:1.5rem;
+    margin-left:5vw;
 }
 .check-latest-blog>b{
     color:#f8bf8c;
@@ -266,7 +266,7 @@ button:hover{
     font-size: 15px;
 }
 .descblack, .desc2black{
-    color: #252525;  
+    color: #FAF9F6;  
 }
 .tags{
     display: flex;
@@ -324,7 +324,7 @@ button:hover{
     transform: translateX(-60px);
 }
 .fa-regular{
-    color: #252525;
+    color: #FAF9F6;
     position: inherit;
     left: 100%;
     margin-left: 30px;
@@ -332,7 +332,7 @@ button:hover{
     user-select: none;
 }
 .fa-solid{
-    color: #252525;
+    color: #FAF9F6;
     position: inherit;
     left: 100%;
     margin-left: 30px;
@@ -412,13 +412,6 @@ button:hover{
 .recent-wrap>h2>span{
     color:#ffa556
 }
-.desc-white{
-    color:black;
-    font-weight: 500;
-}
-.desc2-white{
-    color:black;
-}
 .follow-cards{
     display: flex;
     flex-direction: row;
@@ -426,19 +419,25 @@ button:hover{
     margin-bottom: 20px;
     /* margin-left: 40px; */
 }
-.row{
+.latest-cards{
     display: flex;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 30px;
 }
+.latest-cards .blog-details .desc2black{
+    color: #252525;
+}
+.latest-cards .blog-details .descblack{
+    color: #252525;
+}
 
 #recent .bookmark .fa-regular{
-    color: black;
+    color: #252525;
 }
 #recent .bookmark .fa-solid{
-    color: black;
+    color: #252525;
     
 }
 
