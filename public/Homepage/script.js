@@ -16,14 +16,7 @@ var myInput = document.getElementsByClassName('input');
 function myFunction(){
   alert('searched');
 }
-myInput.addEventListener("keydown", function(event){
-  console.log("jknv");
-  if(event.key === "Enter"){
-    event.preventDefault();
-    document.getElementsByClassName('myBtn').click();
-    console.log("fgnfdgns");
-  }
-});
+
 
 
 
@@ -66,7 +59,7 @@ function handlecats(cats) {
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://65.0.100.50/api/category/getblogcategories?` +
+    `http://localhost:3000/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -118,7 +111,7 @@ const blogCard = (img, title, content, user, id, tags) =>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://65.0.100.50/api/user/getuserinfo?" +
+    "http://localhost:3000/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -136,7 +129,7 @@ const finduser = async (id) => {
 let categoryg;
 const categoriesfunc = async () => {
   const categories = await fetch(
-    "http://65.0.100.50/api/category/getallcategories",
+    "http://localhost:3000/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -155,19 +148,19 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  const blogs = await fetch("http://65.0.100.50/api/blog/getAllBlogs", {
+  const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
+      // "Content-Type": "application/json",
+      // // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     mode: "cors",
-    credentials: "same-origin",
+    withCredentials: true,
   });
   categoriesfunc();
   blogsj = await blogs.json();
   const followingblogs = await fetch(
-    "http://65.0.100.50/api/user/getFollowingblogs?" +
+    "http://localhost:3000/api/user/getFollowingblogs?" +
       new URLSearchParams({ id: userId }),
     {
       method: "GET",

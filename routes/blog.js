@@ -1,9 +1,10 @@
 const express = require("express");
 const blogcontroller = require("../Controllers/blog");
+const tokencheck= require('../Middlewares/tokenauth');
 const router = express.Router();
 const upload = require("../Config/multerConfig");
 
-router.get("/getAllBlogs", blogcontroller.getAllBlogs);
+router.get("/getAllBlogs",/* tokencheck, */ blogcontroller.getAllBlogs);
 router.get("/getblogbyid", blogcontroller.getblogbyid);
 router.get("/allUserBlogs",blogcontroller.getUserBlogs);
 router.get("/getlikedusers",blogcontroller.getlikedusers);

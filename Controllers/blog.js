@@ -2,6 +2,7 @@ const cloudinary = require('../Config/cloudinaryConfig')
 const db = require('../Config/dbconfig')
 exports.getAllBlogs = async (req, res, next) => {
   try {
+    console.log(req.userid);
     const Allblogs = await db.blog.findAll({ where: {} })
     if (!Allblogs) {
       res.status(400).json({
