@@ -114,6 +114,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
+                              <i class="fa-solid fa-trash"></i>
                               <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
                               </div>
                               </ul>
