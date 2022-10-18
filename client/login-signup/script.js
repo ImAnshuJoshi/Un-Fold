@@ -33,7 +33,7 @@ document.querySelector("body").onload = endPreloader();
   let password;
 
   async function ff(){
-  const response = await fetch("http://65.0.100.50/api/login/", {
+  const response = await fetch("http://65.0.100.50/api/login", {
     method: "POST",
     body: JSON.stringify({
       email: email,
