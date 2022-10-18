@@ -398,6 +398,11 @@ progress {
 	border-radius: 5px;
 	padding: 5px 10px
 }
+.fa-trash{
+    color: #252525;
+    position: relative;
+    top: 42px;
+}
 
 textarea {
 	width: 100%;
