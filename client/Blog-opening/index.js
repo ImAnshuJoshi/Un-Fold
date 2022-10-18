@@ -128,7 +128,8 @@ const comments = (username, img, comm) => ` <div class="comments-container">
                   <div>
                     <strong>${username}</strong>
                     <p>${comm}</p>
-                  </div>
+                    </div>
+                    <i class="fa-solid fa-trash"></i>
                 </div>
                 <div class="comment-partition"></div>`;
 

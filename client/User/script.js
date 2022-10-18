@@ -7,6 +7,31 @@ function endPreloader(){
     console.log("preloader ending");
   }, 1000);
 }
+
+
+
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+}
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
+}
+
+
+
+
+
 document.querySelector("body").onload = endPreloader();
 
 // import get from "../currentuser.js";
@@ -114,6 +139,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
+                              <i class="fa-solid fa-trash"></i>
                               <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
                               </div>
                               </ul>
