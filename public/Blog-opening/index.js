@@ -1,18 +1,34 @@
 /********************  ending the preloading *******************************/
-var preloader = document.querySelector('#loading');
-function endPreloader(){
+var preloader = document.querySelector("#loading");
+function endPreloader() {
   setTimeout(() => {
     preloader.style.display = "none";
     console.log("preloader ending");
   }, 1000);
 }
 document.querySelector("body").onload = endPreloader();
-import get from "../currentuser.js";
-import { set } from "../currentuser.js";
-set("name", "d6761390-8759-48a9-8d75-ce453ca3ecd2");
-console.log(get());
-let currentlyloggedinuser = get().id;
+
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+const token = localStorage.getItem("jwt");
+const decodedtoken = parseJwt(token);
+const currentlyloggedinuser = decodedtoken.id;
 let blog_id;
+
 window.changeBookmarkIcon = async (x) => {
   const id = x.parentNode.parentNode.parentNode.id;
   if (x.classList.value.includes("fa-solid")) {
@@ -20,6 +36,7 @@ window.changeBookmarkIcon = async (x) => {
     await removebookmark(id);
   } else {
     console.log("bookmarked");
+    console.log(id);
     await addbookmark(id);
   }
   x.classList.toggle("fa-solid");
@@ -349,11 +366,13 @@ window.onload = async () => {
   const all_user_comments = await result.json();
   console.log(all_user_comments.comment);
 
-  document.querySelector('.comments_count').innerHTML=`${all_user_comments.comment.length} Comments`
+  document.querySelector(
+    ".comments_count"
+  ).innerHTML = `${all_user_comments.comment.length} Comments`;
 
   all_user_comments.comment.map(async (b) => {
     const user_details = await fetch(
-      `http://65.0.100.50/api/getuserinfo?id=${b.CommenterId}`,
+      `http://65.0.100.50/api/user/getuserinfo?id=${b.CommenterId}`,
       {
         method: "GET",
       }
@@ -374,47 +393,61 @@ window.onload = async () => {
   });
 
   let add_content;
-  const add_comm_uid =currentlyloggedinuser;
-  document.getElementById('commbtn').addEventListener('click',async ()=>{
-   add_content=await document.getElementById('textbox_id').value;
-   console.log(add_content);
-   const comm_body={uid:add_comm_uid,com:add_content,bid:blog_id};
+  const add_comm_uid = currentlyloggedinuser;
+  document.getElementById("commbtn").addEventListener("click", async () => {
+    add_content = await document.getElementById("textbox_id").value;
+    console.log(add_content);
+    const comm_body = { uid: add_comm_uid, com: add_content, bid: blog_id };
 
-   const add_comment= await fetch(`http://65.0.100.50/api/comment/addComment`,{
-    method:"POST",
-    body:JSON.stringify(comm_body),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-   })
-   const new_comment=await add_comment.json();
-   console.log(new_comment);
-   location.reload();
-  } )
-
+    const add_comment = await fetch(
+      `http://65.0.100.50/api/comment/addComment`,
+      {
+        method: "POST",
+        body: JSON.stringify(comm_body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const new_comment = await add_comment.json();
+    console.log(new_comment);
+    location.reload();
+  });
 
   //fetching a blog details
 
-  const particular_blog= await fetch(`http://65.0.100.50/api/blog/getblogbyid?id=${blog_id}`,{
-    method: "GET",
+  const particular_blog = await fetch(
+    `http://65.0.100.50/api/blog/getblogbyid?id=${blog_id}`,
+    {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       mode: "cors",
       credentials: "same-origin",
-  })
-  const the_blog=await particular_blog.json();
+    }
+  );
+  const the_blog = await particular_blog.json();
   console.log(the_blog.blog);
 
-  const publisher_id=the_blog.blog.userId;
-    const blog_user_details = await fetch(
-      `http://65.0.100.50/api/getuserinfo?id=${publisher_id}`,
-      {
-        method: "GET",
-      }
+  const publisher_id = the_blog.blog.userId;
+  const blog_user_details = await fetch(
+    `http://65.0.100.50/api/user/getuserinfo?id=${publisher_id}`,
+    {
+      method: "GET",
+    }
+  );
+  const blog_user_detail = await blog_user_details.json();
+  const createdAtDate = new Date(the_blog.blog.createdAt);
+  document
+    .querySelector(".post-author")
+    .insertAdjacentHTML(
+      "afterbegin",
+      publisher(
+        blog_user_detail.user.imageurl,
+        blog_user_detail.user.firstName,
+        createdAtDate
+      )
     );
-    const blog_user_detail = await blog_user_details.json();
-    const createdAtDate = new Date(the_blog.blog.createdAt);
-  document.querySelector('.post-author').insertAdjacentHTML("afterbegin",publisher( blog_user_detail.user.imageurl,blog_user_detail.user.firstName, createdAtDate));
 };

@@ -9,8 +9,21 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
+// import get from "../currentuser.js";
 
-import get from "../currentuser.js";
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const token=localStorage.getItem('jwt');
+const decodedtoken=parseJwt(token);
+// const userId=decodedtoken.id;
 
 function handlecats(cats) {
   let t = ``;
@@ -46,7 +59,7 @@ let no_of_followers;
 let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
-  location.href = `http://127.0.0.1:5501/blogedit/texteditor.html?id=${e.id}`;
+  location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
   console.log(e);
 };
 
@@ -166,7 +179,7 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  const logged_in_user = get();
+  const logged_in_user = decodedtoken;
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
@@ -197,6 +210,7 @@ window.onload = async () => {
   user = (await userinfo.json()).user;
   no_of_blogs = blogsj.length;
   const bblogs = await bookmarkedblogs(user);
+  console.log(bblogs);
   // console.log(bblogs);
 
   blogsj.map(async (b) => {
@@ -382,3 +396,4 @@ window.onload = async () => {
     }
   }
 };
+

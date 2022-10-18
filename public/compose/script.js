@@ -28,6 +28,20 @@ function closeMenu() {
 }
 
 
+function parseJwt (token) {
+  var base64Url = token.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+const token=localStorage.getItem('jwt');
+const decodedtoken=parseJwt(token);
+
+
 
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");
@@ -171,8 +185,9 @@ async function handleCats(selectedCboxes,blogid) {
 }
 let id
 window.onload = () => {
-  const queryParamsString = window.location.search?.substring(1);
-  id = queryParamsString?.substring(3);
+  // const queryParamsString = window.location.search?.substring(1);
+  // id = queryParamsString?.substring(3);
+  id=decodedtoken.id;
   console.log(id)
 };
 button.addEventListener("click", async () => {

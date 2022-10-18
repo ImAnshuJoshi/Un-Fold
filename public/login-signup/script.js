@@ -16,12 +16,12 @@ document.querySelector("body").onload = endPreloader();
   var y = document.getElementById("register");
   var z = document.getElementById("btn");
 
-  function register() {
+  window.register=()=> {
   x.style.left = "-400px";
   y.style.left = "50px";
   z.style.left = "110px";
   }
-  function login() {
+  window.login=()=>{
   x.style.left = "50px";
   y.style.left = "450px";
   z.style.left = "0";
@@ -33,17 +33,19 @@ document.querySelector("body").onload = endPreloader();
   let password;
 
   async function ff(){
-  const response = await fetch("http://localhost:3000/api/login/", {
+  const response = await fetch("http://65.0.100.50/api/login/", {
     method: "POST",
     body: JSON.stringify({
       email: email,
       password: password,
     }),
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
-    mode: "cors",
-    credentials: "include",
+    // mode: "cors",
+    // credentials: 'include',
+    // withCredentials:true
   });
   const user = await response.json();
   if (user.status !== 200) {
@@ -65,7 +67,7 @@ document.querySelector("body").onload = endPreloader();
   const token = user.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "../Homepage/index.html";
+    location.href = "../Homepage";
   }
   return user;
   // console.log("hi " + response.status);
@@ -88,7 +90,7 @@ document.querySelector("body").onload = endPreloader();
 
   let fname, lname, reg_email, desc, img, pass;
 
-  function register123() {
+  window.register123=()=>{
   password = "";
   // fname = document.getElementById("register-fname").value;
   fname = (document.getElementById("register-fname") || {}).value || "";
@@ -112,14 +114,15 @@ document.querySelector("body").onload = endPreloader();
   formdata.append("item", img);
   formdata.append("password", pass);
 
-  const response = await fetch("http://localhost:3000/api/register/", {
+  const response = await fetch("http://65.0.100.50/api/register/", {
     method: "POST",
     body: formdata,
-    // headers: {
-    //   "Content-Type": "application/form-data",
-    // },
-    mode: "cors",
-    credentials: "same-origin",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    // mode: "cors",
+    // withCredentials:true
   });
   console.log(response.body);
   const resJ = await response.json();
@@ -149,3 +152,4 @@ document.querySelector("body").onload = endPreloader();
   }
   };
 // },5000);
+  

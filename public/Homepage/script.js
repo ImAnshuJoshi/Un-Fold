@@ -1,7 +1,7 @@
 /********************  ending the preloading *******************************/
-var preloader = document.getElementById('loading');
+var preloader = document.getElementById("loading");
 
-function endPreloader(){
+function endPreloader() {
   setTimeout(() => {
     preloader.style.display = "none";
     console.log("preloader ending");
@@ -9,26 +9,71 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
-
-/********************************* Search page loader ******************************************/
-var myInput = document.getElementsByClassName('input');
-
-function myFunction(){
-  alert('searched');
-}
-
-
-
-
-
-import get from "../currentuser.js";
-import { set } from "../currentuser.js";
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
 
-
-const token=localStorage.getItem("jwt");
-
+window.changeBookmarkIcon = async (x) => {
+  const id = x.parentNode.parentNode.parentNode.parentNode.id;
+  console.log(x.parentNode.parentNode.parentNode.parentNode);
+  if (x.classList.value.includes("fa-solid")) {
+    console.log("unbookmarked");
+    await removebookmark(id);
+  } else {
+    console.log("bookmarked");
+    await addbookmark(id);
+  }
+  x.classList.toggle("fa-solid");
+};
+async function getbmarkedblogs(id) {
+  const blogs = await fetch(
+    "http://localhost:3000/api/user/getbookmarkedblogs?id=" + id,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const allblogs = await blogs.json();
+  return allblogs.bblogs;
+}
+function bookmarksign(K) {
+  if (K) {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+  } else {
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+  }
+}
+async function removebookmark(bid) {
+  const body = { uid: userId, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://localhost:3000/api/user/unbookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to unBookmark :(");
+}
+async function addbookmark(bid) {
+  const body = { uid: userId, bid: bid };
+  console.log(body);
+  const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (bmark.status === 200) return;
+  else alert("Failed to Bookmark :(");
+}
 
 hamburger.addEventListener("click", mobileMenu);
 
@@ -56,6 +101,26 @@ function handlecats(cats) {
   });
   return t;
 }
+
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+const token = localStorage.getItem("jwt");
+const decodedtoken = parseJwt(token);
+const userId = decodedtoken.id;
 
 async function getblogtags(bid) {
   const tags = await fetch(
@@ -87,24 +152,23 @@ const categoryz = (
 </div>
 </div></a>`;
 
-const blogCard = (img, title, content, user, id, tags) =>
-  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details">
-            <div class="child">
+const blogCard = (img, title, content, user, id, tags, K) =>
+  `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;"><div class="blog-details" id=${id} >
+            <div class="child" >
             <img src = ${img} alt="" />
             </div>
             <div class="tag-wrap">
             <ul class="tags">
             ${handlecats(tags)}
             <div class="bookmark">
-            <i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>
-            </div>
+            ${bookmarksign(K)}</div>
             </ul>
             </div>
             <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
-            <div class="desc">${title}</div>
-            <div class="desc2 ${i++}">
+            <div class="desc descblack">${title}</div>
+            <div class="desc2 ${i++} desc2black">
             ${content}
             </div>
             </div></a>`;
@@ -151,11 +215,11 @@ window.onload = async () => {
   const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
-      // "Content-Type": "application/json",
-      // // 'Content-Type': 'application/x-www-form-urlencoded',
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     mode: "cors",
-    withCredentials: true,
+    withCredentials:true
   });
   categoriesfunc();
   blogsj = await blogs.json();
@@ -170,30 +234,50 @@ window.onload = async () => {
     }
   );
   const followingblogsj = (await followingblogs.json()).followingblogs;
+  console.log(followingblogsj);
+  const bmarkedblogs = await getbmarkedblogs(userId);
+  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
+  console.log(bmarkedblogsk);
+
   followingblogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard2(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
   });
+
+  //LATEST BLOGS ALL
+  console.log(blogsj);
   blogsj.map(async (b) => {
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
+    let K = false;
+    if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags)
+        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
   }); 
+
+
 };
+
+//SETTING PROFILE ON THE NAV_BAR
+const currently_logged_in_user =await finduser(userId);
+console.log(currently_logged_in_user);
+
+document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`

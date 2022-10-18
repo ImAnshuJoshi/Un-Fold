@@ -17,10 +17,7 @@ const app = express()
 
 app.use(cookieparser())
 app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
+  cors({})
 )
 app.use(express.static('public'))
 
@@ -33,11 +30,11 @@ app.use(
 )
 
 app.use(express.json())
-/* app.use(express.static('public'))
+app.use(express.static('public'))
 
 app.get('/', (_, res) => {
   res.redirect('/login-signup')
-}) */
+})
 app.use('/api', slashRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
