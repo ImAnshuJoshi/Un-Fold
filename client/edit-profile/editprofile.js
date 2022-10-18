@@ -87,7 +87,7 @@ window.onload = async () => {
     formdata.append("lname", newlname);
     formdata.append("email", newemail);
     formdata.append("about", newdesc);
-    formdata.append("item", item);
+    formdata.append("item", newitem);
 
     const updateprofile = await fetch(`http://65.0.100.50/api/user/editprofile`,{
         method:"PUT",
@@ -95,8 +95,8 @@ window.onload = async () => {
     })
     const updatedprofile = updateprofile.json();
     console.log(updatedprofile);
-    alert('profile updated');
+    // alert('profile updated');
 
-    location.href="../User/index.html"
+    // location.href="../User/index.html"
   });
 };

@@ -49,7 +49,7 @@ document.querySelector("body").onload = endPreloader();
   });
   const user = await response.json();
   if (user.status !== 200) {
-    document.getElementById("para").innerHTML = user.message;
+    document.getElementById("para").innerHTML =`<p style="color:black;">${user.message}</p>`;
     var modal = document.getElementById("myModal");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -129,7 +129,8 @@ document.querySelector("body").onload = endPreloader();
   console.log("hi " + response.status);
   if (response.status != 200) {
     // Get the modal
-    document.getElementById("para").innerHTML = resJ.error;
+    console.log(resJ.error.message);
+    document.getElementById("para").innerHTML = resJ.error.message;
     var modal = document.getElementById("myModal");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
