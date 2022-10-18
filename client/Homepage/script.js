@@ -219,7 +219,7 @@ window.onload = async () => {
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     mode: "cors",
-    credentials: "same-origin",
+    withCredentials:true
   });
   categoriesfunc();
   blogsj = await blogs.json();

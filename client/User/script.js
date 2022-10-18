@@ -59,7 +59,7 @@ let no_of_followers;
 let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
-  location.href = `http://127.0.0.1:5501/blogedit/texteditor.html?id=${e.id}`;
+  location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
   console.log(e);
 };
 

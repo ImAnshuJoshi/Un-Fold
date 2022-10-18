@@ -40,10 +40,12 @@ document.querySelector("body").onload = endPreloader();
       password: password,
     }),
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
-    mode: "cors",
-    withCredentials:true
+    // mode: "cors",
+    // credentials: 'include',
+    // withCredentials:true
   });
   const user = await response.json();
   if (user.status !== 200) {
@@ -115,11 +117,12 @@ document.querySelector("body").onload = endPreloader();
   const response = await fetch("http://65.0.100.50/api/register/", {
     method: "POST",
     body: formdata,
-    // headers: {
-    //   "Content-Type": "application/form-data",
-    // },
-    mode: "cors",
-    withCredentials:true
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    // mode: "cors",
+    // withCredentials:true
   });
   console.log(response.body);
   const resJ = await response.json();
