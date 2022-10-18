@@ -23,7 +23,7 @@ function parseJwt (token) {
 
 const token=localStorage.getItem('jwt');
 const decodedtoken=parseJwt(token);
-// const userId=decodedtoken.id;
+const logged_in_user = decodedtoken;
 
 function handlecats(cats) {
   let t = ``;
@@ -59,7 +59,7 @@ let no_of_followers;
 let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
-  location.href = `http://127.0.0.1:5501/blogedit/texteditor.html?id=${e.id}`;
+  location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
   console.log(e);
 };
 
@@ -179,7 +179,6 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  const logged_in_user = decodedtoken;
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
@@ -311,7 +310,7 @@ window.onload = async () => {
   // console.log(follower_ids.includes(logged_in_user.id));
   // console.log(user);
   if (user.id === logged_in_user.id) {
-    document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
+    document.getElementById("follow-unfollow-edit").innerHTML = `EDIT PROFILE`;
   } else {
     console.log(user, " ");
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
@@ -395,5 +394,12 @@ window.onload = async () => {
         });
     }
   }
+  
+console.log(logged_in_user.id , user.id);
+document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
+  if(logged_in_user.id==user.id){
+  location.href="../edit-profile/editprofile.html"
+  }
+})
 };
 

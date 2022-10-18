@@ -230,7 +230,7 @@ button.addEventListener("click", async () => {
   if (editedblog.status !== 200) console.log(editedblog.message);
   else {
     alert(editedblogj.message);
-    window.location.href = `http://localhost:5501/client/Blog-opening/blog-opening.html?id=${id}`;
+    location.href = `../Blog-opening/blog-opening.html?id=${id}`;
   }
   
 });
