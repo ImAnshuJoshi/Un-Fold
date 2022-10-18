@@ -207,10 +207,12 @@ window.onload = async() => {
 button.addEventListener("click", async () => {
   if(!newtitle&&!newcontent)
   {alert("No changes made");return}
+
   
-   const title = newtitle||blogbody.blog.title;
+  const title = newtitle||blogbody.blog.title;
   const content = newcontent||blogbody.blog.content;
   const item = document.getElementById("myfile").files[0];
+  console.log(newtitle , newcontent , item);
   const formdata = new FormData();
   formdata.append("newtitle", title);
   formdata.append("newcontent", content);
