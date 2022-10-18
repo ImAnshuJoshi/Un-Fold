@@ -23,3 +23,14 @@ exports.getcomments=async (req,res,next)=>{
     catch(e)
     {next(e);}
 } 
+exports.deletecomment=async (req,res,next)=>{
+    try{
+        const{id}=req.query;
+        await db.comment.destroy({where:{id:id}})
+        res.status(200).send('deleted comment');
+    }
+    catch(e)
+    {
+        next(e);
+    }
+}

@@ -26,7 +26,7 @@ window.changeBookmarkIcon = async (x) => {
 };
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
-    "http://localhost:3000/api/user/getbookmarkedblogs?id=" + id,
+    "http://65.0.100.50/api/user/getbookmarkedblogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -49,7 +49,7 @@ function bookmarksign(K) {
 async function removebookmark(bid) {
   const body = { uid: userId, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://localhost:3000/api/user/unbookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -63,7 +63,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: userId, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://localhost:3000/api/user/bookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -124,7 +124,7 @@ const userId = decodedtoken.id;
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://localhost:3000/api/category/getblogcategories?` +
+    `http://65.0.100.50/api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -164,7 +164,7 @@ const blogCard = (img, title, content, user, id, tags, K) =>
             ${bookmarksign(K)}</div>
             </ul>
             </div>
-            <a href="../User/index.html?id=${user.id}" style="height: 0;">
+            <a href="../User?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
             <div class="desc descblack">${title}</div>
@@ -175,7 +175,7 @@ const blogCard = (img, title, content, user, id, tags, K) =>
 let blogsj;
 const finduser = async (id) => {
   const user = await fetch(
-    "http://localhost:3000/api/user/getuserinfo?" +
+    "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -193,7 +193,7 @@ const finduser = async (id) => {
 let categoryg;
 const categoriesfunc = async () => {
   const categories = await fetch(
-    "http://localhost:3000/api/category/getallcategories",
+    "http://65.0.100.50/api/category/getallcategories",
     {
       method: "GET",
       headers: {
@@ -212,7 +212,7 @@ const categoriesfunc = async () => {
   });
 };
 window.onload = async () => {
-  const blogs = await fetch("http://localhost:3000/api/blog/getAllBlogs", {
+  const blogs = await fetch("http://65.0.100.50/api/blog/getAllBlogs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -224,7 +224,7 @@ window.onload = async () => {
   categoriesfunc();
   blogsj = await blogs.json();
   const followingblogs = await fetch(
-    "http://localhost:3000/api/user/getFollowingblogs?" +
+    "http://65.0.100.50/api/user/getFollowingblogs?" +
       new URLSearchParams({ id: userId }),
     {
       method: "GET",

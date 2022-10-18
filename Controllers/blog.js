@@ -43,6 +43,17 @@ exports.addBlog = async (req, res, next) => {
   }
 }
 
+exports.deleteBlog=async(req,res,next)=>{
+  try{
+    const{id}=req.query;
+    await db.blog.destroy({where:{id:id}});
+    await db.tag.destroy({where:{b_id:id}});
+    res.status(200).send('deleted blog!');
+  }
+  catch(e)
+{ next(e)}
+}
+
 exports.getUserBlogs = async (req, res, next) => {
   const { id } = req.query
   try {

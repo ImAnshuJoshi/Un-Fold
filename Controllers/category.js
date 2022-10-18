@@ -22,6 +22,7 @@ exports.getcategoryinfo = async (req, res, next) => {
 exports.addcategorytoblog = async (req, res, next) => {
   try {
     const {cname,bid } = req.body
+    console.log(cname);
     cname.forEach(async (category)=>{
       console.log(category);
       const cat = await db.cat.findOne({ where: { Title: category } })

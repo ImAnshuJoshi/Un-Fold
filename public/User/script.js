@@ -23,7 +23,7 @@ function parseJwt (token) {
 
 const token=localStorage.getItem('jwt');
 const decodedtoken=parseJwt(token);
-// const userId=decodedtoken.id;
+const logged_in_user = decodedtoken;
 
 function handlecats(cats) {
   let t = ``;
@@ -105,7 +105,7 @@ const blogCard = (
   title,
   content,
   tags
-) => `<a href='../User/index.html' style="text-decoration:none;">
+) => `<a href='../Blog-opening/index.html?id=${id}' style="text-decoration:none;">
                   <div class="blog-details">
                               <div class="child">
                               <img src = ${img} alt="" />
@@ -114,6 +114,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
+                              <i class="fa-solid fa-trash"></i>
                               <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
                               </div>
                               </ul>
@@ -179,7 +180,6 @@ const queryParamsString = window.location.search?.substring(1);
 const id = queryParamsString?.substring(3);
 
 window.onload = async () => {
-  const logged_in_user = decodedtoken;
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: id }),
@@ -311,7 +311,7 @@ window.onload = async () => {
   // console.log(follower_ids.includes(logged_in_user.id));
   // console.log(user);
   if (user.id === logged_in_user.id) {
-    document.getElementById("follow-unfollow-edit").innerHTML = "EDIT PROFILE";
+    document.getElementById("follow-unfollow-edit").innerHTML = `EDIT PROFILE`;
   } else {
     console.log(user, " ");
     console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
@@ -395,5 +395,12 @@ window.onload = async () => {
         });
     }
   }
+  
+console.log(logged_in_user.id , user.id);
+document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
+  if(logged_in_user.id==user.id){
+  location.href="../edit-profile/editprofile.html"
+  }
+})
 };
 
