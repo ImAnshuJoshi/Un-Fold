@@ -164,7 +164,7 @@ const blogCard = (img, title, content, user, id, tags, K) =>
             ${bookmarksign(K)}</div>
             </ul>
             </div>
-            <a href="../User?id=${user.id}" style="height: 0;">
+            <a href="../User/index.html?id=${user.id}" style="height: 0;">
                 <img class="author" src=${user.imageurl} alt="author-image">
             </a>
             <div class="desc descblack">${title}</div>

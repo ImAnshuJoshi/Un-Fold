@@ -7,6 +7,31 @@ function endPreloader(){
     console.log("preloader ending");
   }, 1000);
 }
+
+
+
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-list");
+
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+}
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach((n) => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+  hamburger.classList.remove("active");
+  navMenu.classList.remove("active");
+}
+
+
+
+
+
 document.querySelector("body").onload = endPreloader();
 
 // import get from "../currentuser.js";
@@ -30,8 +55,15 @@ function handlecats(cats) {
   cats.forEach((i) => {
     t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
   });
-  // console.log(t);
   return t;
+}
+
+function icons(bid){
+  if(logged_in_user.id==user.id)
+  return `<i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
+  <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i>`
+  else
+  return ``;
 }
 
 function changeEditIcon(x) {
@@ -60,6 +92,10 @@ let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
   location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
+  console.log(e);
+};
+window.deleteblog = (e) => {
+  alert(`are you sure you want to delete this blog? ${e.id}`)
   console.log(e);
 };
 
@@ -114,8 +150,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
-                              <i class="fa-solid fa-trash"></i>
-                              <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
+                              ${icons(id)}
                               </div>
                               </ul>
                               </div>
@@ -132,14 +167,14 @@ const blogCard = (
                               </div>
                               </div></a>`;
 
-const follower_followingz = (img, fname, lname) => ` <div class="cat first">
+const follower_followingz = (img, fname, lname,id) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
 <div class="cat-img">
   <img src="${img}" alt="">
 </div>
 <div class="cat-name">
   <span>${fname} ${lname}</span>
 </div>
-</div>`;
+</div></a>`;
 
 let blogsj;
 async function followers(user) {
@@ -221,9 +256,9 @@ window.onload = async () => {
         "afterbegin",
         blogCard(b.id, b.imageurl, b.title, b.content, tags)
       );
-    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-      text.substring(0, 100);
+    const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
   });
 
   bblogs.map(async (b) => {
@@ -235,6 +270,7 @@ window.onload = async () => {
         blogCard(b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+    console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
     console.log(i + " " + text);
@@ -265,7 +301,7 @@ window.onload = async () => {
       .querySelector(".follower-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName)
+        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
       );
   });
 
@@ -290,7 +326,7 @@ window.onload = async () => {
       .querySelector(".followings-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName)
+        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
       );
   });
 
@@ -403,4 +439,3 @@ document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   }
 })
 };
-

@@ -264,6 +264,7 @@ button:hover{
 }
 .desc2{
     font-size: 15px;
+    margin-bottom: 8vh;
 }
 .descblack, .desc2black{
     color: #FAF9F6;  
@@ -479,23 +480,27 @@ footer{
 .subscribe{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    /* padding: 30px; */
-    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 .subscribe > .subscribe-us {
-    display: block;
+    color: #f5f5f5;
     font-size: 3rem;
-    padding-left: 30px;
-    width: fit-content;
+    position: relative;
+    left: 4%;
+    /* padding-left: 30px; */
+    /* width: fit-content; */
 }
 
 .subscribe-input-btn {
-    display: flex;
-    margin-left: 40%;
-    margin-right: 5%;
-    padding-left: 10px;
+    /* display: flex; */
+    /* margin-left: 40%; */
+    /* margin-right: 5%; */
+    /* padding-left: 10px; */
+    position: relative;
+    right: 2%;
 }
 .subscribe-input{
     border: 2px solid #f8bf8c;
@@ -513,15 +518,19 @@ footer{
     color:white;
 }
 .footer-btn:hover{
-    color: black;
-    background-color: #f8bf8c;
+    color:black;
     cursor: pointer;
+    background-color: #f8bf8c;
 }
 .main-footer{
+    color: #f5f5f5;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding-top: 30px;
+}
+.main-footer h3{
+    color: #f5f5f5;
 }
 .footer-name{
     display: flex;
@@ -534,6 +543,7 @@ footer{
     transform: translateX(-1.4rem);
 }
 .footer-desc{
+    color: #f5f5f5;
     font-size: 1.4rem;
 }
 .footer-column{
@@ -554,67 +564,94 @@ footer{
     padding-left: 0;
 }
 .footer-links>ul>li>a{
-    text-decoration: none;
     color: #f5f5f5;
+    text-decoration: none;
 }
 .rights{
+    color: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 30px;
 }
 
-/* media queries  */
-@media only screen and (max-width: 991px){
 
+@media only screen and (max-width : 768px){
+.container{
+    width: 80vw;
+}
+.nav-list {
+    position: fixed;
+    left: -150%;
+    top: 5rem;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow:
+        0 10px 27px rgba(0, 0, 0, 0.05);
 }
 
-@media only screen and (max-width: 768px) {
-    .nav-list {
-        position: fixed;
-        left: -150%;
-        top: 5rem;
-        flex-direction: column;
-        background-color: #fff;
-        width: 100%;
-        border-radius: 10px;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow:
-            0 10px 27px rgba(0, 0, 0, 0.05);
-    }
+.nav-list.active {
+    background-color: #252525;
+    left: 0;
+    overflow: hidden;
+}
 
-    .nav-list.active {
-        background-color: #252525;
-        left: 0;
-        overflow: hidden;
-    }
+.nav-item {
+    margin: 2.5rem 0;
+}
 
-    .nav-item {
-        margin: 2.5rem 0;
-    }
+.hamburger {
+    display: block;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
 
-    .hamburger {
-        display: block;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
 
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+.fa-search{
+    position: relative;
+    margin-right: 200px;
+    top: 26px;
+}
+}
 
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-    .fa-search{
-        position: relative;
-        margin-right: 200px;
-        top: 26px;
-    }
-
-
+@media only screen and (max-width: 991px) {
+.subscribe{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.subscribe .subscribe-us{
+    left: 1.5%;
+    padding-bottom: 20px;
+}
+.subscribe-input-btn{
+    left: 1.5%;
+}
+.main-footer{
+    width: 100%;
+}
+.footer-name{
+    width: 50%;
+}
+.footer-desc{
+    position: relative;
+    left: 10px;
+    width: 90%;
+}
+.company-name {
+    position: relative;
+    left: 10px;
+}
 }
