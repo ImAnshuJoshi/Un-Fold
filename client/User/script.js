@@ -60,7 +60,7 @@ function handlecats(cats) {
 
 function icons(bid){
   if(logged_in_user.id==user.id)
-  return `<i onclick="deleteblog(this)" class="fa-solid fa-trash"></i>
+  return `<i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
   <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i>`
   else
   return ``;
@@ -95,7 +95,7 @@ window.editblog = (e) => {
   console.log(e);
 };
 window.deleteblog = (e) => {
-  alert('are you sure you want to delete this blog?')
+  alert(`are you sure you want to delete this blog? ${e.id}`)
   console.log(e);
 };
 
@@ -326,7 +326,7 @@ window.onload = async () => {
       .querySelector(".followings-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName)
+        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
       );
   });
 

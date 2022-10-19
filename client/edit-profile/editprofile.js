@@ -35,28 +35,28 @@ let newfname, newlname, newemail, newdesc, newitem;
 document.getElementById("register-fname").addEventListener(
   "input",
   function() {
-    newlname = this.innerText;
+    newfname = this.value;
   },
   false
 );
 document.getElementById("register-lname").addEventListener(
   "input",
   function(){
-    newfname = this.innerText;
+    newlname = this.value;
   },
   false
 );
 document.getElementById("register-email").addEventListener(
   "input",
   function() {
-    newemail = this.innerText;
+    newemail = this.value;
   },
   false
 );
 document.getElementById("register-desc").addEventListener(
   "input",
   function() {
-    newdesc = this.innerText;
+    newdesc = this.value;
   },
   false
 );
@@ -83,20 +83,20 @@ window.onload = async () => {
     console.log(newfname, newlname, newemail, newdesc);
     const formdata = new FormData();
     formdata.append("id", userinfo.user.id);
-    formdata.append("fname", newfname);
-    formdata.append("lname", newlname);
-    formdata.append("email", newemail);
-    formdata.append("about", newdesc);
+    formdata.append("fname", newfname||userinfo.user.firstName);
+    formdata.append("lname", newlname||userinfo.user.lastName);
+    formdata.append("email", newemail||userinfo.user.email);
+    formdata.append("about", newdesc||userinfo.user.about);
     formdata.append("item", newitem);
 
     const updateprofile = await fetch(`http://65.0.100.50/api/user/editprofile`,{
         method:"PUT",
         body:formdata
     })
-    const updatedprofile = updateprofile.json();
+    const updatedprofile = await updateprofile.json();
     console.log(updatedprofile);
-    // alert('profile updated');
+    alert('profile updated');
 
-    // location.href="../User/index.html"
+    location.href=`../User/index.html?id=${userinfo.user.id}`
   });
 };

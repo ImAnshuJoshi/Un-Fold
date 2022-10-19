@@ -43,17 +43,7 @@ let alignButtons = document.querySelectorAll(".align");
 let spacingButtons = document.querySelectorAll(".spacing");
 let formatButtons = document.querySelectorAll(".format");
 let scriptButtons = document.querySelectorAll(".script");
-//List of fontlist
-// let fontList = [
-//   "Arial",
-//   "Verdana",
-//   "Times New Roman",
-//   "Garamond",
-//   "Georgia",
-//   "Courier New",
-//   "cursive",
-// ];
-//Initial Settings
+
 const initializer = () => {
   //function calls for highlighting buttons
   //No highlights for link, unlink,lists, undo,redo since they are one time operations
