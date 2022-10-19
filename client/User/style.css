@@ -203,9 +203,17 @@ nav img{
 /* //SHOW FOLLOWERS AND FOLLOWINGS */
 #follow-following{
     background: #252525;
-    /* display: flex;
-    flex-direction: row; */
+    display: flex;
+    flex-direction: row;
+    /* width:80vw; */
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 60px;
+    padding-bottom: 100px;
 }
+/* #followers-section,#following-section{
+    width:50%;
+} */
 #categories{
     /* margin-top: 50px; */
     width:50vw;
@@ -226,18 +234,29 @@ nav img{
 }
 .category-wrap{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     height:300px;
-    width:80vw;
+    width:40vw;
     overflow: scroll;
 }
 .category-wrap .cat{
     display: flex;
     flex-direction: column;
     padding: 1.5% 1.4%;
+}
+.footer-stats-partition{
+    height:10px;
+    position: relative;
+    display: block;
+    flex: 0 0 80vw;
+    max-width: 80vw;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    color:grey;
 }
 
 .cat .cat-img img{

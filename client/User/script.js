@@ -153,13 +153,13 @@ const blogCard = (
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
-                              ${content}
+                              ${content.substr(0,400)}
                               </div>
                               </div></a>`;
 
-const follower_followingz = (img, fname, lname) => ` <div class="cat first">
+const follower_followingz = (img, fname, lname,uid) => ` <div class="cat first">
 <div class="cat-img">
-  <img src="${img}" alt="">
+  <a href="../User/index.html?id=${uid}"><img src="${img}" alt=""></a>
 </div>
 <div class="cat-name">
   <span>${fname} ${lname}</span>
@@ -219,7 +219,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://65.0.100.50/api/blog//allUserBlogs?" +
+    "http://65.0.100.50/api/blog/allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -236,7 +236,6 @@ window.onload = async () => {
   no_of_blogs = blogsj.length;
   const bblogs = await bookmarkedblogs(user);
   console.log(bblogs);
-  // console.log(bblogs);
 
   blogsj.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
@@ -254,7 +253,7 @@ window.onload = async () => {
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
     document
-      .getElementsByClassName("latest-cards row 2")[0]
+      .querySelector("#bookmarked-blog-card")
       .insertAdjacentHTML(
         "afterbegin",
         blogCard(b.imageurl, b.title, b.content, tags)
@@ -290,7 +289,7 @@ window.onload = async () => {
       .querySelector(".follower-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName)
+        follower_followingz(list.imageurl, list.firstName, list.lastName, list.id)
       );
   });
 
@@ -315,7 +314,7 @@ window.onload = async () => {
       .querySelector(".followings-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName)
+        follower_followingz(list.imageurl, list.firstName, list.lastName , list.id)
       );
   });
 
@@ -427,5 +426,9 @@ document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   location.href="../edit-profile/editprofile.html"
   }
 })
+
+  if(logged_in_user.id!=user.id){
+    document.querySelector('.Bookmarked-blogs').style.display='none';
+  }
 };
 
