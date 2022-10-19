@@ -264,6 +264,7 @@ button:hover{
 }
 .desc2{
     font-size: 15px;
+    margin-bottom: 8vh;
 }
 .descblack, .desc2black{
     color: #FAF9F6;  

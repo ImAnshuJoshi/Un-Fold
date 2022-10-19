@@ -225,6 +225,6 @@ button.addEventListener("click", async () => {
     console.log(addedblogid);
     await handleCats(selectedCboxes,addedblogid);
     alert('Done')
-    location.href=`http://127.0.0.1:5501/Blog-opening/Blog-opening.html?id=${addedblogid}`
+    location.href=`../Blog-opening/Blog-opening.html?id=${addedblogid}`
   }
 });

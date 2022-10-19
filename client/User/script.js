@@ -55,8 +55,15 @@ function handlecats(cats) {
   cats.forEach((i) => {
     t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
   });
-  // console.log(t);
   return t;
+}
+
+function icons(bid){
+  if(logged_in_user.id==user.id)
+  return `<i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
+  <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i>`
+  else
+  return ``;
 }
 
 function changeEditIcon(x) {
@@ -85,6 +92,10 @@ let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
   location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
+  console.log(e);
+};
+window.deleteblog = (e) => {
+  alert(`are you sure you want to delete this blog? ${e.id}`)
   console.log(e);
 };
 
@@ -130,7 +141,7 @@ const blogCard = (
   title,
   content,
   tags
-) => `<a href='../User/index.html' style="text-decoration:none;">
+) => `<a href='../Blog-opening/index.html?id=${id}' style="text-decoration:none;">
                   <div class="blog-details">
                               <div class="child">
                               <img src = ${img} alt="" />
@@ -139,8 +150,7 @@ const blogCard = (
                               <ul class="tags">
                               ${handlecats(tags)}
                               <div class="edit">
-                              <i class="fa-solid fa-trash"></i>
-                              <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${id}></i>
+                              ${icons(id)}
                               </div>
                               </ul>
                               </div>
@@ -153,18 +163,18 @@ const blogCard = (
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
-                              ${content.substr(0,400)}
+                              ${content}
                               </div>
                               </div></a>`;
 
-const follower_followingz = (img, fname, lname,uid) => ` <div class="cat first">
+const follower_followingz = (img, fname, lname,id) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
 <div class="cat-img">
-  <a href="../User/index.html?id=${uid}"><img src="${img}" alt=""></a>
+  <img src="${img}" alt="">
 </div>
 <div class="cat-name">
   <span>${fname} ${lname}</span>
 </div>
-</div>`;
+</div></a>`;
 
 let blogsj;
 async function followers(user) {
@@ -219,7 +229,7 @@ window.onload = async () => {
     }
   );
   const blogs = await fetch(
-    "http://65.0.100.50/api/blog/allUserBlogs?" +
+    "http://65.0.100.50/api/blog//allUserBlogs?" +
       new URLSearchParams({ id: id }),
     {
       method: "GET",
@@ -236,6 +246,7 @@ window.onload = async () => {
   no_of_blogs = blogsj.length;
   const bblogs = await bookmarkedblogs(user);
   console.log(bblogs);
+  // console.log(bblogs);
 
   blogsj.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
@@ -245,20 +256,21 @@ window.onload = async () => {
         "afterbegin",
         blogCard(b.id, b.imageurl, b.title, b.content, tags)
       );
-    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-      text.substring(0, 100);
+    const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+    console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
+    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
   });
 
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
     document
-      .querySelector("#bookmarked-blog-card")
+      .getElementsByClassName("latest-cards row 2")[0]
       .insertAdjacentHTML(
         "afterbegin",
         blogCard(b.imageurl, b.title, b.content, tags)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+    console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
     console.log(i + " " + text);
@@ -289,7 +301,7 @@ window.onload = async () => {
       .querySelector(".follower-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName, list.id)
+        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
       );
   });
 
@@ -314,7 +326,7 @@ window.onload = async () => {
       .querySelector(".followings-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName , list.id)
+        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
       );
   });
 
@@ -426,9 +438,4 @@ document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   location.href="../edit-profile/editprofile.html"
   }
 })
-
-  if(logged_in_user.id!=user.id){
-    document.querySelector('.Bookmarked-blogs').style.display='none';
-  }
 };
-
