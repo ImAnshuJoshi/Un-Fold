@@ -185,6 +185,24 @@ async function getblogtags(bid) {
   return blogtags;
 }
 
+const finduser = async (id) => {
+  const user = await fetch(
+    "http://65.0.100.50/api/user/getuserinfo?" +
+      new URLSearchParams({ id: id }),
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const userj = await user.json();
+  return userj.user;
+};
+
 const userprofile = (u, followers, following, blog) =>
   `<div class="profile-user-img">
                 <img src=${u.imageurl} alt="" />
@@ -210,7 +228,7 @@ const blogCard = (
   title,
   content,
   tags,
-  bmarks,K
+  bmarks,K,user
 ) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;">
                   <div class="blog-details" id=${id}>
                               <div class="child">
@@ -231,7 +249,7 @@ const blogCard = (
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
-                              ${content}
+                              ${content.substring(0,150)}...
                               </div>
                               </div></a>`;
 
@@ -315,34 +333,53 @@ window.onload = async () => {
   const bblogs = await bookmarkedblogs(user);
   const bmarkedblogs = await getbmarkedblogs(user.id);
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
-
-  blogsj.map(async (b) => {
-    const tags = (await getblogtags(b.id)).cats;
+  if(!no_of_blogs)
+  {
     document
-      .getElementsByClassName("latest-cards row 1")[0]
-      .insertAdjacentHTML(
-        "afterbegin",
-        blogCard(b.id, b.imageurl, b.title, b.content, tags, false,false)
-      );
-    // const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
-    // console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
-    // document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
-  });
-  if(logged_in_user!==userId)
+    .getElementsByClassName("latest-cards row 1")[0]
+    .insertAdjacentHTML(
+      "afterbegin",
+    `<h2 style="color:black;margin:10%;" >Nothing to see here... Why don't you compose a blog?</h2>`)
+  }
+  else
+  {
+    blogsj.map(async (b) => {
+      const tags = (await getblogtags(b.id)).cats;
+      document
+        .getElementsByClassName("latest-cards row 1")[0]
+        .insertAdjacentHTML(
+          "afterbegin",
+          blogCard(b.id, b.imageurl, b.title, b.content, tags, false,false,user)
+        );
+      // const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
+      // console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
+      // document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
+    });
+  
+  }
+   if(logged_in_user!==userId)
   {
     document.getElementById('recent 2').style.display = "none";
+  }
+  else if(!bblogs.length)
+  {
+    document
+      .getElementsByClassName("latest-cards row 2")[0]
+      .insertAdjacentHTML(
+        "afterbegin",`<h2 style="color:black;margin:10%;" >No Bookmarked blogs... Bookmark blogs you would want quick access to?</h2>`);
   }
   else{
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
     console.log(tags)
+    const author = await finduser(b.userId);
     let K = false;
     if (bmarkedblogsk.includes(b.id)) K = true;
     document
       .getElementsByClassName("latest-cards row 2")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.id, b.imageurl, b.title, b.content, tags,true,K)
+        blogCard(b.id, b.imageurl, b.title, b.content, tags,true,K,author)
       );
     // const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     // console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
@@ -418,18 +455,18 @@ window.onload = async () => {
     follower_ids[i] = followers_list[i].id;
   }
   // console.log(follower_ids);
-  // console.log(follower_ids.includes(logged_in_user.id));
+  // console.log(follower_ids.includes(logged_in_user));
   // console.log(user);
-  if (user.id === logged_in_user.id) {
+  if (user.id === logged_in_user) {
     document.getElementById("follow-unfollow-edit").innerHTML = `EDIT PROFILE`;
   } else {
     console.log(user, " ");
-    console.log("Does user follow:" + follower_ids.includes(logged_in_user.id));
-    if (follower_ids.includes(logged_in_user.id)) {
+    console.log("Does user follow:" + follower_ids.includes(logged_in_user));
+    if (follower_ids.includes(logged_in_user)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";
       const body = {
         id1: user.id,
-        id2: logged_in_user.id,
+        id2: logged_in_user,
       };
       document
         .getElementById("follow-unfollow-edit")
@@ -468,7 +505,7 @@ window.onload = async () => {
       document.getElementById("follow-unfollow-edit").innerHTML = "FOLLOW";
       const body = {
         id1: user.id,
-        id2: logged_in_user.id,
+        id2: logged_in_user,
       };
       document
         .getElementById("follow-unfollow-edit")
@@ -506,9 +543,9 @@ window.onload = async () => {
     }
   }
   
-console.log(logged_in_user.id , user.id);
+console.log(logged_in_user , user.id);
 document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
-  if(logged_in_user.id==user.id){
+  if(logged_in_user==user.id){
   location.href="../edit-profile/editprofile.html"
   }
 })
