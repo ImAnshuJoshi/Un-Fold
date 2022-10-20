@@ -71,32 +71,37 @@ function changeEditIcon(x) {
 }
 
 const followbtn = document.getElementsByClassName("follow-btn")[0];
-// followbtn.addEventListener("click", async () => {
-//   await fetch(
-//     `http://65.0.100.50/api/category/getblogcategories?` +
-//       new URLSearchParams({ id: bid }),
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       mode: "cors",
-//       credentials: "same-origin",
-//     }
-//   );
-// });
-
 let user;
 let no_of_followers;
 let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
-  location.href = `/client/blogedit/texteditor.html?id=${e.id}`;
+  location.href = `../blogedit/texteditor.html?id=${e.id}`;
   console.log(e);
 };
 window.deleteblog = (e) => {
-  alert(`are you sure you want to delete this blog? ${e.id}`)
-  console.log(e);
+  document.getElementById("para").innerHTML = "Are you sure you want to delete this blog?";
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    document.getElementById("mb1").addEventListener('click',async()=>{
+      await fetch(`http://65.0.100.50/api/blog/deleteBlog?id=${e.id}`,
+      {method:'DELETE'}
+      )
+      modal.style.display = "none";
+      location.reload();
+    })
+    document.getElementById("mb2").addEventListener('click',()=>{
+      modal.style.display = "none";
+    })
 };
 
 async function getblogtags(bid) {
@@ -141,7 +146,7 @@ const blogCard = (
   title,
   content,
   tags
-) => `<a href='../Blog-opening/index.html?id=${id}' style="text-decoration:none;">
+) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;">
                   <div class="blog-details">
                               <div class="child">
                               <img src = ${img} alt="" />

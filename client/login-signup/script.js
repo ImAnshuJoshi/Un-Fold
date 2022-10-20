@@ -49,7 +49,7 @@ document.querySelector("body").onload = endPreloader();
   });
   const user = await response.json();
   if (user.status !== 200) {
-    document.getElementById("para").innerHTML =`<p style="color:black;">${user.message}</p>`;
+    document.getElementById("para").innerHTML = user.message;
     var modal = document.getElementById("myModal");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -67,7 +67,7 @@ document.querySelector("body").onload = endPreloader();
   const token = user.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "./Homepage";
+    location.href = "../Homepage";
   }
   return user;
   // console.log("hi " + response.status);
@@ -129,8 +129,7 @@ document.querySelector("body").onload = endPreloader();
   console.log("hi " + response.status);
   if (response.status != 200) {
     // Get the modal
-    console.log(resJ.error.message);
-    document.getElementById("para").innerHTML = resJ.error.message;
+    document.getElementById("para").innerHTML = resJ.error;
     var modal = document.getElementById("myModal");
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -149,7 +148,7 @@ document.querySelector("body").onload = endPreloader();
   const token = resJ.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "./Homepage/index.html";
+    location.href = "../Homepage/index.html";
   }
   };
 // },5000);
