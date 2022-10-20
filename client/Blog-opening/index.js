@@ -311,6 +311,7 @@ window.onload = async () => {
         },
       });
       //(res);
+      window.location.hash = '#likes-section';
       location.reload();
     });
   } else {

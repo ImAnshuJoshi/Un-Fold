@@ -233,7 +233,6 @@ progress {
 }
 .post-header-img-container{
     width: 30%;
-    /* margin-top: 5%; */
     width: 500px;
 }
 .post-header-img-container>img{
@@ -241,7 +240,12 @@ progress {
     width: 375px;
     border-radius: 15px;
     object-fit: cover;
+    transition: transform 0.5s;
 }
+.post-header-img-container img:hover{
+    transform:scale(1.05);
+}
+
 .post-author{
     display: flex;
     flex-direction: row;
