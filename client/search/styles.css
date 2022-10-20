@@ -260,6 +260,13 @@ nav img{
     border-radius: 5.2px;
 
 }
+.tag-wrap{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+}
 .search-tags>p{
     font-size: 20px;
 }
