@@ -110,8 +110,10 @@ async function addbookmark(bid) {
 
 function icons(bid,t,K){
   if(logged_in_user==userId&&!t)
-  return `<div class="edit"><i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
-  <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i></div>`
+  return `<div class="edit">
+  <i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
+  <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i>
+  </div>`
   else
   return `<div class="bookmark">${bookmarksign(K)}</div>`;
 }
