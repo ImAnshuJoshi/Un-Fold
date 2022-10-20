@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const cloudinary=require('../Config/cloudinaryConfig');
 const upload = require('../Config/multerConfig')
 const db = require('../Config/dbconfig')
 const jwt = require('jsonwebtoken')
