@@ -48,7 +48,7 @@ function parseJwt (token) {
 
 const token=localStorage.getItem('jwt');
 const decodedtoken=parseJwt(token);
-const logged_in_user = decodedtoken;
+const logged_in_user = decodedtoken.id;
 
 function handlecats(cats) {
   let t = ``;
@@ -90,13 +90,13 @@ async function removebookmark(bid) {
       "Content-Type": "application/json",
     },
   });
-  if (bmark.status === 200) return;
-  else alert("Failed to unBookmark :(");
+  if (bmark.status === 200) {location.reload()}
+  else {alert("Failed to unBookmark :(");console.log(await bmark.json())}
 }
 async function addbookmark(bid) {
-  const body = { uid: userId, bid: bid };
+  const body = { uid: logged_in_user, bid: bid };
   console.log(body);
-  const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
+  const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -104,12 +104,12 @@ async function addbookmark(bid) {
       "Content-Type": "application/json",
     },
   });
-  if (bmark.status === 200) return;
+  if (bmark.status === 200){return}
   else alert("Failed to Bookmark :(");
 }
 
 function icons(bid,t,K){
-  if(logged_in_user.id==user.id&&!t)
+  if(logged_in_user==userId&&!t)
   return `<div class="edit"><i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
   <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i></div>`
   else
@@ -212,7 +212,7 @@ const blogCard = (
   tags,
   bmarks,K
 ) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;">
-                  <div class="blog-details">
+                  <div class="blog-details" id=${id}>
                               <div class="child">
                               <img src = ${img} alt="" />
                               </div>
@@ -278,10 +278,11 @@ async function bookmarkedblogs(user) {
   const bblogs = (await blogs.json()).bblogs;
   return bblogs;
 }
-
 const queryParamsString = window.location.search?.substring(1);
-const userId = queryParamsString?.substring(3);
+let userId;
 window.onload = async () => {
+  userId = queryParamsString?.substring(3);
+  console.log(userId)
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: userId}),
@@ -327,7 +328,11 @@ window.onload = async () => {
     // console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
     // document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
   });
-
+  if(logged_in_user!==userId)
+  {
+    document.getElementById('recent 2').style.display = "none";
+  }
+  else{
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
     console.log(tags)
@@ -339,14 +344,12 @@ window.onload = async () => {
         "afterbegin",
         blogCard(b.id, b.imageurl, b.title, b.content, tags,true,K)
       );
-      console.log(blogCard(b.id, b.imageurl, b.title, b.content, tags))
     // const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     // console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
     // document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
     //   text.substring(0, 50) + ".....";
-    console.log(i + " " + text);
   });
-
+}
   document
     .getElementsByClassName("user-desc")[0]
     .insertAdjacentHTML("afterbegin", user.about);

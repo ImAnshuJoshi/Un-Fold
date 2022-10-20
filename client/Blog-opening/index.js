@@ -3,7 +3,7 @@ var preloader = document.querySelector("#loading");
 function endPreloader() {
   setTimeout(() => {
     preloader.style.display = "none";
-    console.log("preloader ending");
+    //("preloader ending");
   }, 1000);
 }
 document.querySelector("body").onload = endPreloader();
@@ -28,20 +28,31 @@ const token = localStorage.getItem("jwt");
 const decodedtoken = parseJwt(token);
 const currentlyloggedinuser = decodedtoken.id;
 let blog_id;
-
+window.deletecomment1 = async(e)=>{
+  //('object')
+  await fetch(`http://65.0.100.50/api/comment/deletecomment?id=${e.id}`,{method:"DELETE"});
+  location.reload();
+}
 window.changeBookmarkIcon = async (x) => {
   const id = x.parentNode.parentNode.parentNode.id;
   if (x.classList.value.includes("fa-solid")) {
-    console.log("unbookmarked");
+    //("unbookmarked");
     await removebookmark(id);
   } else {
-    console.log("bookmarked");
-    console.log(id);
+    //("bookmarked");
+    //(id);
     await addbookmark(id);
   }
   x.classList.toggle("fa-solid");
 };
 
+function deletecomment(cid,uid)
+{
+  if(uid===currentlyloggedinuser)
+  return `<i class="fa-solid fa-trash" id=${cid} onclick="deletecomment1(this)" ></i>`;
+  else
+  return ``; 
+}
 function bookmarksign(K) {
   if (K) {
     return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
@@ -51,7 +62,7 @@ function bookmarksign(K) {
 }
 async function removebookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
-  console.log(body);
+  //(body);
   const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
@@ -67,7 +78,7 @@ async function removebookmark(bid) {
 }
 async function addbookmark(bid) {
   const body = { uid: currentlyloggedinuser.id, bid: bid };
-  console.log(body);
+  //(body);
   const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
@@ -104,7 +115,7 @@ function handlecats(cats) {
   cats.forEach((i) => {
     t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
   });
-  console.log(t);
+  //(t);
   return t;
 }
 
@@ -123,13 +134,13 @@ const blogcard = (blog, tags, K) => `
     
                   </div>`;
 
-const comments = (username, img, comm) => ` <div class="comments-container">
+const comments = (cid,uid,username, img, comm) => ` <div class="comments-container">
                   <div><img src="${img}" alt=""></div>
                   <div>
                     <strong>${username}</strong>
                     <p>${comm}</p>
                     </div>
-                    <i class="fa-solid fa-trash"></i>
+                    ${deletecomment(cid,uid)}
                 </div>
                 <div class="comment-partition"></div>`;
 
@@ -163,12 +174,12 @@ async function getblogtags(bid) {
   );
   const blogtags = await tags.json();
   return blogtags;
-}
-
+}console.log(blog_id);
 window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
-  console.log("Id is:", blog_id);
+  //
+  
   const userid = await findblog(blog_id);
   const user = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?id=" + userid,
@@ -184,13 +195,12 @@ window.onload = async () => {
   const userinfo = (await user.json()).user;
   const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
-  console.log(bmarkedblogsk);
   const userblogs = await getuserblogs(userinfo.id);
   userblogs.map(async (b) => {
     const t = await getblogtags(b.id);
     let K = false;
     if (bmarkedblogsk.includes(b.id)) K = true;
-    console.log(t);
+    //(t);
     document
       .getElementById("scroll-images")
       .insertAdjacentHTML("afterbegin", blogcard(b, t.cats, K));
@@ -238,7 +248,7 @@ const findblog = async (id) => {
     credentials: "same-origin",
   });
   const blogbody = (await blog.json()).blog;
-  console.log(blogbody);
+  //(blogbody);
   document
     .getElementsByClassName("post-header-title")[0]
     .insertAdjacentHTML("afterbegin", `<h1>${blogbody.title}</h1>`);
@@ -271,22 +281,22 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
-  console.log(res);
+  //(res);
   const all_likes_users = await res.json();
-  console.log(all_likes_users.ids);
+  //(all_likes_users.ids);
   blog_likes = all_likes_users.ids.length;
-  console.log(blog_likes);
+  //(blog_likes);
   let likeicon = document.querySelector(".like");
   const body = { uid: currentlyloggedinuser, bid: blog_id };
   document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
   let clicked = false;
-  console.log(currentlyloggedinuser);
+  //(currentlyloggedinuser);
   if (all_likes_users.ids.includes(currentlyloggedinuser)) {
     clicked = true;
   } else {
     clicked = false;
   }
-  console.log(clicked);
+  //(clicked);
   if (!clicked) {
     clicked = true;
     likeicon.innerHTML = `<i class="fa-regular fa-heart" 
@@ -294,7 +304,7 @@ window.onload = async () => {
     <div class="likes_count">${blog_likes} Likes</div>
  </div>`;
     likeicon.addEventListener("click", async () => {
-      console.log("clicked");
+      //("clicked");
       likeicon.innerHTML = `<i class="fa-solid fa-heart" 
         id="heart"></i>
         <div class="likes_count">${blog_likes} Likes</div>
@@ -309,7 +319,7 @@ window.onload = async () => {
           "Content-Type": "application/json",
         },
       });
-      console.log(res);
+      //(res);
       location.reload();
     });
   } else {
@@ -319,7 +329,7 @@ window.onload = async () => {
     <div class="likes_count">${blog_likes} Likes</div>
  </div>`;
     likeicon.addEventListener("click", async () => {
-      console.log("clicked");
+      //("clicked");
       likeicon.innerHTML = `<i class="fa-regular fa-heart" 
         id="heart"></i>
         <div class="likes_count">${blog_likes} Likes</div>
@@ -352,7 +362,7 @@ window.onload = async () => {
     comments_visibility();
   });
 
-  console.log(blog_id);
+  //(blog_id);
 
   const result = await fetch(
     `http://65.0.100.50/api/comment/getComments?bid=${blog_id}`,
@@ -365,7 +375,7 @@ window.onload = async () => {
     }
   );
   const all_user_comments = await result.json();
-  console.log(all_user_comments.comment);
+  //(all_user_comments.comment);
 
   document.querySelector(
     ".comments_count"
@@ -379,13 +389,15 @@ window.onload = async () => {
       }
     );
     const user_detail = await user_details.json();
-    // console.log(user_detail.user);
+    // //(user_detail.user);
 
     document
       .getElementById("all_comments")
       .insertAdjacentHTML(
         "afterbegin",
         comments(
+          b.id,
+          user_detail.user.id,
           user_detail.user.firstName,
           user_detail.user.imageurl,
           b.content
@@ -397,7 +409,7 @@ window.onload = async () => {
   const add_comm_uid = currentlyloggedinuser;
   document.getElementById("commbtn").addEventListener("click", async () => {
     add_content = await document.getElementById("textbox_id").value;
-    console.log(add_content);
+    //(add_content);
     const comm_body = { uid: add_comm_uid, com: add_content, bid: blog_id };
 
     const add_comment = await fetch(
@@ -412,7 +424,7 @@ window.onload = async () => {
       }
     );
     const new_comment = await add_comment.json();
-    console.log(new_comment);
+    //(new_comment);
     location.reload();
   });
 
@@ -430,7 +442,7 @@ window.onload = async () => {
     }
   );
   const the_blog = await particular_blog.json();
-  console.log(the_blog.blog);
+  //(the_blog.blog);
 
   const publisher_id = the_blog.blog.userId;
   const blog_user_details = await fetch(
