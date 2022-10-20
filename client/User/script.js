@@ -1,14 +1,12 @@
 /********************  ending the preloading *******************************/
-var preloader = document.getElementById('loading');
+var preloader = document.getElementById("loading");
 
-function endPreloader(){
+function endPreloader() {
   setTimeout(() => {
     preloader.style.display = "none";
     console.log("preloader ending");
   }, 1000);
 }
-
-
 
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-list");
@@ -28,35 +26,37 @@ function closeMenu() {
   navMenu.classList.remove("active");
 }
 
-
-
-
-
 document.querySelector("body").onload = endPreloader();
 
 // import get from "../currentuser.js";
 
-function parseJwt (token) {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
 
   return JSON.parse(jsonPayload);
-};
+}
 
-const token=localStorage.getItem('jwt');
-const decodedtoken=parseJwt(token);
+const token = localStorage.getItem("jwt");
+const decodedtoken = parseJwt(token);
 const logged_in_user = decodedtoken.id;
 
 function handlecats(cats) {
   let t = ``;
-  console.log(cats)
+  console.log(cats);
   cats.forEach((i) => {
     t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
   });
-  console.log(t)
+  console.log(t);
   return t;
 }
 
@@ -90,8 +90,12 @@ async function removebookmark(bid) {
       "Content-Type": "application/json",
     },
   });
-  if (bmark.status === 200) {location.reload()}
-  else {alert("Failed to unBookmark :(");console.log(await bmark.json())}
+  if (bmark.status === 200) {
+    location.reload();
+  } else {
+    alert("Failed to unBookmark :(");
+    console.log(await bmark.json());
+  }
 }
 async function addbookmark(bid) {
   const body = { uid: logged_in_user, bid: bid };
@@ -104,18 +108,18 @@ async function addbookmark(bid) {
       "Content-Type": "application/json",
     },
   });
-  if (bmark.status === 200){return}
-  else alert("Failed to Bookmark :(");
+  if (bmark.status === 200) {
+    return;
+  } else alert("Failed to Bookmark :(");
 }
 
-function icons(bid,t,K){
-  if(logged_in_user==userId&&!t)
-  return `<div class="edit">
+function icons(bid, t, K) {
+  if (logged_in_user == userId && !t)
+    return `<div class="edit">
   <i onclick="deleteblog(this)" class="fa-solid fa-trash" id=${bid}></i>
   <i onclick="editblog(this)" class="fa-regular fa-pen-to-square" id=${bid}></i>
-  </div>`
-  else
-  return `<div class="bookmark">${bookmarksign(K)}</div>`;
+  </div>`;
+  else return `<div class="bookmark">${bookmarksign(K)}</div>`;
 }
 
 function changeEditIcon(x) {
@@ -132,28 +136,29 @@ window.editblog = (e) => {
   console.log(e);
 };
 window.deleteblog = (e) => {
-  document.getElementById("para").innerHTML = "Are you sure you want to delete this blog?";
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-    modal.style.display = "block";
-    span.onclick = function () {
+  document.getElementById("para").innerHTML =
+    "Are you sure you want to delete this blog?";
+  var modal = document.getElementById("myModal");
+  var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "block";
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+  window.onclick = function (event) {
+    if (event.target == modal) {
       modal.style.display = "none";
-    };
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
     }
-    document.getElementById("mb1").addEventListener('click',async()=>{
-      await fetch(`http://65.0.100.50/api/blog/deleteBlog?id=${e.id}`,
-      {method:'DELETE'}
-      )
-      modal.style.display = "none";
-      location.reload();
-    })
-    document.getElementById("mb2").addEventListener('click',()=>{
-      modal.style.display = "none";
-    })
+  };
+  document.getElementById("mb1").addEventListener("click", async () => {
+    await fetch(`http://65.0.100.50/api/blog/deleteBlog?id=${e.id}`, {
+      method: "DELETE",
+    });
+    modal.style.display = "none";
+    location.reload();
+  });
+  document.getElementById("mb2").addEventListener("click", () => {
+    modal.style.display = "none";
+  });
 };
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
@@ -195,11 +200,15 @@ const userprofile = (u, followers, following, blog) =>
                 <h1>${u.firstName} ${u.lastName}</h1>
                 </div>
                 <div class="user-followers">
-                  <div class="followers stats">
+                <div class="followers stats">
+                <a href="#follow-following" class="navigatetofoll">
                   <div class="count " id="followers-insert">${followers}</div><div>Followers</div>
+                  </a>
                   </div>
                   <div class="followings stats">
+                  <a href="#follow-following" class="navigatetofoll">
                     <div class="count">${following}</div><div>Following</div>
+                    </a>
                   </div>
                   <div class="blogs stats">
                     <div class="count">${blog}</div><div>Blogs</div>
@@ -212,7 +221,8 @@ const blogCard = (
   title,
   content,
   tags,
-  bmarks,K
+  bmarks,
+  K
 ) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;">
                   <div class="blog-details" id=${id}>
                               <div class="child">
@@ -221,7 +231,7 @@ const blogCard = (
                               <div class="tag-wrap">
                               <ul class="tags">
                               ${handlecats(tags)}
-                              ${icons(id,bmarks,K)}
+                              ${icons(id, bmarks, K)}
                               </ul>
                               </div>
                               <a href="../User/index.html?id=${
@@ -233,11 +243,16 @@ const blogCard = (
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
-                              ${content.substr(0,300)}.........
+                              ${content.substr(0, 300)}.........
                               </div>
                               </div></a>`;
 
-const follower_followingz = (img, fname, lname,id) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
+const follower_followingz = (
+  img,
+  fname,
+  lname,
+  id
+) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
 <div class="cat-img">
   <img src="${img}" alt="" style="margin:20px;">
 </div>
@@ -284,10 +299,10 @@ const queryParamsString = window.location.search?.substring(1);
 let userId;
 window.onload = async () => {
   userId = queryParamsString?.substring(3);
-  console.log(userId)
+  console.log(userId);
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
-      new URLSearchParams({ id: userId}),
+      new URLSearchParams({ id: userId }),
     {
       method: "GET",
       headers: {
@@ -300,7 +315,7 @@ window.onload = async () => {
   );
   const blogs = await fetch(
     "http://65.0.100.50/api/blog//allUserBlogs?" +
-      new URLSearchParams({ id: userId}),
+      new URLSearchParams({ id: userId }),
     {
       method: "GET",
       headers: {
@@ -324,34 +339,32 @@ window.onload = async () => {
       .getElementsByClassName("latest-cards row 1")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.id, b.imageurl, b.title, b.content, tags, false,false)
+        blogCard(b.id, b.imageurl, b.title, b.content, tags, false, false)
       );
     // const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
     // console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
     // document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
   });
-  if(logged_in_user!==userId)
-  {
-    document.getElementById('recent 2').style.display = "none";
+  if (logged_in_user !== userId) {
+    document.getElementById("recent 2").style.display = "none";
+  } else {
+    bblogs.map(async (b) => {
+      const tags = (await getblogtags(b.id)).cats;
+      console.log(tags);
+      let K = false;
+      if (bmarkedblogsk.includes(b.id)) K = true;
+      document
+        .getElementsByClassName("latest-cards row 2")[0]
+        .insertAdjacentHTML(
+          "afterbegin",
+          blogCard(b.id, b.imageurl, b.title, b.content, tags, true, K)
+        );
+      // const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+      // console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
+      // document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+      //   text.substring(0, 50) + ".....";
+    });
   }
-  else{
-  bblogs.map(async (b) => {
-    const tags = (await getblogtags(b.id)).cats;
-    console.log(tags)
-    let K = false;
-    if (bmarkedblogsk.includes(b.id)) K = true;
-    document
-      .getElementsByClassName("latest-cards row 2")[0]
-      .insertAdjacentHTML(
-        "afterbegin",
-        blogCard(b.id, b.imageurl, b.title, b.content, tags,true,K)
-      );
-    // const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    // console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
-    // document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-    //   text.substring(0, 50) + ".....";
-  });
-}
   document
     .getElementsByClassName("user-desc")[0]
     .insertAdjacentHTML("afterbegin", user.about);
@@ -377,7 +390,12 @@ window.onload = async () => {
       .querySelector(".follower-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
+        follower_followingz(
+          list.imageurl,
+          list.firstName,
+          list.lastName,
+          list.id
+        )
       );
   });
 
@@ -402,7 +420,12 @@ window.onload = async () => {
       .querySelector(".followings-class")
       .insertAdjacentHTML(
         "afterbegin",
-        follower_followingz(list.imageurl, list.firstName, list.lastName,list.id)
+        follower_followingz(
+          list.imageurl,
+          list.firstName,
+          list.lastName,
+          list.id
+        )
       );
   });
 
@@ -507,11 +530,13 @@ window.onload = async () => {
         });
     }
   }
-  
-console.log(logged_in_user.id , user.id);
-document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
-  if(logged_in_user.id==user.id){
-  location.href="../edit-profile/editprofile.html"
-  }
-})
+
+  console.log(logged_in_user.id, user.id);
+  document
+    .querySelector("#follow-unfollow-edit")
+    .addEventListener("click", () => {
+      if (logged_in_user.id == user.id) {
+        location.href = "../edit-profile/editprofile.html";
+      }
+    });
 };
