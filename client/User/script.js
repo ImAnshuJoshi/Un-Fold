@@ -195,7 +195,7 @@ const userprofile = (u, followers, following, blog) =>
                 <div class="user-followers">
                   <div class="followers stats">
                   <div class="count " id="followers-insert">${followers}</div><div>Followers</div>
-               </div>
+                  </div>
                   <div class="followings stats">
                     <div class="count">${following}</div><div>Following</div>
                   </div>
@@ -225,13 +225,13 @@ const blogCard = (
                               <a href="../User/index.html?id=${
                                 user.id
                               }" style="height: 0;">
-                                  <img class="author" src=${
+                                  <img class="author" class="user-image" src=${
                                     user.imageurl
                                   } alt="author-image">
                               </a>
                               <div class="desc">${title}</div>
                               <div class="desc2 ${i++}">
-                              ${content}
+                              ${content.substr(0,300)}.........
                               </div>
                               </div></a>`;
 

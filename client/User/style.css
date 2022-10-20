@@ -189,6 +189,8 @@ nav img{
     color:black;
     border-radius: 3px;  
     margin-bottom: 5px;
+    width:30px;
+    text-align: center;
 }
 .count:hover{
     cursor:pointer;
@@ -211,9 +213,6 @@ nav img{
     padding-top: 60px;
     padding-bottom: 100px;
 }
-/* #followers-section,#following-section{
-    width:50%;
-} */
 #categories{
     /* margin-top: 50px; */
     width:50vw;
@@ -235,13 +234,12 @@ nav img{
 .category-wrap{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     flex-wrap: wrap;
     height:200px;
     width:40vw;
     overflow: scroll;
 }
+
 .category-wrap .cat{
     display: flex;
     flex-direction: column;
