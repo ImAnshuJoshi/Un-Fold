@@ -26,7 +26,7 @@ exports.addBlog = async (req, res, next) => {
     const user = await db.user.findOne({ where: { id: req.query.id } })
     if (!user) {  
       res.status(400).json({
-        error: 'No blogs Found!',
+        error: 'No user Found!',
       })
     }
     const newblog =await db.blog.create({

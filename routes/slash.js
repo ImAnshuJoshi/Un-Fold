@@ -37,6 +37,7 @@ router.post('/register', upload.single('item'),  async (req, res, next) => {
       }
   
     } catch (e) {
+      console.log(e)
       next(e)
     }
   })
