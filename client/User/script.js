@@ -174,7 +174,7 @@ const blogCard = (
 
 const follower_followingz = (img, fname, lname,id) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
 <div class="cat-img">
-  <img src="${img}" alt="">
+  <img src="${img}" alt="" id="userimg">
 </div>
 <div class="cat-name">
   <span>${fname} ${lname}</span>
