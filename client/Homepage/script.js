@@ -237,7 +237,6 @@ window.onload = async () => {
   console.log(followingblogsj);
   const bmarkedblogs = await getbmarkedblogs(userId);
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
-  console.log(bmarkedblogsk);
 
   followingblogsj.map(async (b) => {
     const user = await finduser(b.userId);
