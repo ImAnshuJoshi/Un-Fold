@@ -121,6 +121,21 @@ nav a:first-child{
     padding:8.2px;
     padding-left: 30px;
 }
+.search-input{
+    color:white;
+}
+.search-btn{
+    padding:10px 20px;
+    margin-right: 20px;
+    background: none;
+    color:white;
+    border: 1px solid white;
+}
+.search-btn:hover{
+    color:black;
+    background-color: #f8bf8c;
+    cursor:pointer;
+}
 .fa-search{
     position: relative;
     left:24px;

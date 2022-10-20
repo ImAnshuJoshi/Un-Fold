@@ -280,3 +280,4 @@ const currently_logged_in_user =await finduser(userId);
 console.log(currently_logged_in_user);
 
 document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
+
