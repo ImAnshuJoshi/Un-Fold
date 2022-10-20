@@ -170,6 +170,9 @@ body{
         display:1;
     }
   }
+  #para{
+    color:black;
+  }
   /* The Close Button */
   .close {
     color: rgb(255, 255, 255);
