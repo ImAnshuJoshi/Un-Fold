@@ -33,7 +33,7 @@ document.querySelector("body").onload = endPreloader();
   let password;
 
   async function ff(){
-  const response = await fetch("http://65.0.100.50/api/login                 ", {
+  const response = await fetch("http://65.0.100.50/api/login", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -86,45 +86,47 @@ document.querySelector("body").onload = endPreloader();
   // console.log(a);
 });
 
+let fname, lname, reg_email, desc, img, pass;
+
+const RegBtn = document.getElementsByClassName("submit-btn 1")[0];
+
+  RegBtn.addEventListener("click", async () => {
+    password = "";
+  // fname = document.getElementById("register-fname").value;
+  fname = (document.getElementById("register-fname") || {}).value || "";
+  lname = (document.getElementById("register-lname") || {}).value || "";
+  reg_email = (document.getElementById("register-email") || {}).value || "";
+  desc = (document.getElementById("register-desc") || {}).value || "";
+  img = document.getElementById("register-img").files[0];
+  pass = (document.getElementById("register-pass") || {}).value || "password";
+
+  console.log(img);
+  await ff2();
+
+  })
+
   /******************************************************register ***********************************************/
 
-  let fname, lname, reg_email, desc, img, pass;
 
-  // window.register123=()=>{
-
-  // console.log(img);
-  // ff2();
-  // }
-
-  const ff2 = async () => {
-
-    password = "";
-    // fname = document.getElementById("register-fname").value;
-    fname = (document.getElementById("register-fname") || {}).value || "";
-    lname = (document.getElementById("register-lname") || {}).value || "";
-    reg_email = (document.getElementById("register-email") || {}).value || "";
-    desc = (document.getElementById("register-desc") || {}).value || "";
-    img = document.getElementById("register-img").files[0];
-    pass = (document.getElementById("register-pass") || {}).value || "password";
-
-
+   async function ff2(){
   // formdata
   const formdata = new FormData();
+  console.log(fname)
+  console.log(lname)
+  console.log(reg_email)
+  console.log(desc)
   formdata.append("fname", fname);
   formdata.append("lname", lname);
   formdata.append("email", reg_email);
   formdata.append("about", desc);
   formdata.append("item", img);
   formdata.append("password", pass);
-
-  const response = await fetch("http://65.0.100.50/api/register/", {
+  const response = await fetch("http://65.0.100.50/api/register", {
     method: "POST",
-    body: formdata,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
+    body:formdata,
+    headers: {},
   });
+  console.log(response.body);
   const resJ = await response.json();
   console.log("hi " + response.status);
   if (response.status != 200) {
@@ -146,13 +148,8 @@ document.querySelector("body").onload = endPreloader();
   const token = resJ.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "../Homepage/index.html";
+    location.reload();
   }
-  }
-  
-  window.onload=()=>{
-    document.getElementById('register-btn').addEventListener('click',()=>{
-      alert('register btn clicked')
-      ff2();
-    })
-  }
+  };
+// },5000);
+   

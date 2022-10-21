@@ -382,7 +382,7 @@ window.onload = async () => {
     document
       .getElementsByClassName("latest-cards row 2")[0]
       .insertAdjacentHTML(
-        "afterbegin",`<h2 style="color:black;margin:10%;" >No Bookmarked blogs... Bookmark blogs you would want quick access to?</h2>`);
+        "afterbegin",`<h2 style="color:black;margin:10%;" >No Bookmarked blogs... Bookmark blogs you would want quick access to.</h2>`);
   }
   else{
   bblogs.map(async (b) => {
