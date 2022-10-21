@@ -90,21 +90,24 @@ document.querySelector("body").onload = endPreloader();
 
   let fname, lname, reg_email, desc, img, pass;
 
-  window.register123=()=>{
-  password = "";
-  // fname = document.getElementById("register-fname").value;
-  fname = (document.getElementById("register-fname") || {}).value || "";
-  lname = (document.getElementById("register-lname") || {}).value || "";
-  reg_email = (document.getElementById("register-email") || {}).value || "";
-  desc = (document.getElementById("register-desc") || {}).value || "";
-  img = document.getElementById("register-img").files[0];
-  pass = (document.getElementById("register-pass") || {}).value || "password";
+  // window.register123=()=>{
 
-  console.log(img);
-  ff2();
-  }
+  // console.log(img);
+  // ff2();
+  // }
 
   const ff2 = async () => {
+
+    password = "";
+    // fname = document.getElementById("register-fname").value;
+    fname = (document.getElementById("register-fname") || {}).value || "";
+    lname = (document.getElementById("register-lname") || {}).value || "";
+    reg_email = (document.getElementById("register-email") || {}).value || "";
+    desc = (document.getElementById("register-desc") || {}).value || "";
+    img = document.getElementById("register-img").files[0];
+    pass = (document.getElementById("register-pass") || {}).value || "password";
+
+
   // formdata
   const formdata = new FormData();
   formdata.append("fname", fname);
@@ -121,17 +124,12 @@ document.querySelector("body").onload = endPreloader();
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    // mode: "cors",
-    // withCredentials:true
   });
-  console.log(response.body);
   const resJ = await response.json();
   console.log("hi " + response.status);
   if (response.status != 200) {
-    // Get the modal
     document.getElementById("para").innerHTML = resJ.error;
     var modal = document.getElementById("myModal");
-    // Get the <span> element that closes the modal
     var span = document.querySelector(".close");
     modal.style.display = "block";
     span.onclick = function () {
@@ -150,6 +148,11 @@ document.querySelector("body").onload = endPreloader();
     localStorage.setItem("jwt", token);
     location.href = "../Homepage/index.html";
   }
-  };
-// },5000);
+  }
   
+  window.onload=()=>{
+    document.getElementById('register-btn').addEventListener('click',()=>{
+      alert('register btn clicked')
+      ff2();
+    })
+  }
