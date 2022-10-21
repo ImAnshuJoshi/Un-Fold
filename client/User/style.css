@@ -3,11 +3,12 @@
     font-family: 'Jost', sans-serif;
     margin: 0;
     padding: 0;
-    color: #f1f1f1;
+    color: #252525;
 }
 body{
     overflow-x: hidden;
 }
+
 #loading{
     position: fixed;
     width: 100%;
@@ -151,10 +152,12 @@ nav img{
 
 }
 .profile-user-name>h1{
+    color: #f1f1f1;
     font-size: 3.5rem;
     font-weight: 200;
 }
 .follow-btn{
+    color: #f1f1f1;
     background: none;
     padding:10px 20px;
     border:1px solid white;
@@ -168,6 +171,7 @@ nav img{
     cursor: pointer;
 }
 .user-desc{
+    color: #f1f1f1;
     width:50vw;
     text-align: center;
     font-size: 1.7rem;
@@ -179,8 +183,18 @@ nav img{
     justify-content:center;
 }
 .user-followers>div{
+    color: #f1f1f1;
     margin:20px;
     font-size: 20px;
+}
+.followers div{
+    color: #f1f1f1;
+}
+.followings div {
+    color: #f1f1f1;
+}
+.blogs div{
+    color: #f1f1f1;
 }
 .count{
     border:1px solid #f8bf8c;
