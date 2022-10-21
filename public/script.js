@@ -33,7 +33,7 @@ document.querySelector("body").onload = endPreloader();
   let password;
 
   async function ff(){
-  const response = await fetch("http://65.0.100.50/api/login                 ", {
+  const response = await fetch("http://65.0.100.50/api/login", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -86,12 +86,12 @@ document.querySelector("body").onload = endPreloader();
   // console.log(a);
 });
 
-  /******************************************************register ***********************************************/
+let fname, lname, reg_email, desc, img, pass;
 
-  let fname, lname, reg_email, desc, img, pass;
+const RegBtn = document.getElementsByClassName("submit-btn 1")[0];
 
-  window.register123=()=>{
-  password = "";
+  RegBtn.addEventListener("click", async () => {
+    password = "";
   // fname = document.getElementById("register-fname").value;
   fname = (document.getElementById("register-fname") || {}).value || "";
   lname = (document.getElementById("register-lname") || {}).value || "";
@@ -101,37 +101,37 @@ document.querySelector("body").onload = endPreloader();
   pass = (document.getElementById("register-pass") || {}).value || "password";
 
   console.log(img);
-  ff2();
-  }
+  await ff2();
 
-  const ff2 = async () => {
+  })
+
+  /******************************************************register ***********************************************/
+
+
+   async function ff2(){
   // formdata
   const formdata = new FormData();
+  console.log(fname)
+  console.log(lname)
+  console.log(reg_email)
+  console.log(desc)
   formdata.append("fname", fname);
   formdata.append("lname", lname);
   formdata.append("email", reg_email);
   formdata.append("about", desc);
   formdata.append("item", img);
   formdata.append("password", pass);
-
   const response = await fetch("http://65.0.100.50/api/register", {
     method: "POST",
-    body: formdata,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    // mode: "cors",
-    // withCredentials:true
+    body:formdata,
+    headers: {},
   });
   console.log(response.body);
   const resJ = await response.json();
   console.log("hi " + response.status);
   if (response.status != 200) {
-    // Get the modal
     document.getElementById("para").innerHTML = resJ.error;
     var modal = document.getElementById("myModal");
-    // Get the <span> element that closes the modal
     var span = document.querySelector(".close");
     modal.style.display = "block";
     span.onclick = function () {
@@ -148,8 +148,8 @@ document.querySelector("body").onload = endPreloader();
   const token = resJ.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "../Homepage/index.html";
+    location.reload();
   }
   };
 // },5000);
-  
+   
