@@ -237,23 +237,33 @@ window.onload = async () => {
   console.log(followingblogsj);
   const bmarkedblogs = await getbmarkedblogs(userId);
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
-  console.log(bmarkedblogsk);
-
-  followingblogsj.map(async (b) => {
-    const user = await finduser(b.userId);
-    const tags = (await getblogtags(b.id)).cats;
-    let K = false;
-    if (bmarkedblogsk.includes(b.id)) K = true;
+  if(!followingblogsj.length)
+  {
     document
       .getElementsByClassName("latest-cards row")[0]
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
+        `<h2 style="color:black;margin:5%;" >You don't follow any user yet... Follow users to see their latest blogs</h2>`
       );
-    const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-      text.substring(0, 50) + ".....";
-  });
+  }
+  else{
+    followingblogsj.map(async (b) => {
+      const user = await finduser(b.userId);
+      const tags = (await getblogtags(b.id)).cats;
+      let K = false;
+      if (bmarkedblogsk.includes(b.id)) K = true;
+      document
+        .getElementsByClassName("latest-cards row")[0]
+        .insertAdjacentHTML(
+          "afterbegin",
+          blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
+        );
+      const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
+      document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
+        text.substring(0, 50) + ".....";
+    });
+  }
+  
 
   //LATEST BLOGS ALL
   console.log(blogsj);
@@ -281,3 +291,4 @@ const currently_logged_in_user =await finduser(userId);
 console.log(currently_logged_in_user);
 
 document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
+

@@ -132,7 +132,7 @@ document.querySelector("body").onload = endPreloader();
     document.getElementById("para").innerHTML = resJ.error;
     var modal = document.getElementById("myModal");
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.querySelector(".close");
     modal.style.display = "block";
     span.onclick = function () {
       modal.style.display = "none";
