@@ -380,6 +380,21 @@ progress {
 .reactions>div>i>p{
     color: black;
 }
+.fa-trash:hover::after{
+    content: "Delete";
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: translateX(-30px);
+    margin-top: 10px;
+    background: #252525;
+    color:white;
+    padding:10px;
+    border-radius: 10px;;
+}
 .container {
 	max-width: 680px;
 	margin: 30px auto;
