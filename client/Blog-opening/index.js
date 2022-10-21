@@ -345,6 +345,7 @@ window.onload = async () => {
           "Content-Type": "application/json",
         },
       });
+      window.location.hash="#reactions-id"
       location.reload();
     });
   }
