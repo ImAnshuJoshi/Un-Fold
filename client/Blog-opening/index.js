@@ -173,8 +173,8 @@ async function getblogtags(bid) {
     }
   );
   const blogtags = await tags.json();
-  return blogtags;
-}console.log(blog_id);
+  return blogtags;}
+  
 window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1);
   blog_id = queryParamsString?.substring(3);
@@ -196,15 +196,6 @@ window.onload = async () => {
   const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
   const userblogs = await getuserblogs(userinfo.id);
-  userblogs.map(async (b) => {
-    const t = await getblogtags(b.id);
-    let K = false;
-    if (bmarkedblogsk.includes(b.id)) K = true;
-    //(t);
-    document
-      .getElementById("scroll-images")
-      .insertAdjacentHTML("afterbegin", blogcard(b, t.cats, K));
-  });
 };
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
@@ -444,7 +435,6 @@ window.onload = async () => {
     }
   );
   const the_blog = await particular_blog.json();
-  //(the_blog.blog);
 
   const publisher_id = the_blog.blog.userId;
   const blog_user_details = await fetch(
