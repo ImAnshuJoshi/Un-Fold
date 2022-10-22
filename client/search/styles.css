@@ -249,6 +249,7 @@ nav img{
     align-items: center;
     list-style: none;
     padding-left: 13px;
+    transform: translateX(-130px);
 }
 .tags li a{
     text-decoration: none;
@@ -279,7 +280,8 @@ nav img{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    transform: translateX(-35px);
+    /* transform: translateX(-px); */
+    /* margin:-30%; */
 }
 .fa-regular{
     position: inherit;

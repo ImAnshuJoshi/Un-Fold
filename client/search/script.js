@@ -56,7 +56,7 @@ window.changeBookmarkIcon = async (x) => {
     console.log("unbookmarked");
     await removebookmark(id);
   } else {
-    console.log("bookmarked");
+    console.log(x);
     await addbookmark(id);
   }
   x.classList.toggle("fa-solid");
@@ -86,7 +86,7 @@ function bookmarksign(K,id) {
 function handlecats(cats) {
   let t = ``;
   cats.forEach((i) => {
-    t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
+    t += `<li><a href="../category/index.html?id=${i.id}" style="text-decoration:none;">${i.Title}</a></li>`;
   });
   console.log(t);
   return t;
@@ -151,17 +151,17 @@ const blogCard = (
             <ul class="tags">
             ${handlecats(tags)}
             <div class="bookmark">
-            ${bookmarksign(K)}</div>
+            ${bookmarksign(K,blog.id)}</div>
             </ul>
             </div>
             <div class="desc blog-title" style="color:white">${blog.title}</div>
             </div></a>`;
-const userz = (img, fname, lname) =>
+const userz = (img, fname, lname,id) =>
   `
 <div class="blog-details">
-              <div class="img-container user-search">
+<a href="../User/index.html?id=${id}" style="text-decoration:none;"><div class="img-container user-search">
                 <img src="${img}" alt="" />
-              </div>
+              </div></a>
               <div class="user-name">
                 ${fname} ${lname}
               </div>
@@ -248,7 +248,7 @@ const searchUsers = async () => {
         .getElementById("search-user-id")
         .insertAdjacentHTML(
           "afterbegin",
-          userz(user.imageurl, user.firstName, user.lastName)
+          userz(user.imageurl, user.firstName, user.lastName,user.id)
         );
     }
   });

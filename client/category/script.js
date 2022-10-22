@@ -83,7 +83,7 @@ function handlecats(cats)
 }
 
 const blogCard=(blog,user,tags)=>
-    `<div class="follow-cards column">
+    `<a href="../Blog-opening/blog-opening.html?id=${blog.id}" style="text-decoration:none;"><div class="follow-cards column">
         <div class="blog-details">
         <div class="child child-white">
         <img src=${blog.imageurl} alt="">
@@ -103,7 +103,7 @@ const blogCard=(blog,user,tags)=>
         ${blog.content}
         </div>
         </div>
-    </div>`;
+    </div></a>`;
 
 window.onload = async () => {
     const queryParamsString = window.location.search?.substring(1);
