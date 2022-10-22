@@ -143,7 +143,8 @@ const blogCard = (
   blog,
   user,
   tags,K
-) => `<a href='../Blog-opening/blog-opening.html?id=${blog.id}' style="text-decoration:none;"><div class="blog-details">
+) => `<a href='../Blog-opening/blog-opening.html?id=${blog.id}' style="text-decoration:none;">
+          <div class="blog-details">
             <div class="img-container">
             <img src = ${blog.imageurl} alt="" />
             </div>
