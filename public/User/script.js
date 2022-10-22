@@ -575,4 +575,21 @@ document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   location.href="../edit-profile/editprofile.html"
   }
 })
+
+if(logged_in_user!=user.id){
+  document.querySelector('#logout').style.display="none";
+  console.log(user.firstName);
+  document.querySelector('.recent-wrap').innerHTML=`<h2>
+  ${user.firstName}'s <span>BLOGs</span>....
+</h2>  `;
+}
+
 };
+
+document.getElementById('logout').addEventListener('click',async ()=>{
+  const res = await fetch(`http://65.0.100.50/api/logout?id=${logged_in_user}`,{
+    method:"POST",
+  })
+  localStorage.removeItem('jwt');
+  location.href="http://65.0.100.50";
+})

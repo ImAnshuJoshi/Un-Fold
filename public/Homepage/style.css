@@ -202,6 +202,7 @@ button:hover{
     margin: 1px 0px;
     overflow: hidden;
     border-radius: 20px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   }
   .cover {
     padding: 0px 30px;
@@ -230,6 +231,7 @@ button:hover{
     height: 100%;
     object-fit: cover;
     transition:transform .75s;
+   
 }
 .child>img:hover{
     transform:scale(1.15);
@@ -260,7 +262,6 @@ button:hover{
     width:450px;
     margin-left:1.5rem;
     margin-right:1.5rem;
-    margin-bottom: -3.5rem;
 }
 .desc{
     font-size: 30px;
@@ -382,8 +383,9 @@ button:hover{
     width: 200px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px #252525 solid;
+    /* border: 1px #252525 solid; */
     transition:transform .75s;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .cat .cat-img img:hover{
     transform:scale(1.15);
@@ -628,6 +630,9 @@ footer{
     margin-right: 200px;
     top: 26px;
 }
+.upper-body{
+    font-size: 4rem;
+}
 }
 
 @media only screen and (max-width: 991px) {
@@ -658,7 +663,10 @@ footer{
     left: 10px;
 }
 }
-@media only screen and (max-width:610px){
+@media only screen and (max-width:613px){
+    .upper-body{
+        font-size: 3.5rem;
+    }
     .footer-name{
         margin:20px auto 20px 3px;
     }

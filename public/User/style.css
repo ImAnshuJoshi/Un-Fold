@@ -164,6 +164,7 @@ nav img{
     /* border-radius: 10px; */
     font-size: 20px;
     margin:10px auto 20px auto;
+    margin:10px;
 }
 .follow-btn:hover{
     background-color: white;
@@ -315,6 +316,11 @@ nav img{
 .latest-cards{
     color:black;
     margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 .fa-trash:hover::after{
     content: "Delete";
@@ -364,7 +370,6 @@ nav img{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    transform: translateX(-60px);
 }
 #recent .bookmark .fa-regular{
     color: #252525;
@@ -437,6 +442,7 @@ button:hover{
     margin: 1px 10px;
     overflow: hidden;
     border-radius: 20px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   }
   .cover {
     padding: 0px 30px;
