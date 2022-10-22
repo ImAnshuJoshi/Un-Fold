@@ -5,7 +5,7 @@ const router = express.Router();
 const upload = require("../Config/multerConfig");
 
 router.delete("/deleteBlog",blogcontroller.deleteBlog);
-router.get("/getAllBlogs",/* tokencheck */, blogcontroller.getAllBlogs);
+router.get("/getAllBlogs",/* tokencheck */ blogcontroller.getAllBlogs);
 router.get("/getblogbyid", blogcontroller.getblogbyid);
 router.get("/allUserBlogs",blogcontroller.getUserBlogs);
 router.get("/getlikedusers",blogcontroller.getlikedusers);
