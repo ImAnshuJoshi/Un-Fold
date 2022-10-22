@@ -794,7 +794,21 @@ footer{
     justify-content: center;
     padding-top: 30px;
 }
-
+@media only screen and (max-width:610px){
+    .footer-name{
+        margin:20px auto 20px 3px;
+    }
+    .main-footer{
+        margin: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        /* align-items: center;  */
+        justify-content: flex-start;
+    }
+    .footer-column{
+        margin: 10px;
+    }
+}
 
 @media only screen and (max-width : 768px){
 .container{
@@ -862,9 +876,9 @@ footer{
     .main-footer{
         width: 100%;
     }
-    .footer-name{
+    /* .footer-name{
         width: 50%;
-    }
+    } */
     .footer-desc{
         position: relative;
         left: 10px;
