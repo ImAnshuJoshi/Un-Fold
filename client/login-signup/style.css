@@ -21,7 +21,7 @@ body{
 /************* login signup page  **********/
 .hero{
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     /* background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),url(../assets/VR.jpg); */
     background-position: center;
     background-size: cover;
@@ -30,16 +30,19 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-direction: row;
 }
 .name {
     font-size: 6rem;
     margin-bottom: 3%;
+    margin-left: 5px;
 }
 .name span{
     color: #f8bf8c;
     font-family: 'Freehand', cursive;
 }
 .landing-desc{
+    margin-left: 10px;
     font-size: 1.3rem;
 }
 .form-box-div{
@@ -190,3 +193,12 @@ body{
   }
 
 
+@media only screen and (max-width:768px){
+    .form-box{
+        height: 600px;
+        width: 350px;
+    }
+   .hero{
+    flex-direction: column;
+   }
+}

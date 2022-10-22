@@ -50,11 +50,11 @@ function deletecomment(cid,uid)
   else
   return ``; 
 }
-function bookmarksign(K,id) {
+function bookmarksign(K,b) {
   if (K) {
-    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid" id=${id}></i>`;
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid" id=${b.id}></i>`;
   } else {
-    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark" id=${id}></i>`;
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark" id=${b.id}></i>`;
   }
 }
 async function removebookmark(bid) {
@@ -445,7 +445,9 @@ window.onload = async () => {
         createdAtDate
       )
     );
-   bmarkedblogs.map(async (b)=>{
+    const ublog=await fetch(
+      "http://65.0.100.50/api/blog//allUserBlogs?id="+userinfo.id,{method:"GET"});
+   userblogs.map(async (b)=>{
     const tags = (await getblogtags(b.id)).cats;
       let K = false;
       if (bmarkedblogsk.includes(b.id)) K = true;

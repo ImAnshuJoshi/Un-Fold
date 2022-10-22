@@ -526,6 +526,7 @@ button.primaryContained {
     position: relative;
     margin-bottom: 50px;
     padding-bottom: 50px;
+    width:100%;
   }
   .left {
     position: absolute;
