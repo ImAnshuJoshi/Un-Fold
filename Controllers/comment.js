@@ -18,7 +18,7 @@ exports.getcomments=async (req,res,next)=>{
         const {bid}=req.query;
         const blog=await db.blog.findByPk(bid);
         const comment= await blog.getComment();
-        res.status(200).json({comment:comment});
+        res.status(200).json({comment:comment.sort((a, b) => a.updatedAt - b.updatedAt)});
     }
     catch(e)
     {next(e);}

@@ -9,7 +9,7 @@ exports.getAllBlogs = async (req, res, next) => {
         error: 'No blogs Found',
       })
     }
-    res.send(Allblogs.sort((a, b) => a.updatedAt - b.updatedAt))
+    res.send(Allblogs.sort((a, b) => a.createdAt - b.createdAt))
   } catch (e) {
     console.log(e)
     res.status(500).json({

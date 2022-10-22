@@ -43,7 +43,7 @@ exports.getFollowers = async (req, res, next) => {
   try {
     const currentuser = await db.user.findOne({ where: { id: id } })
     const FollowerList = await currentuser.getFollowed()
-    res.status(200).send(FollowerList)
+    res.status(200).send(FollowerList.sort((a, b) => a.updatedAt - b.updatedAt))
   } catch (e) {
     console.log(e)
     res.status(500).json({
@@ -72,7 +72,7 @@ exports.getFollowingblogs = async (req, res, next) => {
     const currentuser = await db.user.findOne({ where: { id: id } })
     const FollowingList = (await currentuser.getFollower({attributes:['id']})).map((m)=>m.id);
     const blogs= await db.blog.findAll({where:{userId:FollowingList},order:[['updatedAt','DESC']]})
-    res.status(200).json({followingblogs:blogs})
+    res.status(200).json({followingblogs:blogs.sort((a, b) => a.createdAt - b.createdAt)})
   } catch (e) {
     next(e);
   }
