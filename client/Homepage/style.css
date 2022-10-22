@@ -662,7 +662,10 @@ footer{
     left: 10px;
 }
 }
-@media only screen and (max-width:610px){
+@media only screen and (max-width:613px){
+    .upper-body{
+        font-size: 3.5rem;
+    }
     .footer-name{
         margin:20px auto 20px 3px;
     }
