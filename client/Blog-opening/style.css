@@ -598,17 +598,34 @@ button.primaryContained {
     border-radius: 5.2px;
 
 }
+.bookmark{
+    display: flex;
+    /* position: absolute; */
+    height:20px;
+    width: 300px;
+    margin-top: 20px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    transform: translateY(-50px);
+}
 .fa-regular{
-    margin-left: 82.5px;
+    color: #FAF9F6;
+    position: inherit;
+    left: 100%;
+    margin-left: 30px;
     cursor: pointer;
     user-select: none;
 }
 .fa-solid{
-    margin-left: 0px;
+    color: #FAF9F6;
+    position: inherit;
+    left: 100%;
+    margin-left: 30px;
     cursor: pointer;
     user-select: none;
 }
-.fa-regular:hover,.fa-solid:hover{
+.fa-regular:hover, .fa-solid:hover {
     color: #f8bf8c;
 }
 #you-might-like-section{

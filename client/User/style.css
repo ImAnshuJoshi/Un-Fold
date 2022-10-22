@@ -365,7 +365,6 @@ nav img{
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    transform: translateX(-60px);
 }
 #recent .bookmark .fa-regular{
     color: #252525;

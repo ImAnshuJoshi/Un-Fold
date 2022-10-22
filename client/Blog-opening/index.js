@@ -124,8 +124,10 @@ const blogcard = (blog, tags, K) => `
                     <div class="tag-wrap">
                       <ul class="tags" >
                         ${handlecats(tags)}
+                        </ul>
+                        <div class="bookmark">
                         ${bookmarksign(K,blog)}
-                      </ul>
+                      </div>
                     </div>
                     <div class="blog-title" style="color:white;">${blog.title}</div>
                   </div>`;
