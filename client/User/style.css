@@ -240,13 +240,16 @@ nav img{
     /* justify-content: center; */
 }
 #categories h2{
-    color: #252525;
+    color: white;
     font-size: 1.8rem;
     font-weight: 400;
     padding-left: 3%;
 }
-#categories h2 span{
+#following-section h2{
     color: #f8bf8c;
+    font-size: 1.8rem;
+    font-weight: 400;
+    padding-left: 3%;
 }
 .category-wrap{
     display: flex;
