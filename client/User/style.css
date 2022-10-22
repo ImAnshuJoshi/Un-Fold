@@ -164,6 +164,7 @@ nav img{
     /* border-radius: 10px; */
     font-size: 20px;
     margin:10px auto 20px auto;
+    margin:10px;
 }
 .follow-btn:hover{
     background-color: white;

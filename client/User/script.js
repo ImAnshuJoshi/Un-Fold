@@ -576,3 +576,13 @@ document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   }
 })
 };
+
+
+
+document.getElementById('logout').addEventListener('click',async ()=>{
+  const res = await fetch(`http://65.0.100.50/api/logout?id=${logged_in_user}`,{
+    method:"POST",
+  })
+  localStorage.removeItem('jwt');
+  location.href="http://65.0.100.50";
+})
