@@ -27,20 +27,17 @@ function parseJwt(token) {
 const token = localStorage.getItem("jwt");
 const decodedtoken = parseJwt(token);
 const currentlyloggedinuser = decodedtoken.id;
-let blog_id;
+
 window.deletecomment1 = async(e)=>{
   //('object')
   await fetch(`http://65.0.100.50/api/comment/deletecomment?id=${e.id}`,{method:"DELETE"});
   location.reload();
 }
 window.changeBookmarkIcon = async (x) => {
-  const id = x.parentNode.parentNode.parentNode.id;
+  const id = x.id;
   if (x.classList.value.includes("fa-solid")) {
-    //("unbookmarked");
     await removebookmark(id);
   } else {
-    //("bookmarked");
-    //(id);
     await addbookmark(id);
   }
   x.classList.toggle("fa-solid");
@@ -53,15 +50,15 @@ function deletecomment(cid,uid)
   else
   return ``; 
 }
-function bookmarksign(K) {
+function bookmarksign(K,id) {
   if (K) {
-    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid"></i>`;
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark fa-solid" id=${id}></i>`;
   } else {
-    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark"></i>`;
+    return `<i onclick="changeBookmarkIcon(this)" class="fa-regular fa-bookmark" id=${id}></i>`;
   }
 }
 async function removebookmark(bid) {
-  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  const body = { uid: currentlyloggedinuser, bid: bid };
   //(body);
   const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
     method: "POST",
@@ -77,7 +74,7 @@ async function removebookmark(bid) {
   else alert("Failed to unBookmark :(");
 }
 async function addbookmark(bid) {
-  const body = { uid: currentlyloggedinuser.id, bid: bid };
+  const body = { uid: currentlyloggedinuser, bid: bid };
   //(body);
   const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
     method: "POST",
@@ -113,7 +110,7 @@ function closeMenu() {
 function handlecats(cats) {
   let t = ``;
   cats.forEach((i) => {
-    t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
+    t += `<li ><a href="../category/index.html?id=${i.id}" style="color:white; text-decoration:none;">${i.Title}</a></li>`;
   });
   //(t);
   return t;
@@ -125,32 +122,31 @@ const blogcard = (blog, tags, K) => `
                       <img src=${blog.imageurl} alt="" />
                     </div>
                     <div class="tag-wrap">
-                      <ul class="tags">
+                      <ul class="tags" >
                         ${handlecats(tags)}
-                        ${bookmarksign(K)}
+                        ${bookmarksign(K,blog)}
                       </ul>
                     </div>
-                    <div class="blog-title">${blog.title}</div>
-    
+                    <div class="blog-title" style="color:white;">${blog.title}</div>
                   </div>`;
 
-const comments = (cid,uid,username, img, comm) => ` <div class="comments-container">
-                  <div><img src="${img}" alt=""></div>
+const comments = (comment, commentor) => ` <div class="comments-container">
+                  <div><img src="${commentor.imageurl}" alt=""></div>
                   <div>
-                    <strong>${username}</strong>
-                    <p>${comm}</p>
+                  <a href="../User/index.html?id=${commentor.id}"><strong>${commentor.firstName}</strong></a>
+                    <p>${comment.content}</p>
                     </div>
-                    ${deletecomment(cid,uid)}
+                    ${deletecomment(comment.id,commentor.id)}
                 </div>
                 <div class="comment-partition"></div>`;
 
-const publisher = (img, username, date) => `  <div class="author-img">
-<img src="${img}" alt="">
+const publisher = (author, date) => ` <a href="../User/index.html?id=${author.id}" > <div class="author-img">
+<img src="${author.imageurl}" alt="">
 </div>
 <div class="author-content">
 <div class="author-name">
-  <span>${username}</span>
-</div>
+  <span>${author.firstName}</span>
+</div></a>
 <div class="published-date">
   Published on <span>${date}</span>
 </div>
@@ -175,28 +171,6 @@ async function getblogtags(bid) {
   const blogtags = await tags.json();
   return blogtags;}
   
-window.onload = async () => {
-  const queryParamsString = window.location.search?.substring(1);
-  blog_id = queryParamsString?.substring(3);
-  //
-  
-  const userid = await findblog(blog_id);
-  const user = await fetch(
-    "http://65.0.100.50/api/user/getuserinfo?id=" + userid,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      credentials: "same-origin",
-    }
-  );
-  const userinfo = (await user.json()).user;
-  const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser.id);
-  const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
-  const userblogs = await getuserblogs(userinfo.id);
-};
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
     "http://65.0.100.50/api/user/getbookmarkedblogs?id=" + id,
@@ -258,9 +232,29 @@ const findblog = async (id) => {
 /************IMPLEMENTING LIKES PART********* */
 let blog_likes;
 window.onload = async () => {
+
+  
   const queryParamsString = window.location.search?.substring(1);
-  blog_id = queryParamsString?.substring(3);
-  findblog(blog_id);
+  const blog_id = queryParamsString?.substring(3);
+  console.log(blog_id)
+
+  const userid = await findblog(blog_id);
+  const user = await fetch(
+    "http://65.0.100.50/api/user/getuserinfo?id=" + userid,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+      credentials: "same-origin",
+    }
+  );
+  const userinfo = (await user.json()).user;
+  const bmarkedblogs = await getbmarkedblogs(currentlyloggedinuser);
+  const bmarkedblogsk= bmarkedblogs.map((b)=>b.id);
+  const userblogs = await getuserblogs(userinfo.id);
+  document.getElementById("strong123").innerHTML=userinfo.firstName; 
   const res = await fetch(
     `http://65.0.100.50/api/blog/getlikedusers?id=${blog_id}`,
     {
@@ -389,11 +383,8 @@ window.onload = async () => {
       .insertAdjacentHTML(
         "afterbegin",
         comments(
-          b.id,
-          user_detail.user.id,
-          user_detail.user.firstName,
-          user_detail.user.imageurl,
-          b.content
+          b,
+          user_detail.user
         )
       );
   });
@@ -450,9 +441,19 @@ window.onload = async () => {
     .insertAdjacentHTML(
       "afterbegin",
       publisher(
-        blog_user_detail.user.imageurl,
-        blog_user_detail.user.firstName,
+        blog_user_detail.user,
         createdAtDate
       )
     );
+   bmarkedblogs.map(async (b)=>{
+    const tags = (await getblogtags(b.id)).cats;
+      let K = false;
+      if (bmarkedblogsk.includes(b.id)) K = true;
+    document.getElementById("scroll-images") 
+    .insertAdjacentHTML(
+    "afterbegin",
+    blogcard(b,tags,K)
+   )
+   }) 
+   
 };
