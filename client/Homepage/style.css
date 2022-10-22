@@ -147,9 +147,7 @@ nav img{
     font-size: 5rem;
     padding:20px;
 }
-.upper-body-text>p{
-    font-size: 4rem;
-}
+
 .upper-body-text>p>span{
     color:#f8bf8c;
 }
@@ -264,7 +262,6 @@ button:hover{
     width:450px;
     margin-left:1.5rem;
     margin-right:1.5rem;
-    margin-bottom: -3.5rem;
 }
 .desc{
     font-size: 30px;
@@ -632,6 +629,9 @@ footer{
     position: relative;
     margin-right: 200px;
     top: 26px;
+}
+.upper-body{
+    font-size: 4rem;
 }
 }
 
