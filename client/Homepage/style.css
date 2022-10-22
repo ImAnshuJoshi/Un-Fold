@@ -147,7 +147,9 @@ nav img{
     font-size: 5rem;
     padding:20px;
 }
-
+.upper-body-text>p{
+    font-size: 4rem;
+}
 .upper-body-text>p>span{
     color:#f8bf8c;
 }
