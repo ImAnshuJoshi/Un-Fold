@@ -191,7 +191,7 @@ let word = "";
 const searchtheword = () => {
   const searchword = document.querySelector(".search-input").value;
   document.getElementById("search-span").innerHTML =
-    "Results for " + searchword;
+    "Results for " + "'" + searchword + "'";
   console.log(searchword);
   word = searchword;
   searchBlogs();
