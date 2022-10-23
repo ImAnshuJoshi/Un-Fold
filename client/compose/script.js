@@ -40,7 +40,7 @@ function parseJwt (token) {
 
 const token=localStorage.getItem('jwt');
 const decodedtoken=parseJwt(token);
-
+const currently_logged_in=decodedtoken;
 
 
 let optionsButtons = document.querySelectorAll(".option-button");
@@ -228,3 +228,30 @@ button.addEventListener("click", async () => {
     location.href=`../Blog-opening/blog-opening.html?id=${addedblogid}`
   }
 });
+
+
+window.onload = async ()=>{
+  const finduser = async (id) => {
+    const user = await fetch(
+      "http://65.0.100.50/api/user/getuserinfo?" +
+        new URLSearchParams({ id: id }),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        mode: "cors",
+        credentials: "same-origin",
+      }
+    );
+    const userj = await user.json();
+    return userj.user;
+  };
+
+  //SETTING PROFILE ON THE NAV_BAR
+const currently_logged_in_user =await finduser(currently_logged_in.id);
+console.log(currently_logged_in_user);
+
+document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
+}

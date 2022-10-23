@@ -33,6 +33,29 @@ function changeBookmarkIcon(x){
   x.classList.toggle("fa-solid");
 }
 
+
+//getting user by JWT
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+const token = localStorage.getItem("jwt");
+const decodedtoken = parseJwt(token);
+const currently_logged_in=decodedtoken;
+
+
 let optionsButtons = document.querySelectorAll(".option-button");
 let advancedOptionButton = document.querySelectorAll(".adv-option-button");
 // let fontName = document.getElementById("fontName");
@@ -225,4 +248,32 @@ button.addEventListener("click", async () => {
     location.href = `../Blog-opening/blog-opening.html?id=${id}`;
   }
   
+
+
 });
+
+window.onload = async ()=>{
+  const finduser = async (id) => {
+    const user = await fetch(
+      "http://65.0.100.50/api/user/getuserinfo?" +
+        new URLSearchParams({ id: id }),
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        mode: "cors",
+        credentials: "same-origin",
+      }
+    );
+    const userj = await user.json();
+    return userj.user;
+  };
+
+  //SETTING PROFILE ON THE NAV_BAR
+const currently_logged_in_user =await finduser(currently_logged_in.id);
+console.log(currently_logged_in_user);
+
+document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
+}
