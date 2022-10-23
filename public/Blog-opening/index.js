@@ -118,9 +118,9 @@ function handlecats(cats) {
 
 const blogcard = (blog, tags, K) => `
 <div class="blog-details" id=${blog.id}>
-                    <div class="img-container">
+                    <a href="../Blog-opening/blog-opening.html?id=${blog.id}"><div class="img-container">
                       <img src=${blog.imageurl} alt="" />
-                    </div>
+                    </div></a>
                     <div class="tag-wrap">
                       <ul class="tags" >
                         ${handlecats(tags)}
