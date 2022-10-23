@@ -46,7 +46,7 @@ window.changeBookmarkIcon = async (x) => {
 function deletecomment(cid,uid)
 {
   if(uid===currentlyloggedinuser)
-  return `<i class="fa-solid fa-trash" id=${cid} onclick="deletecomment1(this)" ></i>`;
+  return `<i class="fa-solid fa-trash" id=${cid} onclick="deletecomment1(this)" style="color:#252525" ></i>`;
   else
   return ``; 
 }

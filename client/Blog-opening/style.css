@@ -328,6 +328,7 @@ progress {
     margin: 2% auto;
 }
 .reactions .like{
+    margin-right: 50px;
     margin-left: auto;
     display: flex;
     flex-direction: column;
@@ -335,6 +336,7 @@ progress {
     align-items: center;
 }
 .likes_count{
+    padding-left: 5px;
     color:black;
 }
 .reactions .comment{
@@ -391,7 +393,7 @@ progress {
     transform: translateX(-30px);
     margin-top: 10px;
     background: #252525;
-    color:white;
+    color:#f8bf8c;
     padding:10px;
     border-radius: 10px;;
 }
@@ -482,6 +484,9 @@ button.primaryContained {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+.comments-container div a{
+    text-decoration: none;
 }
 .comments-container div strong{
     color:black;
