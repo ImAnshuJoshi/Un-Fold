@@ -8,14 +8,21 @@ const bcrypt = require('bcrypt')
 
 router.post('/register', upload.single('item'),  async (req, res, next) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path)
+      const result = await cloudinary.uploader.upload(req.file?.path)
+      const {fname,lname,email,password,about}=req.body
+      if(!fname||!lname||!about)
+      throw new Error('Please fill all entries!!')
+      else if(!req.file)
+      throw new Error('Please upload your profile picture!')
+      else if(!email)
+      throw new Error('Please enter your email!')
       let reguser
       reguser = await db.user.create({
-        firstName: req.body.fname,
-        lastName: req.body.lname,
-        email: req.body.email,
-        password: req.body.password,
-        about: req.body.about,
+        firstName: fname,
+        lastName: lname,
+        email: email,
+        password: password,
+        about: about,
         imageurl: result.secure_url,
         cloudid: result.public_id,
       })

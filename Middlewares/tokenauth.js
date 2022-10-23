@@ -17,8 +17,7 @@ module.exports = (req, res, next) => {
         })
       } else {
         console.log(decoded);
-        const userEmail = decoded.email
-        req.userEmail=userEmail;
+        req.userEmail=decoded.email;
         req.userid = decoded.id;
         }
     })
