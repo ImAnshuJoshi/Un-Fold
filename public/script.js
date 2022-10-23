@@ -111,10 +111,6 @@ const RegBtn = document.getElementsByClassName("submit-btn 1")[0];
    async function ff2(){
   // formdata
   const formdata = new FormData();
-  console.log(fname)
-  console.log(lname)
-  console.log(reg_email)
-  console.log(desc)
   formdata.append("fname", fname);
   formdata.append("lname", lname);
   formdata.append("email", reg_email);
@@ -128,9 +124,9 @@ const RegBtn = document.getElementsByClassName("submit-btn 1")[0];
   });
   console.log(response.body);
   const resJ = await response.json();
-  console.log("hi " + response.status);
+  console.log(resJ);
   if (response.status != 200) {
-    document.getElementById("para").innerHTML = resJ.error;
+    document.getElementById("para").innerHTML = resJ.message;
     var modal = document.getElementById("myModal");
     var span = document.querySelector(".close");
     modal.style.display = "block";
