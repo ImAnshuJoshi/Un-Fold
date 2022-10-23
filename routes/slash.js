@@ -8,14 +8,14 @@ const bcrypt = require('bcrypt')
 
 router.post('/register', upload.single('item'),  async (req, res, next) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file?.path)
       const {fname,lname,email,password,about}=req.body
       if(!fname||!lname||!about)
       throw new Error('Please fill all entries!!')
-      else if(!req.file)
-      throw new Error('Please upload your profile picture!')
       else if(!email)
       throw new Error('Please enter your email!')
+      else if(!req.file)
+      throw new Error('Please upload your profile picture!')      
+      const result = await cloudinary.uploader.upload(req.file?.path)
       let reguser
       reguser = await db.user.create({
         firstName: fname,
@@ -60,7 +60,7 @@ router.post('/login', async (req, res, next) => {
     const currentuser = await db.user.findOne({ where: { email: email } })
     if (!currentuser) {
       res.status(400).json({
-        message: 'User is not registered, Sign Up first',
+        message: 'User is not registered / Email is invalid',
       })
     } else {
       bcrypt.compare(password, currentuser.password, (err, result) => {
@@ -90,6 +90,14 @@ router.post('/login', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.post('/logout',async (req,res,next)=>{
+  try{
+    res.clearCookie('token');
+  res.status(200).json({message:"Cookie cleared!"});
+  }
+  catch(e){next(e);}
 })
 
 module.exports = router
