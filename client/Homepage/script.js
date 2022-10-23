@@ -247,42 +247,53 @@ window.onload = async () => {
       );
   }
   else{
-    followingblogsj.map(async (b) => {
-      const user = await finduser(b.userId);
-      const tags = (await getblogtags(b.id)).cats;
-      let K = false;
-      if (bmarkedblogsk.includes(b.id)) K = true;
-      document
+    let fblogs=followingblogsj.map(async (b) => {
+       b.user = await finduser(b.userId);
+       b.tags = (await getblogtags(b.id)).cats;
+       b.K = false;
+      if (bmarkedblogsk.includes(b.id)) b.K = true;
+      return b;
+    }).sort((a,b)=>a.createdAt-b.createdAt);
+    Promise.all(fblogs).then(function(res) {
+      res.forEach((b)=>{
+        document
         .getElementsByClassName("latest-cards row")[0]
         .insertAdjacentHTML(
           "afterbegin",
-          blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
+          blogCard(b.imageurl, b.title, b.content, b.user, b.id, b.tags, b.K)
         );
       const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
       document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
         text.substring(0, 50) + ".....";
-    });
+      })})
+    
   }
   
 
   //LATEST BLOGS ALL
   
-  blogsj.map(async (b) => {
-    console.log(b);
-    const user = await finduser(b.userId);
-    const tags = (await getblogtags(b.id)).cats;
-    let K = false;
-    if (bmarkedblogsk.includes(b.id)) K = true;
-    document
+  const allblogs=await (blogsj.map(async (b) => {
+    b.user = await finduser(b.userId);
+    b.tags = (await getblogtags(b.id)).cats;
+    b.K = false;
+    if (bmarkedblogsk.includes(b.id)) b.K = true;
+    return b;
+  })).sort((a,b)=>a.createdAt-b.createdAt)
+  Promise.all(allblogs).then(function(res) {
+    res.forEach((b)=>{
+      document
       .getElementById("i1")
       .insertAdjacentHTML(
         "afterbegin",
-        blogCard(b.imageurl, b.title, b.content, user, b.id, tags, K)
+        blogCard(b.imageurl, b.title, b.content, b.user, b.id, b.tags, b.K)
       );
     const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
     document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
       text.substring(0, 50) + ".....";
-  }); 
+    })
+    
+})
+  
 
 
 };
