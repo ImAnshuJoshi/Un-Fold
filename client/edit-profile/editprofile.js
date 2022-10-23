@@ -29,7 +29,7 @@ const user = parseJwt(token);
 console.log(user);
 
 //UPDATING THE PROFILE
-let newfname, newlname, newemail, newdesc, newitem;
+let newfname, newlname, newemail, newdesc;
 
 //UPDATING THE ITEMS TO THE NEW VALUE
 document.getElementById("register-fname").addEventListener(
@@ -60,8 +60,6 @@ document.getElementById("register-desc").addEventListener(
   },
   false
 );
-newitem = document.getElementById("register-img").files[0];
-
 window.onload = async () => {
   const fetchuser = await fetch(
     `http://65.0.100.50/api/user/getuserinfo?id=${user.id}`,
@@ -76,6 +74,9 @@ window.onload = async () => {
   document.querySelector("#register-email").value = userinfo.user.email;
   document.querySelector("#register-desc").value = userinfo.user.about;
   document.querySelector("#submit-btn").addEventListener("click", async () => {
+    
+   const newitem = document.getElementById("register-img").files[0];
+
     if (!newfname && !newlname && !newdesc && !newemail && !newitem) {
       alert("No changes made");
       return;
