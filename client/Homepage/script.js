@@ -266,8 +266,9 @@ window.onload = async () => {
   
 
   //LATEST BLOGS ALL
-  console.log(blogsj);
+  
   blogsj.map(async (b) => {
+    console.log(b);
     const user = await finduser(b.userId);
     const tags = (await getblogtags(b.id)).cats;
     let K = false;
