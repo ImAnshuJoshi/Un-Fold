@@ -8,6 +8,10 @@ function endPreloader(){
 }
 document.querySelector("body").onload = endPreloader();
 
+let is_user= localStorage.getItem('jwt');
+if(is_user){
+  location.href="../client/Homepage/index.html"
+}
 
 
 /***********************************toggling between login and sign up********************************** */
@@ -67,7 +71,7 @@ document.querySelector("body").onload = endPreloader();
   const token = user.token;
   if (token) {
     localStorage.setItem("jwt", token);
-    location.href = "./Homepage/index.html";
+    location.href = "../Homepage/index.html";
   }
   return user;
   // console.log("hi " + response.status);
