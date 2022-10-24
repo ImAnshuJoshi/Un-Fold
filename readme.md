@@ -1,4 +1,4 @@
-<h1 align="center">UnFold your thoughs with Un-Fold ✉️</h1>
+<h1 align="center">Unfold your thoughts with Un-Fold ✉️</h1>
 
 > Un-Fold : Connecting People, Ideas and Products worldwide !
 ## Project Description
@@ -24,7 +24,7 @@ Blogging website for webkriti.
 <img src="./client/assets/assets/edit.png"></img>
 <img src="./client/assets/assets/last.png"></img>
 
-### ✨ [Deployed site](https://65.0.100.50/)
+### ✨ [Deployed site](http://65.0.100.50/)
 
 # Features Implemented
 
@@ -33,7 +33,7 @@ Blogging website for webkriti.
 * All the checks have been made on the frontend side for email and password.
 * A user friendly prompts appear if there is any error while filling the input values.
 2. Home Page :
-* Once the user is signed in, a token is generated, saved in local storage, which helps maintain session activity. This token is verified every time the user visits any page. 
+* Once the user is signed in, a token is generated, saved in local storage and also stored in browser cookie, which helps maintain session activity. This token is verified every time the user visits any page. 
 * Users can here view all the blogs that can has been posted by the user , can bookmark them . It also has a section of categories which includes all the genres of the blogs.
 * Then it has a 3rd section of the blogs by the user whom the logged in user follows.
 3. Blog Page :
@@ -60,7 +60,7 @@ Blogging website for webkriti.
 
 #### Future Ideas
 * One-on-One chat feature 
-* Allowing the user to archieve his/her blogs or make it private
+* Allowing the user to archive his/her blogs or make it private
 
 ## Back-end
 1. Routes for authentication purpose
