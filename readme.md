@@ -16,13 +16,13 @@ Blogging website for webkriti.
 * User can also edit his/her profile whenever he wants to.
 
 # Screen shots
-<img src="./client/assets/assets/unfold1.png"></img>
-<img src="./client/assets/assets/unfo.png"></img>
-<img src="./client/assets/assets/unfold3.png"></img>
-<img src="./client/assets/assets/unfold4.png"></img>
-<img src="./client/assets/assets/unfold5.png"></img>
-<img src="./client/assets/assets/edit.png"></img>
-<img src="./client/assets/assets/last.png"></img>
+<img src="./assets/assets/unfold1.png"></img>
+<img src="./assets/assets/unfo.png"></img>
+<img src="./assets/assets/unfold3.png"></img>
+<img src="./assets/assets/unfold4.png"></img>
+<img src="./assets/assets/unfold5.png"></img>
+<img src="./assets/assets/edit.png"></img>
+<img src="./assets/assets/last.png"></img>
 
 ### ✨ [Deployed site](http://65.0.100.50/)
 
@@ -104,15 +104,16 @@ Blogging website for webkriti.
 | ------ | ------ |
 | bcrypt | To store hashed password in database  |
 | dotenv | To keep db connection string, client id, client secret key safe  |
-| image-to-base64 | To convert images of posts or image url to base 64 & storing in database  |
 | jsonwebtoken | To store users session encrypted and verify them as middleware in posts/details/feedback api request  |
-| moment-timezone | To handle time zone and send in socket connection  |
-| nodemailer | To send feedback to our mail  |
 | nodemon | To run application in dev mode  |
-| passport-facebook | Facebook authentication  |
-| passport-google-oauth20 | Google authentication  |
-| pg | To Connect to AWS RDS  |
-| socket.io | To enables realtime, bi-directional communication between web clients and servers.  |
+| body-parser | Parse incoming request bodies in a middleware before your handlers, available under the req.body property. |
+| cloudinary | It provides cloud-based image and video management services.  |
+| cookie-parser | Parse Cookie header and populate req.cookies with an object keyed by the cookie names.  |
+| cors | For Cross-Origin Resource Sharing  |
+| express |a back end web application framework for building RESTful APIs with Node.js  |
+| jwt | JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.  |
+| multer | Multer is a node. js middleware for handling multipart/form-data , which is primarily used for uploading files.  |
+| Sequelize | Sequelize is a modern TypeScript and Node.js ORM for Postgres |
 
 ## Local Setup
 1.  To run the server in dev mode use
@@ -142,11 +143,11 @@ Blogging website for webkriti.
 * Gmail: [mail](mailto:aarohsjcian1@gmail.com)
 * Instagram: [@aaroh01](https://www.instagram.com/aaroh01/)
 
-### Swahim Namdev (2020IMG-063)
-* Github: [@swahim](https://github.com/swahim)
-* LinkedIn: [@swahimnamdev](https://www.linkedin.com/in/swahimnamdev/)
+### Anshu Joshi (2021BCS-014)
+* Github: [@ImAnshuJoshi](https://github.com/ImAnshuJoshi)
+* LinkedIn: [@anshujoshi](https://www.linkedin.com/in/anshu-joshi-9080b6223/)
 * Gmail: [mail](mailto:swahimn@gmail.com)
-* Instagram: [@swahim_n](https://www.instagram.com/swahim_n/)
+* Instagram: [@anshu_joshi](https://www.instagram.com/imanshujoshi/)
 
 ### Hari Om Sharma (2021BCS-029)
 * Github: [@iamhariom0228](https://github.com/iamhariom0228)
