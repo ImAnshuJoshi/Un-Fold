@@ -134,7 +134,7 @@ window.onload = async () => {
     );
     const catj=await cat.json();
     const catblogsj = (await catblogs.json()).blogs;
-     catblogsj.map(async (b) => {
+    let cblogs= (catblogsj.map(async (b) => {
         const user=await fetch(
             "http://65.0.100.50/api/user/getuserinfo?" +
               new URLSearchParams({ id: b.userId }),
@@ -147,18 +147,33 @@ window.onload = async () => {
               credentials: "same-origin",
             }
           );
-        const userj=await user.json();  
-        const tags=(await getblogtags(b.id)).cats;
-       document.getElementsByClassName('row')[0]
-         .insertAdjacentHTML(
-           "afterbegin",
-           blogCard(b,userj.user,tags)
-         );
-         const text=document.getElementsByClassName(`desc2 desc2-white ${i-1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
-     });
+        b.userj=await user.json();  
+        b.tags=(await getblogtags(b.id)).cats;
+        return b;
+      }))
+      cblogs.sort((a,b)=>b.likes-a.likes);
+      Promise.all(cblogs).then(function(res) {
+        res.forEach((b)=>{
+          document.getElementsByClassName('row')[0]
+      .insertAdjacentHTML(
+        "afterbegin",
+        blogCard(b,b.userj.user,b.tags)
+      );
+      const text=document.getElementsByClassName(`desc2 desc2-white ${i-1}`)[0].innerText;
+ document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
+        })})
+      
     document.getElementById('img-category').insertAdjacentHTML("afterbegin",desc(catj)); 
     document.getElementById('span123').insertAdjacentHTML("afterbegin",catj.Title); 
+
+    
+// //SETTING PROFILE ON THE NAV_BAR
+// const currently_logged_in_user =await finduser(userId);
+// console.log(currently_logged_in_user);
+
+// document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-link-profile" href="../User/index.html?id=${currently_logged_in_user.id}"><img class="my-img" src="${currently_logged_in_user.imageurl}" alt="profile-img"></a>`
+
+
    
   };
 

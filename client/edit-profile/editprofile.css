@@ -49,6 +49,7 @@ nav a:first-child{
     margin-right: 20px;
     font-size: 1.4rem;
 }
+
 .nav-list>li>a{
     text-decoration: none;
     color:white;
@@ -85,7 +86,20 @@ nav a:first-child{
 .hamburger {
     display: none;
 }
-
+.nav-item {
+    margin: 2.5rem 0;
+}
+.my-img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 12px;
+    /* position: relative; */
+    bottom: 125px;
+    left: -2px;
+    object-fit: cover;
+    transform: translate(-7px,4px);
+}
 .bar {
     display: block;
     width: 25px;
