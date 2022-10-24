@@ -60,6 +60,7 @@ Blogging website for webkriti.
 
 #### Future Ideas
 * One-on-One chat feature 
+* Allowing the user to archieve his/her blogs or make it private
 
 ## Back-end
 1. Routes for authentication purpose
@@ -133,13 +134,13 @@ Blogging website for webkriti.
 
 ## Contact
 
-👤 **Aaroh Srivastava, Anshu Joshi, HariOm Sharma**
+👤 **Aaroh Srivastava, Anshu Joshi, Hari Om Sharma**
 
-### Sohan Bandary (2020IMG-016)
-* Github: [@sohan2410](https://github.com/sohan2410)
-* LinkedIn: [@sohan-bandary](https://linkedin.com/in/sohan-bandary)
-* Gmail: [mail](mailto:bandarysohan24@gmail.com)
-* Instagram: [@sohan24.py](https://www.instagram.com/sohan24.py/)
+### Aaroh Srivastava (2021BCS-001)
+* Github: [@Aaroh1](https://github.com/Aaroh1)
+* LinkedIn: [@aaroh-srivastava](https://linkedin.com/in/aaroh-srivastava)
+* Gmail: [mail](mailto:aarohsjcian1@gmail.com)
+* Instagram: [@aaroh01](https://www.instagram.com/aaroh01/)
 
 ### Swahim Namdev (2020IMG-063)
 * Github: [@swahim](https://github.com/swahim)
@@ -147,11 +148,11 @@ Blogging website for webkriti.
 * Gmail: [mail](mailto:swahimn@gmail.com)
 * Instagram: [@swahim_n](https://www.instagram.com/swahim_n/)
 
-### Ranjith Jupaka (2020IMT-042)
-* Github: [@ranjithcoder](https://github.com/ranjithcoder)
-* LinkedIn: [@jupaka-ranjith-998675164](https://www.linkedin.com/in/jupaka-ranjith-998675164/)
-* Instagram: [@ranjithjupaka_1](https://www.instagram.com/ranjithjupaka_1/)
-
+### Hari Om Sharma (2021BCS-029)
+* Github: [@iamhariom0228](https://github.com/iamhariom0228)
+* LinkedIn: [@hari-om-sharma](https://www.linkedin.com/in/hari-om-sharma-72249b244)
+* Gmail: [mail](mailto:iamhariom28@gmail.com)
+* Instagram: [@hari_om_sharma_](https://www.instagram.com/hari_om_sharma_/)
 
 ## Show your support
 
