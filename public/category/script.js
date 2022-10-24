@@ -4,7 +4,7 @@ function endPreloader(){
   setTimeout(() => {
     preloader.style.display = "none";
     console.log("preloader ending");
-  }, 1000);
+  }, 2500);
 }
 document.querySelector("body").onload = endPreloader();
 
@@ -36,9 +36,8 @@ function handlecats(cats)
 {
   let t=``;
   cats.forEach((i)=>{
-    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
+    t+=`<li><a href="../Category/?id=${i.id}">${i.Title}</a></li>`
   })
-  console.log(t);
   return (t)
 }
 
@@ -72,18 +71,8 @@ ${cat.Description}
 </div>
 </div>`
 
-function handlecats(cats)
-{
-  let t=``;
-  cats.forEach((i)=>{
-    t+=`<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`
-  })
-  console.log(t);
-  return (t)
-}
-
 const blogCard=(blog,user,tags)=>
-    `<a href="../Blog-opening/blog-opening.html?id=${blog.id}" style="text-decoration:none;"><div class="follow-cards column">
+    `<a href="../Blog/?id=${blog.id}" style="text-decoration:none;"><div class="follow-cards column">
         <div class="blog-details">
         <div class="child child-white">
         <img src=${blog.imageurl} alt="">
@@ -93,7 +82,7 @@ const blogCard=(blog,user,tags)=>
         ${handlecats(tags)}
         </ul>
         </div>
-        <a href="../User/index.html?id=${user.id}" style="height: 0;">
+        <a href="../User/?id=${user.id}" style="height: 0;">
         <img class="author" src=${user.imageurl} alt="author-image">
         </a>
         <div class="desc desc-white">
@@ -134,7 +123,7 @@ window.onload = async () => {
     );
     const catj=await cat.json();
     const catblogsj = (await catblogs.json()).blogs;
-     catblogsj.map(async (b) => {
+    let cblogs= (catblogsj.map(async (b) => {
         const user=await fetch(
             "http://65.0.100.50/api/user/getuserinfo?" +
               new URLSearchParams({ id: b.userId }),
@@ -147,19 +136,27 @@ window.onload = async () => {
               credentials: "same-origin",
             }
           );
-        const userj=await user.json();  
-        const tags=(await getblogtags(b.id)).cats;
-       document.getElementsByClassName('row')[0]
-         .insertAdjacentHTML(
-           "afterbegin",
-           blogCard(b,userj.user,tags)
-         );
-         const text=document.getElementsByClassName(`desc2 desc2-white ${i-1}`)[0].innerText;
-    document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
-     });
+        b.userj=await user.json();  
+        b.tags=(await getblogtags(b.id)).cats;
+        return b;
+      }))
+      Promise.all(cblogs).then(function(res) {
+        res.sort((a,b)=>b.likes-a.likes);
+        res.forEach((b)=>{
+          document.getElementsByClassName('row')[0]
+      .insertAdjacentHTML(
+        "afterbegin",
+        blogCard(b,b.userj.user,b.tags)
+      );
+      const text=document.getElementsByClassName(`desc2 desc2-white ${i-1}`)[0].innerText;
+ document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML=text.substring(0,50)+ '.....';
+        })})
+      
     document.getElementById('img-category').insertAdjacentHTML("afterbegin",desc(catj)); 
     document.getElementById('span123').insertAdjacentHTML("afterbegin",catj.Title); 
-   
+
+    
+
   };
 
 

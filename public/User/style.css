@@ -149,8 +149,9 @@ nav img{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+    /* width: 50%; */
 }
+
 .profile-user-name>h1{
     color: #f1f1f1;
     font-size: 3.5rem;
@@ -207,8 +208,8 @@ nav img{
     color:black;
     border-radius: 3px;  
     margin-bottom: 5px;
-    width:30px;
-    text-align: center;
+    width:25px;
+    margin: 0 auto;
 }
 .count:hover{
     cursor:pointer;

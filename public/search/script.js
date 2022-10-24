@@ -86,7 +86,7 @@ function bookmarksign(K,id) {
 function handlecats(cats) {
   let t = ``;
   cats.forEach((i) => {
-    t += `<li><a href="../category/index.html?id=${i.id}" style="text-decoration:none;">${i.Title}</a></li>`;
+    t += `<li><a href="../Blog/Category/?id=${i.id}" style="text-decoration:none;">${i.Title}</a></li>`;
   });
   console.log(t);
   return t;
@@ -143,7 +143,7 @@ const blogCard = (
   blog,
   user,
   tags,K
-) => `<a href='../Blog-opening/blog-opening.html?id=${blog.id}' style="text-decoration:none;">
+) => `<a href='../Blog/?id=${blog.id}' style="text-decoration:none;">
           <div class="blog-details">
             <div class="img-container">
             <img src = ${blog.imageurl} alt="" />
@@ -160,7 +160,7 @@ const blogCard = (
 const userz = (img, fname, lname,id) =>
   `
 <div class="blog-details">
-<a href="../User/index.html?id=${id}" style="text-decoration:none;"><div class="img-container user-search">
+<a href="../User/?id=${id}" style="text-decoration:none;"><div class="img-container user-search">
                 <img src="${img}" alt="" />
               </div></a>
               <div class="user-name">

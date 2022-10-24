@@ -54,7 +54,7 @@ function handlecats(cats) {
   let t = ``;
   console.log(cats);
   cats.forEach((i) => {
-    t += `<li><a href="../category/index.html?id=${i.id}">${i.Title}</a></li>`;
+    t += `<li><a href="../Category/?id=${i.id}">${i.Title}</a></li>`;
   });
   console.log(t);
   return t;
@@ -132,7 +132,7 @@ let no_of_followers;
 let no_of_following;
 let no_of_blogs;
 window.editblog = (e) => {
-  location.href = `../blogedit/texteditor.html?id=${e.id}`;
+  location.href = `../Blog/Edit/?id=${e.id}`;
   console.log(e);
 };
 window.deleteblog = (e) => {
@@ -240,7 +240,7 @@ const blogCard = (
   content,
   tags,
   bmarks,K,user
-) => `<a href='../Blog-opening/blog-opening.html?id=${id}' style="text-decoration:none;">
+) => `<a href='../Blog/?id=${id}' style="text-decoration:none;">
                   <div class="blog-details" id=${id}>
                               <div class="child">
                               <img src = ${img} alt="" />
@@ -251,7 +251,7 @@ const blogCard = (
                               ${icons(id, bmarks, K)}
                               </ul>
                               </div>
-                              <a href="../User/index.html?id=${
+                              <a href="../User/?id=${
                                 user.id
                               }" style="height: 0;">
                                   <img class="author" class="user-image" src=${
@@ -269,7 +269,7 @@ const follower_followingz = (
   fname,
   lname,
   id
-) => `<a href='../User/index.html?id=${id}'> <div class="cat first">
+) => `<a href='../User/?id=${id}'> <div class="cat first">
 <div class="cat-img">
   <img src="${img}" alt="" style="margin:20px;">
 </div>
@@ -316,7 +316,6 @@ const queryParamsString = window.location.search?.substring(1);
 let userId;
 window.onload = async () => {
   userId = queryParamsString?.substring(3);
-  console.log(userId);
   const userinfo = await fetch(
     "http://65.0.100.50/api/user/getuserinfo?" +
       new URLSearchParams({ id: userId }),
@@ -367,10 +366,7 @@ window.onload = async () => {
           "afterbegin",
           blogCard(b.id, b.imageurl, b.title, b.content, tags, false,false,user)
         );
-      // const text = document.getElementsByClassName(`desc2 ${i-1}`)[0].innerText;
-      // console.log(document.getElementsByClassName(`desc2 ${i-1}`)[0])
-      // document.getElementsByClassName(`desc2 ${i-1}`)[0].innerHTML =text.substring(0, 100);
-    });
+  });
   
   }
    if(logged_in_user!==userId)
@@ -387,7 +383,6 @@ window.onload = async () => {
   else{
   bblogs.map(async (b) => {
     const tags = (await getblogtags(b.id)).cats;
-    console.log(tags)
     const author = await finduser(b.userId);
     let K = false;
     if (bmarkedblogsk.includes(b.id)) K = true;
@@ -397,11 +392,7 @@ window.onload = async () => {
         "afterbegin",
         blogCard(b.id, b.imageurl, b.title, b.content, tags,true,K,author)
       );
-    // const text = document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerText;
-    // console.log(document.getElementsByClassName(`desc2 ${i - 1}`)[0])
-    // document.getElementsByClassName(`desc2 ${i - 1}`)[0].innerHTML =
-    //   text.substring(0, 50) + ".....";
-  });
+   });
 }
   document
     .getElementsByClassName("user-desc")[0]
@@ -419,10 +410,8 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
-  // console.log("User followers are as followings...");
   const followers_list = await fetchfollower.json();
   no_of_followers = followers_list.length;
-  // console.log("No of followers are:", no_of_followers);
   followers_list.map(async (list) => {
     document
       .querySelector(".follower-class")
@@ -449,10 +438,8 @@ window.onload = async () => {
       credentials: "same-origin",
     }
   );
-  // console.log("User followings are as followings...");
   const following_list = await fetchfollowings.json();
   no_of_following = following_list.length;
-  // console.log("No of followings are:", no_of_following);
   following_list.map(async (list) => {
     document
       .querySelector(".followings-class")
@@ -480,14 +467,9 @@ window.onload = async () => {
   for (var i = 0; i < followers_list.length; i++) {
     follower_ids[i] = followers_list[i].id;
   }
-  // console.log(follower_ids);
-  // console.log(follower_ids.includes(logged_in_user));
-  // console.log(user);
   if (user.id === logged_in_user) {
     document.getElementById("follow-unfollow-edit").innerHTML = `EDIT PROFILE`;
   } else {
-    console.log(user, " ");
-    console.log("Does user follow:" + follower_ids.includes(logged_in_user));
     if (follower_ids.includes(logged_in_user)) {
       document.getElementById("follow-unfollow-edit").innerHTML = "UNFOLLOW";
       const body = {
@@ -519,7 +501,6 @@ window.onload = async () => {
               credentials: "same-origin",
             }
           );
-          console.log(newfetchfollower);
           const followers_list = await newfetchfollower.json();
           no_of_followers = followers_list.length;
           console.log("No of followers are:", no_of_followers);
@@ -572,7 +553,7 @@ window.onload = async () => {
 console.log(logged_in_user , user.id);
 document.querySelector('#follow-unfollow-edit').addEventListener('click',()=>{
   if(logged_in_user==user.id){
-  location.href="../edit-profile/editprofile.html"
+  location.href="../User/Edit"
   }
 })
 
@@ -591,5 +572,5 @@ document.getElementById('logout').addEventListener('click',async ()=>{
     method:"POST",
   })
   localStorage.removeItem('jwt');
-  location.href="http://65.0.100.50";
+  location.href="../";
 })
