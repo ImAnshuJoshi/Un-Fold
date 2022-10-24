@@ -74,73 +74,136 @@ Blogging website for webkriti.
 
 9. EXTRA FEATURES THAT ARE IMPLEMENTED
 
-- User can add tags to their blogs to mention the genre of his/her blog.
-- User can bookmark the blogs and can view them later.
-- User can follow/unfollow any other user
+- Users can add tags to their blogs to mention the genre of their blogs.
+- Users can bookmark blogs and view them later.
+- Users can follow/unfollow any other user
 
 #### Future Ideas
 
 - One-on-One chat feature
 - Allowing the user to archive his/her blogs or make it private
+- implement notification for any activity(like/comment/bookmark) on posted blogs
+- Allow users to share blogs via other platforms
 
 ## Back-end
 
-1. Routes for authentication purpose
+1. slash routes for authentication purpose
 
-- We have setup basic authentication & also implemented google & facebook passport strategy
-- Currently facebook auth is working locally but giving issues on deployed website
-
-```
-/auth/signin
-/auth/signup
-/auth/google
-/auth/facebook
-```
-
-2. Details route to get, update, view or search other profiles
+- We have setup basic authentication for login and signup wherein we set up a token in the cookie and use it for authentication
+  POST routes
 
 ```
-/details/getdetails
-/profile/:userid
-/search
+/api/login
+/api/register
+/api/logout
 ```
 
-3. Feedback route to send mail to us using node mailer
+2. user routes to perform get, post and put operations pertaining to user information
+   GET routes
 
 ```
-/feedback/sendmail
-```
-
-4. Posts route to create a new post, get all posts, update / dislike post, update / delete post
-
-- We are verifying token as middleware for every post, put, update or delete request
-
-```
-/posts/createnewpost
-/posts/getallposts
-/posts/updatelike/:postid
-/posts/updateddislike/:postid
-/posts/updatepost/:postid
-/posts/deletepost/:postid
-/posts/profile/:username
-/posts/getpics
-```
-
-5. Rooms
-
-- By this user can join room by verify token & to send name, userid to socket connection
+/api/user/getuserinfo
+/api/user/getFollowingblogs
+/api/user/getbookmarkedblogs
+/api/user/getFollowers
+/api/user/getFollowing
+/api/user/getallusers
 
 ```
-/rooms/joinroom
+
+POST routes
+
 ```
+/api/user/followUser
+/api/user/unfollowUser
+/api/user/bookmarkblog
+/api/user/unbookmarkblog
+
+```
+
+PUT route
+
+```
+/api/user/editprofile
+
+```
+
+3. blog routes to perform delete, get, post and put operations pertaining to blogs
+   DELETE routes
+
+```
+/api/blog/deleteBlog
+
+```
+
+GET routes
+
+```
+/api/blog/getAllBlogs
+/api/blog/getblogbyid
+/api/blog/allUserBlogs
+/api/blog/getlikedusers
+
+```
+
+POST routes
+
+```
+/api/blog/addBlog
+
+```
+
+PUT routes
+
+```
+/api/blog/editBlog
+/api/blog/likeBlog
+/api/blog/unlikeBlog
+
+```
+
+4. comment route to add, delete and get comments.
+
+- We are verifying token as middleware for every post, get or delete request
+
+```
+/api/comment/deletecomment
+/api/comment/getComments
+/api/comment/addComment
+
+```
+
+5. category routes for get and post requests on blog categories
+   GET routes
+
+```
+/api/category/getallcategories
+/api/category/getallcategoryblogs
+/api/category/getcategoryinfo
+/api/category/getblogcategories
+
+```
+
+POST routes
+
+```
+/api/category/addcategorytoblog
+/api/category/addcategory
+
+```
+
+6. Middlewares
+
+- error middleware inorder to effectively handle any/all encountered errors in controller functions.
+- tokenauth middleware for authemtication (put before each request) which checks for the presence of a jwt token in the cookie.
 
 # Technologies/Libraries/Packages Used
 
 | Packages      | README                                                                                                               |
 | ------------- | -------------------------------------------------------------------------------------------------------------------- |
 | bcrypt        | To store hashed password in database                                                                                 |
-| dotenv        | To keep db connection string, client id, client secret key safe                                                      |
-| jsonwebtoken  | To store users session encrypted and verify them as middleware in posts/details/feedback api request                 |
+| dotenv        | To keep db connection string, client id, client secret key and also cloudinary config credentials safe               |
+| jsonwebtoken  | To store users session encrypted and verify them as middleware in user/blog/comment/category api requests            |
 | nodemon       | To run application in dev mode                                                                                       |
 | body-parser   | Parse incoming request bodies in a middleware before your handlers, available under the req.body property.           |
 | cloudinary    | It provides cloud-based image and video management services.                                                         |
@@ -148,7 +211,7 @@ Blogging website for webkriti.
 | cors          | For Cross-Origin Resource Sharing                                                                                    |
 | express       | a back end web application framework for building RESTful APIs with Node.js                                          |
 | jwt           | JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties. |
-| multer        | Multer is a node. js middleware for handling multipart/form-data , which is primarily used for uploading files.      |
+| multer        | Multer is a node.js middleware for handling multipart/form-data , which is primarily used for uploading files.       |
 | Sequelize     | Sequelize is a modern TypeScript and Node.js ORM for Postgres                                                        |
 
 ## Local Setup
