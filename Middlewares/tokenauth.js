@@ -5,13 +5,12 @@ module.exports = (req, res, next) => {
     console.log(req.cookies)
     const token = req.cookies.token;
     if (!token) {
-      res.status(401).json({
-        error: 'User not Signed in, Sign in First.',
-      })
+      //if no token is present
+      res.redirect("/");
     }
     jwt.verify(token, process.env.secretstring, (err, decoded) => {
       if (err) {
-        //If no token is present
+        //If some error occurs
         res.status(400).json({
           error: 'User not Signed in, Sign in First.',
         })
