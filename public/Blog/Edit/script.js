@@ -164,7 +164,7 @@ async function handleCats(selectedCboxes, blogid) {
     cname.push(selectedCbox.value)
   })
   const body = { bid: blogid, cname: cname }
-  const res = await fetch('http://65.0.100.50/api/category/addcategorytoblog', {
+  const res = await fetch('../../api/category/addcategorytoblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {},
@@ -199,7 +199,7 @@ document.getElementById('title-input').addEventListener(
 
 window.onload = async () => {
   const finduser = async (id) => {
-    const user = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
+    const user = await fetch('../../api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ window.onload = async () => {
 
   const queryParamsString = window.location.search?.substring(1)
   id = queryParamsString?.substring(3)
-  const currentblog = await fetch('http://65.0.100.50/api/blog/getblogbyid?' + new URLSearchParams({ id: id }), {
+  const currentblog = await fetch('../../api/blog/getblogbyid?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -249,7 +249,7 @@ button.addEventListener('click', async (e) => {
   formdata.append('newcontent', content)
   formdata.append('item', item)
 
-  const editedblog = await fetch('http://65.0.100.50/api/blog/editBlog?' + new URLSearchParams({ id: id }), {
+  const editedblog = await fetch('../../api/blog/editBlog?' + new URLSearchParams({ id: id }), {
     method: 'PUT',
     body: formdata,
     headers: {},

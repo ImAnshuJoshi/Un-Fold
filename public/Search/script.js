@@ -66,7 +66,7 @@ window.changeBookmarkIcon = async (x) => {
   x.classList.toggle('fa-solid')
 }
 async function getbmarkedblogs(id) {
-  const blogs = await fetch('http://65.0.100.50/api/user/getbookmarkedblogs?id=' + id, {
+  const blogs = await fetch('../api/user/getbookmarkedblogs?id=' + id, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ function handlecats(cats) {
 }
 
 async function getblogtags(bid) {
-  const tags = await fetch(`http://65.0.100.50/api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
+  const tags = await fetch(`../api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ async function getblogtags(bid) {
 async function removebookmark(bid) {
   const body = { uid: userId, bid: bid }
   console.log(body)
-  const bmark = await fetch('http://65.0.100.50/api/user/unbookmarkblog', {
+  const bmark = await fetch('../api/user/unbookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -126,7 +126,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: userId, bid: bid }
   console.log(body)
-  const bmark = await fetch('http://65.0.100.50/api/user/bookmarkblog', {
+  const bmark = await fetch('../api/user/bookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -165,7 +165,7 @@ const userz = (img, fname, lname, id) =>
 `
 let blogsj
 const finduser = async (id) => {
-  const user = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
+  const user = await fetch('../api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const searchtheword = () => {
 }
 const searchBlogs = async () => {
   document.getElementById('search').innerHTML = ''
-  const res = await fetch(`http://65.0.100.50/api/blog/getAllBlogs`, {
+  const res = await fetch(`../api/blog/getAllBlogs`, {
     method: 'GET',
     mode: 'cors',
     credentials: 'same-origin',
@@ -213,7 +213,7 @@ const searchBlogs = async () => {
 
 const searchUsers = async () => {
   document.getElementById('search-user-id').innerHTML = ''
-  const res = await fetch(`http://65.0.100.50/api/user/getallusers`, {
+  const res = await fetch(`../api/user/getallusers`, {
     method: 'GET',
     mode: 'cors',
     credentials: 'same-origin',

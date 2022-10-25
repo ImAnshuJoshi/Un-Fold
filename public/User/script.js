@@ -84,7 +84,7 @@ function bookmarksign(K) {
 async function removebookmark(bid) {
   const body = { uid: userId, bid: bid }
   console.log(body)
-  const bmark = await fetch('http://65.0.100.50/api/user/unbookmarkblog', {
+  const bmark = await fetch('../api/user/unbookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -102,7 +102,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: logged_in_user, bid: bid }
   console.log(body)
-  const bmark = await fetch('http://65.0.100.50/api/user/bookmarkblog', {
+  const bmark = await fetch('../api/user/bookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -151,7 +151,7 @@ window.deleteblog = (e) => {
     }
   }
   document.getElementById('mb1').addEventListener('click', async () => {
-    await fetch(`http://65.0.100.50/api/blog/deleteBlog?id=${e.id}`, {
+    await fetch(`../api/blog/deleteBlog?id=${e.id}`, {
       method: 'DELETE',
     })
     modal.style.display = 'none'
@@ -162,7 +162,7 @@ window.deleteblog = (e) => {
   })
 }
 async function getbmarkedblogs(id) {
-  const blogs = await fetch('http://65.0.100.50/api/user/getbookmarkedblogs?id=' + id, {
+  const blogs = await fetch('../api/user/getbookmarkedblogs?id=' + id, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ async function getbmarkedblogs(id) {
   return allblogs.bblogs
 }
 async function getblogtags(bid) {
-  const tags = await fetch(`http://65.0.100.50/api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
+  const tags = await fetch(`../api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ async function getblogtags(bid) {
 }
 
 const finduser = async (id) => {
-  const user = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
+  const user = await fetch('../api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -254,7 +254,7 @@ const follower_followingz = (img, fname, lname, id) => `<a href='../User/?id=${i
 
 let blogsj
 async function followers(user) {
-  const followers = await fetch('http://65.0.100.50/api/user/getFollowers?' + new URLSearchParams({ id: user.id }), {
+  const followers = await fetch('../api/user/getFollowers?' + new URLSearchParams({ id: user.id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -267,7 +267,7 @@ async function followers(user) {
 }
 
 async function bookmarkedblogs(user) {
-  const blogs = await fetch('http://65.0.100.50/api/user/getbookmarkedblogs?' + new URLSearchParams({ id: user.id }), {
+  const blogs = await fetch('../api/user/getbookmarkedblogs?' + new URLSearchParams({ id: user.id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -282,7 +282,7 @@ const queryParamsString = window.location.search?.substring(1)
 let userId
 window.onload = async () => {
   userId = queryParamsString?.substring(3)
-  const userinfo = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: userId }), {
+  const userinfo = await fetch('../api/user/getuserinfo?' + new URLSearchParams({ id: userId }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -291,7 +291,7 @@ window.onload = async () => {
     mode: 'cors',
     credentials: 'same-origin',
   })
-  const blogs = await fetch('http://65.0.100.50/api/blog//allUserBlogs?' + new URLSearchParams({ id: userId }), {
+  const blogs = await fetch('../api/blog//allUserBlogs?' + new URLSearchParams({ id: userId }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -332,7 +332,7 @@ window.onload = async () => {
   document.getElementsByClassName('user-desc')[0].insertAdjacentHTML('afterbegin', user.about)
 
   //Fetching user FOLLOWERS
-  const fetchfollower = await fetch(`http://65.0.100.50/api/user/getFollowers?id=${user.id}`, {
+  const fetchfollower = await fetch(`../api/user/getFollowers?id=${user.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -347,7 +347,7 @@ window.onload = async () => {
   })
 
   //Fetching user FOLLOWINGS
-  const fetchfollowings = await fetch(`http://65.0.100.50/api/user/getFollowing?id=${user.id}`, {
+  const fetchfollowings = await fetch(`../api/user/getFollowing?id=${user.id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -379,7 +379,7 @@ window.onload = async () => {
         id2: logged_in_user,
       }
       document.getElementById('follow-unfollow-edit').addEventListener('click', async () => {
-        const res = await fetch(`http://65.0.100.50/api/user/unfollowUser`, {
+        const res = await fetch(`../api/user/unfollowUser`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -390,7 +390,7 @@ window.onload = async () => {
         })
         console.log(res)
         document.getElementById('follow-unfollow-edit').innerHTML = 'FOLLOW'
-        const newfetchfollower = await fetch(`http://65.0.100.50/api/user/getFollowers?id=${user.id}`, {
+        const newfetchfollower = await fetch(`../api/user/getFollowers?id=${user.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -411,7 +411,7 @@ window.onload = async () => {
         id2: logged_in_user,
       }
       document.getElementById('follow-unfollow-edit').addEventListener('click', async () => {
-        const res = await fetch(`http://65.0.100.50/api/user/followUser`, {
+        const res = await fetch(`../api/user/followUser`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -421,7 +421,7 @@ window.onload = async () => {
           credentials: 'same-origin',
         })
         document.getElementById('follow-unfollow-edit').innerHTML = 'UNFOLLOW'
-        const newfetchfollower = await fetch(`http://65.0.100.50/api/user/getFollowers?id=${user.id}`, {
+        const newfetchfollower = await fetch(`../api/user/getFollowers?id=${user.id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -456,7 +456,7 @@ window.onload = async () => {
 }
 
 document.getElementById('logout').addEventListener('click', async () => {
-  const res = await fetch(`http://65.0.100.50/api/logout`, {
+  const res = await fetch(`../api/logout`, {
     method: 'POST',
   })
   localStorage.removeItem('jwt')

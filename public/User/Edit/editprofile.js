@@ -65,7 +65,7 @@ document.getElementById("register-desc").addEventListener(
 );
 window.onload = async () => {
   const fetchuser = await fetch(
-    `http://65.0.100.50/api/user/getuserinfo?id=${user.id}`,
+    `../../api/user/getuserinfo?id=${user.id}`,
     {}
   );
   const userinfo = await fetchuser.json();
@@ -90,7 +90,7 @@ window.onload = async () => {
     formdata.append("about", newdesc||userinfo.user.about);
     formdata.append("item", newitem);
 
-    const updateprofile = await fetch(`http://65.0.100.50/api/user/editprofile`,{
+    const updateprofile = await fetch(`../../api/user/editprofile`,{
         method:"PUT",
         body:formdata
     })

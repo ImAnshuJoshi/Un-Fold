@@ -31,7 +31,7 @@ window.changeBookmarkIcon = async (x) => {
   x.classList.toggle('fa-solid')
 }
 async function getbmarkedblogs(id) {
-  const blogs = await fetch('http://65.0.100.50/api/user/getbookmarkedblogs?id=' + id, {
+  const blogs = await fetch('../api/user/getbookmarkedblogs?id=' + id, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function bookmarksign(K) {
 }
 async function removebookmark(bid) {
   const body = { uid: userId, bid: bid }
-  const bmark = await fetch('http://65.0.100.50/api/user/unbookmarkblog', {
+  const bmark = await fetch('../api/user/unbookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -64,7 +64,7 @@ async function removebookmark(bid) {
 }
 async function addbookmark(bid) {
   const body = { uid: userId, bid: bid }
-  const bmark = await fetch('http://65.0.100.50/api/user/bookmarkblog', {
+  const bmark = await fetch('../api/user/bookmarkblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -77,7 +77,7 @@ async function addbookmark(bid) {
 }
 
 async function getblogtags(bid) {
-  const tags = await fetch(`http://65.0.100.50/api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
+  const tags = await fetch(`../api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const blogCard = (img, title, content, user, id, tags, K) =>
             </div></a>`
 let blogsj
 const finduser = async (id) => {
-  const user = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
+  const user = await fetch('../api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ const finduser = async (id) => {
 }
 let categoryg
 const categoriesfunc = async () => {
-  const categories = await fetch('http://65.0.100.50/api/category/getallcategories', {
+  const categories = await fetch('../api/category/getallcategories', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const categoriesfunc = async () => {
   })
 }
 window.onload = async () => {
-  const blogs = await fetch('http://65.0.100.50/api/blog/getAllBlogs', {
+  const blogs = await fetch('../api/blog/getAllBlogs', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ window.onload = async () => {
   await categoriesfunc()
 
   blogsj = await blogs.json()
-  const followingblogs = await fetch('http://65.0.100.50/api/user/getFollowingblogs?' + new URLSearchParams({ id: userId }), {
+  const followingblogs = await fetch('../api/user/getFollowingblogs?' + new URLSearchParams({ id: userId }), {
     method: 'GET',
     headers: {},
     mode: 'cors',

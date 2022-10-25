@@ -35,7 +35,7 @@ let email;
 let password;
 
 async function ff() {
-  const response = await fetch("http://65.0.100.50/api/login", {
+  const response = await fetch("./api/login", {
     method: "POST",
     body: JSON.stringify({
       email: email,
@@ -104,7 +104,7 @@ async function ff2() {
   formdata.append("about", desc);
   formdata.append("item", img);
   formdata.append("password", pass);
-  const response = await fetch("http://65.0.100.50/api/register", {
+  const response = await fetch("./api/register", {
     method: "POST",
     body: formdata,
     headers: {},

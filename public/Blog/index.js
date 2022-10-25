@@ -32,7 +32,7 @@ function parseJwt(token) {
 
 window.deletecomment1 = async(e)=>{
   //('object')
-  await fetch(`http://65.0.100.50/api/comment/deletecomment?id=${e.id}`,{method:"DELETE"});
+  await fetch(`../api/comment/deletecomment?id=${e.id}`,{method:"DELETE"});
   location.reload();
 }
 window.changeBookmarkIcon = async (x) => {
@@ -62,7 +62,7 @@ function bookmarksign(K,b) {
 async function removebookmark(bid) {
   const body = { uid: currentlyloggedinuser, bid: bid };
   //(body);
-  const bmark = await fetch("http://65.0.100.50/api/user/unbookmarkblog", {
+  const bmark = await fetch("../api/user/unbookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -78,7 +78,7 @@ async function removebookmark(bid) {
 async function addbookmark(bid) {
   const body = { uid: currentlyloggedinuser, bid: bid };
   //(body);
-  const bmark = await fetch("http://65.0.100.50/api/user/bookmarkblog", {
+  const bmark = await fetch("../api/user/bookmarkblog", {
     method: "POST",
     body: JSON.stringify(body),
     headers: {},
@@ -161,7 +161,7 @@ const publisher = (author, date) => ` <a href="../User/?id=${author.id}" > <div 
 
 async function getblogtags(bid) {
   const tags = await fetch(
-    `http://65.0.100.50/api/category/getblogcategories?` +
+    `../api/category/getblogcategories?` +
       new URLSearchParams({ id: bid }),
     {
       method: "GET",
@@ -177,7 +177,7 @@ async function getblogtags(bid) {
   
 async function getbmarkedblogs(id) {
   const blogs = await fetch(
-    "http://65.0.100.50/api/user/getbookmarkedblogs?id=" + id,
+    "../api/user/getbookmarkedblogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -193,7 +193,7 @@ async function getbmarkedblogs(id) {
 
 async function getuserblogs(id) {
   const blogs = await fetch(
-    "http://65.0.100.50/api/blog/alluserBlogs?id=" + id,
+    "../api/blog/alluserBlogs?id=" + id,
     {
       method: "GET",
       headers: {
@@ -208,7 +208,7 @@ async function getuserblogs(id) {
 }
 
 const findblog = async (id) => {
-  const blog = await fetch("http://65.0.100.50/api/blog/getblogbyid?id=" + id, {
+  const blog = await fetch("../api/blog/getblogbyid?id=" + id, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -240,7 +240,7 @@ window.onload = async () => {
    
   const finduser = async (id) => {
     const user = await fetch(
-      "http://65.0.100.50/api/user/getuserinfo?" +
+      "../api/user/getuserinfo?" +
         new URLSearchParams({ id: id }),
       {
         method: "GET",
@@ -269,7 +269,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
 
   const userid = await findblog(blog_id);
   const user = await fetch(
-    "http://65.0.100.50/api/user/getuserinfo?id=" + userid,
+    "../api/user/getuserinfo?id=" + userid,
     {
       method: "GET",
       headers: {
@@ -285,7 +285,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
   const userblogs = await getuserblogs(userinfo.id);
   document.getElementById("strong123").innerHTML=userinfo.firstName; 
   const res = await fetch(
-    `http://65.0.100.50/api/blog/getlikedusers?id=${blog_id}`,
+    `../api/blog/getlikedusers?id=${blog_id}`,
     {
       method: "GET",
       headers: {
@@ -325,7 +325,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
      </div>`;
       blog_likes++;
       document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
-      const res = await fetch(`http://65.0.100.50/api/blog/likeBlog`, {
+      const res = await fetch(`../api/blog/likeBlog`, {
         method: "PUT",
         body: JSON.stringify(body),
         headers: {
@@ -351,7 +351,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
      </div>`;
       blog_likes--;
       document.querySelector(".likes_count").innerHTML = `${blog_likes} Likes`;
-      const res = await fetch(`http://65.0.100.50/api/blog/unlikeBlog`, {
+      const res = await fetch(`../api/blog/unlikeBlog`, {
         method: "PUT",
         body: JSON.stringify(body),
         headers: {
@@ -381,7 +381,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
   //(blog_id);
 
   const result = await fetch(
-    `http://65.0.100.50/api/comment/getComments?bid=${blog_id}`,
+    `../api/comment/getComments?bid=${blog_id}`,
     {
       method: "GET",
       headers: {
@@ -399,7 +399,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
 
   all_user_comments.comment.map(async (b) => {
     const user_details = await fetch(
-      `http://65.0.100.50/api/user/getuserinfo?id=${b.CommenterId}`,
+      `../api/user/getuserinfo?id=${b.CommenterId}`,
       {
         method: "GET",
       }
@@ -426,7 +426,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
     const comm_body = { uid: add_comm_uid, com: add_content, bid: blog_id };
 
     const add_comment = await fetch(
-      `http://65.0.100.50/api/comment/addComment`,
+      `../api/comment/addComment`,
       {
         method: "POST",
         body: JSON.stringify(comm_body),
@@ -444,7 +444,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
   //fetching a blog details
 
   const particular_blog = await fetch(
-    `http://65.0.100.50/api/blog/getblogbyid?id=${blog_id}`,
+    `../api/blog/getblogbyid?id=${blog_id}`,
     {
       method: "GET",
       headers: {
@@ -458,7 +458,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
 
   const publisher_id = the_blog.blog.userId;
   const blog_user_details = await fetch(
-    `http://65.0.100.50/api/user/getuserinfo?id=${publisher_id}`,
+    `../api/user/getuserinfo?id=${publisher_id}`,
     {
       method: "GET",
     }
@@ -475,7 +475,7 @@ document.querySelector('.nav-item-profile').innerHTML=`<a class="nav-link nav-li
       )
     );
     const ublog=await fetch(
-      "http://65.0.100.50/api/blog//allUserBlogs?id="+userinfo.id,{method:"GET"});
+      "../api/blog//allUserBlogs?id="+userinfo.id,{method:"GET"});
    userblogs.map(async (b)=>{
     const tags = (await getblogtags(b.id)).cats;
       let K = false;

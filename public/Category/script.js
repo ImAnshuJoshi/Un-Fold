@@ -64,7 +64,7 @@ function handlecats(cats) {
 }
 
 async function getblogtags(bid) {
-  const tags = await fetch(`http://65.0.100.50/api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
+  const tags = await fetch(`../api/category/getblogcategories?` + new URLSearchParams({ id: bid }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const blogCard = (blog, user, tags) =>
 window.onload = async () => {
   const queryParamsString = window.location.search?.substring(1)
   const id = queryParamsString?.substring(3)
-  const cat = await fetch('http://65.0.100.50/api/category/getcategoryinfo?' + new URLSearchParams({ id: id }), {
+  const cat = await fetch('../api/category/getcategoryinfo?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ window.onload = async () => {
     mode: 'cors',
     credentials: 'same-origin',
   })
-  const catblogs = await fetch('http://65.0.100.50/api/category/getallcategoryblogs?' + new URLSearchParams({ id: id }), {
+  const catblogs = await fetch('../api/category/getallcategoryblogs?' + new URLSearchParams({ id: id }), {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ window.onload = async () => {
   const catj = await cat.json()
   const catblogsj = (await catblogs.json()).blogs
   let cblogs = catblogsj.map(async (b) => {
-    const user = await fetch('http://65.0.100.50/api/user/getuserinfo?' + new URLSearchParams({ id: b.userId }), {
+    const user = await fetch('../api/user/getuserinfo?' + new URLSearchParams({ id: b.userId }), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
