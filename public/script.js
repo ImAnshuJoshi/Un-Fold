@@ -8,11 +8,6 @@ function endPreloader() {
 }
 document.querySelector("body").onload = endPreloader();
 
-let is_user = localStorage.getItem("jwt");
-if (is_user) {
-  location.href = "./Home";
-}
-
 /***********************************toggling between login and sign up********************************** */
 var x = document.getElementById("login");
 var y = document.getElementById("register");
