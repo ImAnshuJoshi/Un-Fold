@@ -297,33 +297,20 @@ Blogging website for webkriti.
 
 # Technologies/Libraries/Packages Used
 
-| Packages | README |
-
+| Packages      | README                                                                                                               |
 | ------------- | -------------------------------------------------------------------------------------------------------------------- |
-
-| bcrypt | To store hashed password in database |
-
-| dotenv | To keep db connection string, client id, client secret key and also cloudinary config credentials safe |
-
-| jsonwebtoken | To store users session encrypted and verify them as middleware in user/blog/comment/category api requests |
-
-| nodemon | To run application in dev mode |
-
-| body-parser | Parse incoming request bodies in a middleware before your handlers, available under the req.body property. |
-
-| cloudinary | It provides cloud-based image and video management services. |
-
-| cookie-parser | Parse Cookie header and populate req.cookies with an object keyed by the cookie names. |
-
-| cors | For Cross-Origin Resource Sharing |
-
-| express | a back end web application framework for building RESTful APIs with Node.js |
-
-| jwt | JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties. |
-
-| multer | Multer is a node.js middleware for handling multipart/form-data , which is primarily used for uploading files. |
-
-| Sequelize | Sequelize is a modern TypeScript and Node.js ORM for Postgres |
+| bcrypt        | To store hashed password in database                                                                                 |
+| dotenv        | To keep db connection string, client id, client secret key and also cloudinary config credentials safe               |
+| jsonwebtoken  | To store users session encrypted and verify them as middleware in user/blog/comment/category api requests            |
+| nodemon       | To run application in dev mode                                                                                       |
+| body-parser   | Parse incoming request bodies in a middleware before your handlers, available under the req.body property.           |
+| cloudinary    | It provides cloud-based image and video management services.                                                         |
+| cookie-parser | Parse Cookie header and populate req.cookies with an object keyed by the cookie names.                               |
+| cors          | For Cross-Origin Resource Sharing                                                                                    |
+| express       | a back end web application framework for building RESTful APIs with Node.js                                          |
+| jwt           | JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties. |
+| multer        | Multer is a node.js middleware for handling multipart/form-data , which is primarily used for uploading files.       |
+| Sequelize     | Sequelize is a modern TypeScript and Node.js ORM for Postgres                                                        |
 
 ### Built With
 
