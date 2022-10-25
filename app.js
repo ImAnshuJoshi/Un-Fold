@@ -33,9 +33,9 @@ app.use(express.static('public'))
 app.get('/', (_, res) => {
   res.redirect('/')
 })
-app.get("*", (req, res) => {
-  res.redirect("/404/");
-});
+// app.get("*", (req, res) => {
+//   res.redirect("/404/");
+// });
 app.use('/api', slashRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
