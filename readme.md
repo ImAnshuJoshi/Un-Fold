@@ -40,6 +40,8 @@ Blogging website for webkriti.
 
 <img src="./assets/likesandcomments.png"></img>
 
+<img src="./assets/bookmark.png"></img>
+
 <img  src="./assets/last.png"></img>
 
 ### ✨ [Deployed site](http://65.0.100.50/)
