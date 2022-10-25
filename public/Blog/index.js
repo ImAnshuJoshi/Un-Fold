@@ -1,3 +1,9 @@
+/******************* checking for token in localstorage ********************/
+const token = localStorage.getItem('jwt')
+if(!token){location.href='../'}
+const decodedtoken = parseJwt(token)
+const currently_logged_in = decodedtoken
+
 /********************  ending the preloading *******************************/
 var preloader = document.querySelector("#loading");
 function endPreloader() {
@@ -23,10 +29,6 @@ function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 }
-
-const token = localStorage.getItem("jwt");
-const decodedtoken = parseJwt(token);
-const currentlyloggedinuser = decodedtoken.id;
 
 window.deletecomment1 = async(e)=>{
   //('object')
