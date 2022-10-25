@@ -6,23 +6,27 @@
 
 Blogging website for webkriti.
 
-- Users can create their un-fold account or can directly sign in if they already have the account made .
+- Users can create their un-fold account or can directly sign in if they already have an account  .
 
-- Then the user will be directed to home page , and he/she can see all the latest blogs , and all the blogs by the users he/user follow and can bookmark the blog which he can refer later from his profile.
+- Then the users will be directed to home page , and they can see all the latest blogs , and all the blogs by the users they follow.
 
-- Other user can search the blog by its title or tag , and also the user by his/her name .
+- Users can search for blogs by title and also search for other users by their names.
 
-- The user can open the blog , read it , like and give review on the blog .
+- Users can open blogs, read , like and give review on them.
 
 - In the same page , he/she can see otherblogs by the same user .
 
-- User can open other users profile and can FOLLOW or UNFOLLOW him/her , can see whom he/she is following and his/her followers .
+- Users can open any users' profile and can FOLLOW or UNFOLLOW them. They can also see users that they follow as well as their followers .
 
-- In the same page , he can see all his/her blogs .
+- In the profile page , all blogs by the user are also visible.
 
-- User can compose his/her blog where and choose on which category he/she wants to write . The blog can be formatted with various tools present in the text-editor , links , images can also be added to the blog. Later the blogs can also be edited .
+- Users can compose their own blog and choose categories related to the blog. The blog can be formatted with various tools present in the text-editor , links , images can also be added to the blog. Later the blogs can also be edited .
 
-- User can also edit his/her profile whenever he wants to.
+- Users can also edit their profile whenever they desire from the profile page.
+
+- Users can bookmark any blog that they like from any page so as to get quick access to them in their profile page.
+
+
 
 # Screen shots
 
@@ -60,17 +64,19 @@ Blogging website for webkriti.
 
 - Once the user is signed in, a token is generated, saved in local storage and also stored in browser cookie, which helps maintain session activity. This token is verified every time the user visits any page.
 
-- Users can here view all the blogs that can has been posted by the user , can bookmark them . It also has a section of categories which includes all the genres of the blogs.
+- Users can here view all the blogs(sorted by time) that have been posted and can bookmark them . 
 
-- Then it has a 3rd section of the blogs by the user whom the logged in user follows.
+- It also has a section of categories showcasing all the available genres.
+
+- Then it has a 3rd section displaying the blogs added by the users whom the logged in user follows.
 
 3. Blog Page :
 
 - In the blog page , it has the record of the person by whom the blog is posted.
 
-- Then the logged in user can also like or unlike (if he has already liked) an comment on the blog.
+- Then the logged in user can also like or unlike (if he has already liked) and comment on the blog. The comments by users can be deleted by the respective commenter.q
 
-- Then it has a section of other blogs by the same user who has posted that particular blog.
+- Then it has a section of other blogs by the author of the blog.
 
 4. Blog edit page
 
@@ -90,21 +96,17 @@ Blogging website for webkriti.
 
 - Users can make changes to their profile like their profile image, bio, description etc., and all this information is sent to the back-end and then further stored in the database.
 
-7. Edit profile Page
+7. Category Page
 
-- Users can edit their profile details from here.
+- It displays information about the category and also exhibits the trending blogs belonging to the category.
 
-8. Category Page
-
-- It has all the blogs that belong to the category
-
-9. EXTRA FEATURES THAT ARE IMPLEMENTED
+8. EXTRA FEATURES THAT ARE IMPLEMENTED
 
 - Users can add tags to their blogs to mention the genre of their blogs.
 
 - Users can bookmark blogs and view them later.
 
-- Users can follow/unfollow any other user
+- Users can follow/unfollow any other users.
 
 #### Future Ideas
 
