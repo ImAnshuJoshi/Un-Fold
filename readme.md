@@ -431,29 +431,6 @@ Blogging website for webkriti.
 
   
 
-## Local Setup
-
-  
-
-1. To run the server in dev mode use
-
-```sh
-
-npm run dev
-
-```
-
-2. To run the server in production mode
-
-```sh
-
-npm start
-
-```
-
-3. Note that you have to create an env file taking reference from .env.example file to run the server .
-
-  
 
 ### Built With
 
