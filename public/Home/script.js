@@ -214,7 +214,7 @@ window.onload = async () => {
     mode: "cors",
     withCredentials: true,
   });
-  categoriesfunc();
+  await categoriesfunc();
 
   blogsj = await blogs.json();
   const followingblogs = await fetch(
