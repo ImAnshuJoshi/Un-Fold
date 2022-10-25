@@ -2,7 +2,7 @@
 const token = localStorage.getItem('jwt')
 if(!token){location.href='../'}
 const decodedtoken = parseJwt(token);
-const userId = decodedtoken.id;
+const currentlyloggedinuser = decodedtoken.id;
 
 /********************  ending the preloading *******************************/
 var preloader = document.querySelector("#loading");
