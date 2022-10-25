@@ -350,11 +350,17 @@ window.onload = async () => {
   const bmarkedblogsk = bmarkedblogs.map((b) => b.id);
   if(!no_of_blogs)
   {
+    logged_in_user==userId?
     document
     .getElementsByClassName("latest-cards row 1")[0]
     .insertAdjacentHTML(
       "afterbegin",
-    `<h2 style="color:black;margin:10%;" >Nothing to see here... Why don't you compose a blog?</h2>`)
+    `<h2 style="color:black;margin:10%;" >Nothing to see here... Why don't you compose a blog?</h2>`):
+    document
+    .getElementsByClassName("latest-cards row 1")[0]
+    .insertAdjacentHTML(
+      "afterbegin",
+    `<h2 style="color:black;margin:10%;" >${user.firstName} hasn't written any blogs lately?</h2>`)
   }
   else
   {

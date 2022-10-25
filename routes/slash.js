@@ -5,6 +5,7 @@ const upload = require('../Config/multerConfig')
 const db = require('../Config/dbconfig')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const auth= require('../Middlewares/tokenauth')
 
 router.post('/register', upload.single('item'),  async (req, res, next) => {
     try {
@@ -92,7 +93,7 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-router.post('/logout',async (req,res,next)=>{
+router.post('/logout',auth ,async (req,res,next)=>{
   try{
     res.clearCookie('token');
   res.status(200).json({message:"Cookie cleared!"});

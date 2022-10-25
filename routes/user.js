@@ -2,29 +2,30 @@ const express = require('express')
 const usercontroller = require('../Controllers/user')
 const router = express.Router()
 const upload = require("../Config/multerConfig");
+const auth = require('../Middlewares/tokenauth');
 
-router.get('/currentuser',usercontroller.user);
+router.get('/currentuser',auth ,usercontroller.user);
 
-router.get('/getuserinfo',usercontroller.getuserinfo);
+router.get('/getuserinfo',auth ,usercontroller.getuserinfo);
 
-router.get('/getFollowingblogs', usercontroller.getFollowingblogs)
+router.get('/getFollowingblogs',auth , usercontroller.getFollowingblogs)
 
-router.get('/getbookmarkedblogs', usercontroller.getbookmarkedblogs)
+router.get('/getbookmarkedblogs',auth , usercontroller.getbookmarkedblogs)
 
-router.get('/getFollowers', usercontroller.getFollowers)
+router.get('/getFollowers',auth ,usercontroller.getFollowers)
 
-router.get('/getFollowing', usercontroller.getFollowing)
+router.get('/getFollowing',auth ,usercontroller.getFollowing)
 
-router.get('/getallusers',usercontroller.getallusers)
+router.get('/getallusers',auth ,usercontroller.getallusers)
 
-router.post('/followUser', /* require('../Middlewares/tokenauth'), */ usercontroller.followUser)
+router.post('/followUser',auth ,usercontroller.followUser)
 
-router.post('/unfollowUser', usercontroller.unfollowUser)
+router.post('/unfollowUser',auth ,usercontroller.unfollowUser)
 
-router.post('/bookmarkblog', usercontroller.bookmarkblog)
+router.post('/bookmarkblog',auth ,usercontroller.bookmarkblog)
 
-router.post('/unbookmarkblog', usercontroller.unbookmarkblog)
+router.post('/unbookmarkblog',auth ,usercontroller.unbookmarkblog)
 
-router.put('/editprofile',upload.single('item'),usercontroller.editprofile);
+router.put('/editprofile',auth ,upload.single('item'),usercontroller.editprofile);
 
 module.exports = router
