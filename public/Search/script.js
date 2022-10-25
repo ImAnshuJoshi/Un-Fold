@@ -4,7 +4,7 @@ if (!token) {
   location.href = '../'
 }
 const decodedtoken = parseJwt(token)
-const currently_logged_in = decodedtoken
+const userId = decodedtoken.id
 
 /********************  ending the preloading *******************************/
 var preloader = document.querySelector('#loading')

@@ -1,6 +1,6 @@
 /******************* checking for token in localstorage ********************/
 const token = localStorage.getItem('jwt')
-if(!token){location.href='../'}
+if(!token){location.href='../../'}
 const decodedtoken = parseJwt(token)
 const currently_logged_in = decodedtoken
 
