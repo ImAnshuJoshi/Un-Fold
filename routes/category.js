@@ -2,6 +2,7 @@ const express = require('express')
 const upload = require('../Config/multerConfig')
 const router = express.Router()
 const catcontrollers = require('../Controllers/category')
+const auth = require('../Middlewares/tokenauth');
 
 router.get('/getallcategories', catcontrollers.getallcategories)
 
