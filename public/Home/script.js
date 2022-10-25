@@ -1,8 +1,8 @@
 /******************* checking for token in localstorage ********************/
 const token = localStorage.getItem('jwt')
 if(!token){location.href='../'}
-const decodedtoken = parseJwt(token)
-const currently_logged_in = decodedtoken
+const decodedtoken = parseJwt(token);
+const userId = decodedtoken.id;
 
 /********************  ending the preloading *******************************/
 var preloader = document.getElementById('loading')
