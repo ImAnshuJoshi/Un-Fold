@@ -24,6 +24,7 @@ Blogging website for webkriti.
 <img src="./assets/unfold4.png"></img>
 <img src="./assets/unfold5.png"></img>
 <img src="./assets/edit.png"></img>
+<img src="./assets/likesandcomments.png"></img>
 <img src="./assets/last.png"></img>
 
 ### ✨ [Deployed site](http://65.0.100.50/)
@@ -213,7 +214,6 @@ POST routes
 | jwt           | JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties. |
 | multer        | Multer is a node.js middleware for handling multipart/form-data , which is primarily used for uploading files.       |
 | Sequelize     | Sequelize is a modern TypeScript and Node.js ORM for Postgres                                                        |
-
 
 ### Built With
 
