@@ -33,15 +33,15 @@ app.use(express.static('public'))
 app.get('/', (_, res) => {
   res.redirect('/')
 })
-// app.get("*", (req, res) => {
-//   res.redirect("/404/");
-// });
 app.use('/api', slashRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/comment', commentRoutes)
 app.use('/api/category', categoryRoutes)
+app.get('*', (req, res) => {
+  res.redirect('/404/')
+})
 app.use(require('./Middlewares/error'))
-app.listen(3000, function () {
+app.listen(process.env.PORT, function () {
   console.log('Server is Running')
 })
