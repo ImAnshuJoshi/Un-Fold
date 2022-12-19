@@ -25,7 +25,8 @@ window.login = () => {
 };
 
 /*****************************LOGIN SIGN UP Functionality*************************** */
-
+const token = localStorage.getItem('jwt')
+if(token){location.href='/Home'}
 let email;
 let password;
 

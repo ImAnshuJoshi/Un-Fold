@@ -3,8 +3,7 @@ const db = require('../Config/dbconfig')
 
 require('dotenv').config()
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_CONNECTION, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
+const sequelize = new Sequelize(process.env.DB_CONNECTION,{
   dialect: 'postgres',
   operatorsAliases: false,
 
