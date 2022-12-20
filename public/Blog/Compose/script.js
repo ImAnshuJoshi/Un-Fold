@@ -162,7 +162,7 @@ async function handleCats(selectedCboxes, blogid) {
     cname.push(selectedCbox.value)
   })
   const body = { bid: blogid, cname: cname }
-  const res = await fetch('../..//api/category/addcategorytoblog', {
+  const res = await fetch('../../api/category/addcategorytoblog', {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {},
@@ -191,7 +191,7 @@ button.addEventListener('click', async () => {
   formdata.append('title', title)
   formdata.append('content', content)
   formdata.append('item', item)
-  const addblog = await fetch('../..//api/blog/addBlog?' + new URLSearchParams({ id: currently_logged_in.id }), {
+  const addblog = await fetch('../../api/blog/addBlog?' + new URLSearchParams({ id: currently_logged_in.id }), {
     method: 'POST',
     body: formdata,
     headers: {},
@@ -211,7 +211,7 @@ button.addEventListener('click', async () => {
 
 window.onload = async () => {
   const finduser = async (id) => {
-    const user = await fetch('../..//api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
+    const user = await fetch('../../api/user/getuserinfo?' + new URLSearchParams({ id: id }), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
